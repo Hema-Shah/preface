@@ -13,19 +13,24 @@ export function UpdatePasswordScreen({navigation}: Props) {
   return (
     <View style={styles.mainContainer}>
       <View style={styles.firstSubContainer}>
-        <UpdatePasswordLogo />
-        <Text style={styles.updatePasswordText}>Password updated</Text>
-        <Text style={styles.updatePasswordInfoText}>
-          You’ve successfully updated your password.
-        </Text>
+        <View style={styles.updateLogoContainer}>
+          <UpdatePasswordLogo />
+          <Text style={styles.updatePasswordText}>Password updated</Text>
+        </View>
+        <View>
+          <Text style={styles.updatePasswordInfoText}>
+            You’ve successfully updated your password.
+          </Text>
+        </View>
+      </View>
+      <View style={styles.secondSubContainer}>
         <ButtonWithoutLogo
           onButtonPress={() => {
-            // logIn({email, password});
+            navigation.navigate('SignIn');
           }}
           buttonTitle={'BACK TO SIGN IN'}
         />
       </View>
-      <View style={styles.secondSubContainer}></View>
     </View>
   );
 }

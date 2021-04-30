@@ -4,14 +4,18 @@ import {COLORS, FONTS} from 'theme';
 const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
-    // alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: COLORS.lightwhite,
     padding: 40,
   },
   firstSubContainer: {
-    flex: 1,
+    flex: 0.4,
+    justifyContent: 'space-evenly',
   },
+  secondSubContainer: {
+    flex: 0.6,
+  },
+  updateLogoContainer: {alignItems: 'center'},
   updatePasswordText: {
     marginTop: 8,
     fontSize: 22,

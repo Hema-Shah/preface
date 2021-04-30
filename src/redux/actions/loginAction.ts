@@ -1,6 +1,5 @@
 import qs from 'qs';
-import {IforgetData} from 'screens​';
-import {Ilogindata} from 'screens​/SignIn/container/signIn.container';
+import {IresetData, IforgetData, Ilogindata} from 'screens';
 import {client} from '../services';
 
 export async function login(params: Ilogindata) {
@@ -22,6 +21,13 @@ export async function forgot(params: IforgetData) {
   console.log('Forgot Data ==>', forgotData);
   let data = qs.stringify(forgotData);
   return client.post('forgotPassword', data);
+}
+
+export async function reset(params: IresetData) {
+  const {resetData}: any = params;
+  console.log('Forgot Data ==>', resetData);
+  let data = qs.stringify(resetData);
+  return client.post('resetPassword', data);
 }
 
 export async function signOut() {

@@ -12,7 +12,7 @@ import {
   CheckEmailScreen,
   OpenEmailScreen,
   UpdatePasswordScreen,
-} from 'screens​';
+} from '../screens';
 import {COLORS} from 'theme';
 import {RootState} from 'redux/reducers';
 import {splashStateIF} from 'redux/reducers/splashReducer';

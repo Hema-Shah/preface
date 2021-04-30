@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {View, Text} from 'react-native';
-import {Item, Input, Label} from 'native-base';
+import {Item, Input, Label, Icon} from 'native-base';
 import styles from '../style/textInput.style';
 
 type TextInputProps = {
@@ -10,6 +10,7 @@ type TextInputProps = {
   secure?: boolean;
   name: string;
   message?: any;
+  placeholderStyle?: object;
 };
 
 export const TextInput = ({
@@ -19,7 +20,10 @@ export const TextInput = ({
   name,
   secure = false,
   message,
+  placeholderStyle,
 }: TextInputProps) => {
+  const [isShow, setisShow] = useState(secure);
+
   const _renderMessage = (message: any) => {
     if (message != undefined) {
       return <Text style={styles.errorMessage}>{message[0]}</Text>;
@@ -29,12 +33,24 @@ export const TextInput = ({
   return (
     <>
       <Item floatingLabel style={styles.mainContainer}>
-        <Label style={styles.labelStyle}>{placeholder.toUpperCase()}</Label>
+        <Label style={[styles.labelStyle, placeholderStyle]}>
+          {placeholder.toUpperCase()}
+        </Label>
         <Input
           onChangeText={onChangeText}
           value={value}
-          secureTextEntry={secure}
+          secureTextEntry={isShow}
         />
+        {secure && (
+          <Icon
+            type="FontAwesome5"
+            name={isShow ? 'eye-slash' : 'eye'}
+            style={styles.iconStyle}
+            onPress={() => {
+              setisShow(!isShow);
+            }}
+          />
+        )}
       </Item>
       {typeof message == 'object' && _renderMessage(message[name])}
     </>

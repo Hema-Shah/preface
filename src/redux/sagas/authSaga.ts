@@ -1,7 +1,7 @@
 import {takeEvery, put, call, delay} from 'redux-saga/effects';
-import {ISignUpData, Ilogindata} from 'screens​';
+import {ISignUpData, Ilogindata, IforgetData, IresetData} from '../../screens';
 import {CONSTANTS} from '../../constants/index';
-import {login, signUp, forgot, signOut} from '../actions';
+import {login, signUp, forgot, signOut, reset} from '../actions';
 import {navigate} from '../../navigators';
 import AsyncStorage from '@react-native-community/async-storage';
 
@@ -42,15 +42,35 @@ export function* signUpSaga(action: {
 
 export function* forgotSaga(action: {
   type: string;
-  payload: ISignUpData;
+  payload: IforgetData;
 }): Generator {
   const {payload} = action;
   try {
     const {data}: any = yield call(forgot, payload);
-    navigate('ResetPassword');
+    // navigate('ResetPassword');
     yield put({type: CONSTANTS.FORGOT_SUCCEEDED, message: data.response});
   } catch (error) {
     yield put({type: CONSTANTS.FORGOT_FAILED, message: error.response.data});
+  }
+}
+
+export function* resetSaga(action: {
+  type: string;
+  payload: IresetData;
+}): Generator {
+  const {payload} = action;
+  try {
+    const {data}: any = yield call(reset, payload);
+    navigate('UpdatePassword');
+    yield put({
+      type: CONSTANTS.RESET_PASSWORD_SUCCEEDED,
+      message: data.response,
+    });
+  } catch (error) {
+    yield put({
+      type: CONSTANTS.RESET_PASSWORD_FAILED,
+      message: error.response.data,
+    });
   }
 }
 
@@ -84,6 +104,7 @@ export default function* watchTologinSaga() {
   yield takeEvery(CONSTANTS.SIGNIN_REQUESTED, loginSaga);
   yield takeEvery(CONSTANTS.SIGNUP_REQUESTED, signUpSaga);
   yield takeEvery(CONSTANTS.FORGOT_REQUESTED, forgotSaga);
+  yield takeEvery(CONSTANTS.RESET_PASSWORD_REQUESTED, resetSaga);
   yield takeEvery(CONSTANTS.SIGNOUT_REQUESTED, signOutSaga);
   yield takeEvery(CONSTANTS.GOOGLE_LOGIN_REQUESTED, googlelogin);
   yield takeEvery(CONSTANTS.FB_LOGIN_REQUESTED, facebooklogin);

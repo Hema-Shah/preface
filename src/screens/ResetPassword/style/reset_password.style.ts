@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
     flex: 0.3,
   },
   secondSubContainer: {
-    flex: 0.7,
+    flex: 0.8,
   },
   resetPasswordText: {
     marginTop: 8,
@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
     color: COLORS.base,
   },
   resetBtnStyle: {
-    marginTop: 60,
+    marginTop: 40,
   },
 });
 

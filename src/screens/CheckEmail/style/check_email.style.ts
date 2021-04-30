@@ -5,11 +5,12 @@ const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
     justifyContent: 'center',
+    backgroundColor: COLORS.lightwhite,
+    padding: 40,
   },
   subContainer: {
     flex: 0.5,
     justifyContent: 'center',
-    padding: 40,
   },
   checkEmail: {
     fontSize: 22,

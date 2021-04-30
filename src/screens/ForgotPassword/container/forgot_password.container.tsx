@@ -6,6 +6,7 @@ import {
   KeyboardAvoidingView,
   SafeAreaView,
   Alert,
+  StatusBar,
 } from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import styles from '../style/forgot_password.style';
@@ -14,6 +15,7 @@ import {ButtonWithoutLogo, TextInput} from '../../../components';
 import {CONSTANTS} from '../../../constants';
 import {RootState} from 'redux/reducers';
 import {authStateIF} from 'redux/reducers/authReducer';
+import {COLORS} from 'theme';
 
 interface Props {
   navigation: any;
@@ -42,7 +44,7 @@ export function ForgotPasswordScreen({navigation}: Props) {
     if (typeof state.message === 'string' && state.message.length > 0) {
       Alert.alert(
         'Success',
-        state.message,
+        'We have sent a password recovery instruction to your email.',
         [
           {
             text: 'OK',
@@ -66,6 +68,7 @@ export function ForgotPasswordScreen({navigation}: Props) {
 
   return (
     <SafeAreaView style={styles.mainContainer}>
+      <StatusBar barStyle="light-content" backgroundColor={COLORS.base} />
       <View style={styles.firstSubContainer}>
         <MainLogo />
       </View>

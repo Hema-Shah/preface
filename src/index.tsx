@@ -3,7 +3,7 @@
  * Root Component
  */
 
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {LogBox} from 'react-native';
 import {Provider} from 'react-redux';
 import Configurestore from './redux/store';
@@ -14,12 +14,14 @@ LogBox.ignoreAllLogs();
 
 const {store, persistor} = Configurestore();
 
-const Root = () => (
-  <Provider store={store}>
-    <PersistGate loading={null} persistor={persistor}>
-      <AppNavigation />
-    </PersistGate>
-  </Provider>
-);
+const Root = () => {
+  return (
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        <AppNavigation />
+      </PersistGate>
+    </Provider>
+  );
+};
 
 export default Root;

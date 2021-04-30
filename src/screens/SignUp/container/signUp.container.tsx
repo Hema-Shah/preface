@@ -8,6 +8,7 @@ import {
   KeyboardAvoidingView,
   Alert,
   SafeAreaView,
+  StatusBar,
 } from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import styles from '../style/signUp.style';
@@ -138,6 +139,7 @@ export function SignUpScreen({navigation}: Props) {
 
   return (
     <SafeAreaView style={styles.mainContainer}>
+      <StatusBar barStyle="light-content" backgroundColor={COLORS.base} />
       <View style={styles.firstSubContainer}>
         <MainLogo />
       </View>
