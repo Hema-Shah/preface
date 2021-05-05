@@ -157,9 +157,12 @@ export function SignUpScreen({navigation}: Props) {
               name="email"
               onChangeText={text => {
                 setEmail(text);
+                dispatch({type: CONSTANTS.CLEAR_ERROR});
               }}
               value={email}
               message={state.error}
+              text={'Please enter a valid email address.'}
+              valid={FIELD_VALIDATIONS.email(email)}
             />
             <TextInput
               placeholder="*Password"
@@ -188,10 +191,11 @@ export function SignUpScreen({navigation}: Props) {
                   password,
                   confirm_password,
                 });
-                // console.log('SIGN UP');
               }}
+              name="invalid"
               buttonTitle={'SIGN UP'}
               containerStyle={styles.buttonContainerStyle}
+              message={state.error}
               loading={state.loading}
             />
             <View style={styles.buttonLogoContainer}>

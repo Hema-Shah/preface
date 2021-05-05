@@ -28,6 +28,7 @@ const authReducer = (state = initialState, action: any) => {
     case CONSTANTS.SIGNIN_REQUESTED:
     case CONSTANTS.SIGNUP_REQUESTED:
     case CONSTANTS.FORGOT_REQUESTED:
+    case CONSTANTS.DEEP_LINK_REQUESTED:
     case CONSTANTS.RESET_PASSWORD_REQUESTED:
     case CONSTANTS.GOOGLE_LOGIN_REQUESTED:
     case CONSTANTS.FB_LOGIN_REQUESTED:
@@ -46,8 +47,10 @@ const authReducer = (state = initialState, action: any) => {
       return loginFailed(state, action);
 
     case CONSTANTS.RESET_PASSWORD_SUCCEEDED:
+    case CONSTANTS.DEEP_LINK_SUCCEEDED:
     case CONSTANTS.FORGOT_SUCCEEDED:
       return {...state, loading: false, error: '', message: action.message};
+    case CONSTANTS.DEEP_LINK_FAILED:
     case CONSTANTS.RESET_PASSWORD_FAILED:
     case CONSTANTS.FORGOT_FAILED:
       const {response} = action.message;

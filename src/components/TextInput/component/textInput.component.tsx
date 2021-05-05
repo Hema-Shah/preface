@@ -10,7 +10,9 @@ type TextInputProps = {
   secure?: boolean;
   name: string;
   message?: any;
+  text?: string;
   placeholderStyle?: object;
+  valid?: boolean;
 };
 
 export const TextInput = ({
@@ -20,13 +22,21 @@ export const TextInput = ({
   name,
   secure = false,
   message,
+  text,
   placeholderStyle,
+  valid,
 }: TextInputProps) => {
   const [isShow, setisShow] = useState(secure);
 
   const _renderMessage = (message: any) => {
     if (message != undefined) {
       return <Text style={styles.errorMessage}>{message[0]}</Text>;
+    }
+  };
+
+  const _renderStringMessage = (message: any) => {
+    if (message != undefined) {
+      return <Text style={styles.errorMessage}>{message}</Text>;
     }
   };
 
@@ -52,7 +62,11 @@ export const TextInput = ({
           />
         )}
       </Item>
-      {typeof message == 'object' && _renderMessage(message[name])}
+      {(typeof message == 'object' && _renderMessage(message[name])) ||
+        (typeof text == 'string' &&
+          !valid &&
+          value != '' &&
+          _renderStringMessage(text))}
     </>
   );
 };

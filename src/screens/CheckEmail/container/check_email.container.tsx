@@ -1,5 +1,6 @@
 import * as React from 'react';
 import {View, Text, StatusBar} from 'react-native';
+import {openInbox} from 'react-native-email-link';
 import {useDispatch} from 'react-redux';
 import styles from '../style/check_email.style';
 import Mail from '../../../assets/svgs/mail.svg';
@@ -26,11 +27,15 @@ export function CheckEmailScreen({navigation}: Props) {
         <View>
           <ButtonWithoutLogo
             buttonTitle="OPEN EMAIL APP"
-            onButtonPress={() => {}}
+            onButtonPress={() => {
+              openInbox();
+            }}
           />
           <ButtonWithoutLogo
             buttonTitle="BACK TO SIGN IN"
-            onButtonPress={() => {}}
+            onButtonPress={() => {
+              navigation.navigate('SignIn');
+            }}
             containerStyle={styles.backToSignInBtn}
             buttonTextStyle={styles.backToSignInText}
           />

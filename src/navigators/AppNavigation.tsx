@@ -1,7 +1,8 @@
-import React from 'react';
-import {useSelector} from 'react-redux';
+import React, {useEffect, useState} from 'react';
+import {useSelector, useDispatch} from 'react-redux';
 import {createStackNavigator} from '@react-navigation/stack';
-import {ROUTES} from '../constants';
+import {Linking} from 'react-native';
+import {CONSTANTS, ROUTES} from '../constants';
 import {
   SplashScreen,
   SignUpScreen,
@@ -22,11 +23,33 @@ import {navigationRef} from '../navigators';
 
 const Stack = createStackNavigator();
 
+export interface IDeepLinkData {
+  url: string;
+}
+
 const AppNavigation = () => {
+  const dispatch = useDispatch();
   const loading = useSelector(
     (state: RootState): splashStateIF => state.splash,
   );
   const state = useSelector((state: RootState): authStateIF => state.auth);
+
+  useEffect(() => {
+    const getUrlAsync = async () => {
+      const url = (await Linking.getInitialURL()) ?? '';
+      _handleOpenURL({url});
+    };
+    getUrlAsync();
+  }, []);
+
+  const _handleOpenURL = async (deepLink: IDeepLinkData) => {
+    if (deepLink.url != '') {
+      dispatch({
+        type: CONSTANTS.DEEP_LINK_REQUESTED,
+        payload: {url: deepLink.url},
+      });
+    }
+  };
 
   const options = {
     headerShown: false,
@@ -35,23 +58,20 @@ const AppNavigation = () => {
     headerTitle: '',
     headerStyle: {backgroundColor: COLORS.lightwhite, elevation: 0},
   };
-
   const blackHeaderBackOption = {
     headerTitle: '',
     headerStyle: {backgroundColor: COLORS.base, elevation: 0},
     headerTintColor: COLORS.white,
   };
 
+  if (loading.isActiveSplash) {
+    return <SplashScreen />;
+  }
+
   return (
     <NavigationContainer ref={navigationRef}>
       <Stack.Navigator>
-        {loading.isActiveSplash ? (
-          <Stack.Screen
-            name={ROUTES.SPLASH}
-            component={SplashScreen}
-            options={options}
-          />
-        ) : state.authenticated ? (
+        {state.authenticated ? (
           <Stack.Screen
             name={ROUTES.DASHBOARD}
             component={DashboardScreen}

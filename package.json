@@ -19,6 +19,7 @@
     "native-base": "^2.15.2",
     "react": "17.0.1",
     "react-native": "0.64.0",
+    "react-native-email-link": "^1.11.0",
     "react-native-fbsdk": "^3.0.0",
     "react-native-gesture-handler": "^1.10.3",
     "react-native-login-google": "^2.0.3",

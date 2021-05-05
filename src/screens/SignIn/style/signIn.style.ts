@@ -8,16 +8,16 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.base,
   },
   firstSubContainer: {
-    flex: 0.3,
+    height: 150,
     alignItems: 'center',
     justifyContent: 'center',
   },
   secondSubContainer: {
-    flex: 0.2,
+    height: '20%',
     justifyContent: 'center',
   },
   thirdSubContainer: {
-    flex: 0.8,
+    height: '80%',
     backgroundColor: '#FFFFFF',
     borderTopRightRadius: 50,
     borderTopLeftRadius: 50,
@@ -49,6 +49,11 @@ const styles = StyleSheet.create({
   },
   buttonLogoContainer: {
     marginVertical: 24,
+  },
+  errorMessage: {
+    color: COLORS.red,
+    fontFamily: FONTS.galanoGrotesqueSemiBold,
+    marginBottom: 8,
   },
 });
 

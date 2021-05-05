@@ -12,7 +12,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import styles from '../style/forgot_password.style';
 import MainLogo from '../../../assets/svgs/main_logo.svg';
 import {ButtonWithoutLogo, TextInput} from '../../../components';
-import {CONSTANTS} from '../../../constants';
+import {CONSTANTS, FIELD_VALIDATIONS} from '../../../constants';
 import {RootState} from 'redux/reducers';
 import {authStateIF} from 'redux/reducers/authReducer';
 import {COLORS} from 'theme';
@@ -31,33 +31,12 @@ export function ForgotPasswordScreen({navigation}: Props) {
   const dispatch = useDispatch();
   const state = useSelector((state: RootState): authStateIF => state.auth);
 
-  console.log('State ==> ', state);
-
   useEffect(() => {
     dispatch({type: CONSTANTS.CLEAR_ERROR});
     return () => {
       dispatch({type: CONSTANTS.CLEAR_ERROR});
     };
   }, []);
-
-  useEffect(() => {
-    if (typeof state.message === 'string' && state.message.length > 0) {
-      Alert.alert(
-        'Success',
-        'We have sent a password recovery instruction to your email.',
-        [
-          {
-            text: 'OK',
-            onPress: () => {
-              console.log('OK Pressed');
-              dispatch({type: CONSTANTS.CLEAR_ERROR});
-            },
-          },
-        ],
-        {cancelable: false},
-      );
-    }
-  }, [state.message]);
 
   const forgetPassword = (forgotData: IforgetData) => {
     dispatch({
@@ -91,9 +70,12 @@ export function ForgotPasswordScreen({navigation}: Props) {
               name="email"
               onChangeText={text => {
                 setEmail(text);
+                dispatch({type: CONSTANTS.CLEAR_ERROR});
               }}
               value={email}
               message={state.error}
+              text={'Please enter a valid email address.'}
+              valid={FIELD_VALIDATIONS.email(email)}
             />
           </View>
         </ScrollView>

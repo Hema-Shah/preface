@@ -159,9 +159,12 @@ export function SignInScreen({navigation}: Props) {
               name="email"
               onChangeText={text => {
                 setEmail(text);
+                dispatch({type: CONSTANTS.CLEAR_ERROR});
               }}
               value={email}
               message={state.error}
+              text={'Please enter a valid email address.'}
+              valid={FIELD_VALIDATIONS.email(email)}
             />
             <TextInput
               placeholder="Password"
@@ -177,8 +180,10 @@ export function SignInScreen({navigation}: Props) {
               onButtonPress={() => {
                 logIn({email: email.toLowerCase(), password});
               }}
+              name="invalid"
               buttonTitle={'LOG IN'}
               containerStyle={styles.buttonContainerStyle}
+              message={state.error}
               loading={state.loading}
             />
             <TouchableOpacity

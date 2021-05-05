@@ -3,7 +3,7 @@
  * Root Component
  */
 
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {LogBox} from 'react-native';
 import {Provider} from 'react-redux';
 import Configurestore from './redux/store';

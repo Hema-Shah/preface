@@ -21,6 +21,7 @@ export interface IresetData {
 }
 
 export function ResetPasswordScreen({navigation, route}: Props) {
+  console.log('route', route);
   const [new_password, setNewPassword] = useState('');
   const [confirm_password, setConfirmPassword] = useState('');
   const {
@@ -58,6 +59,7 @@ export function ResetPasswordScreen({navigation, route}: Props) {
             setNewPassword(text);
           }}
           value={new_password}
+          message={state.error}
           secure={true}
         />
         <TextInput
@@ -67,6 +69,7 @@ export function ResetPasswordScreen({navigation, route}: Props) {
             setConfirmPassword(text);
           }}
           value={confirm_password}
+          message={state.error}
           secure={true}
         />
         <ButtonWithoutLogo

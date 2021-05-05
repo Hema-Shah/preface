@@ -1,8 +1,8 @@
 import {takeEvery, put, call, delay} from 'redux-saga/effects';
 import {ISignUpData, Ilogindata, IforgetData, IresetData} from '../../screens';
 import {CONSTANTS} from '../../constants/index';
-import {login, signUp, forgot, signOut, reset} from '../actions';
-import {navigate} from '../../navigators';
+import {login, signUp, forgot, signOut, reset, checkForgot} from '../actions';
+import {IDeepLinkData, navigate} from '../../navigators';
 import AsyncStorage from '@react-native-community/async-storage';
 
 export function* loginSaga(action: {
@@ -12,7 +12,6 @@ export function* loginSaga(action: {
   const {payload} = action;
   try {
     const {data}: any = yield call(login, payload);
-    console.log('DATA ==>', data);
     yield put({type: CONSTANTS.SIGNIN_SUCCEEDED, payload: data});
   } catch (error) {
     console.log('Sign up Error ==>', error.response.data);
@@ -47,10 +46,30 @@ export function* forgotSaga(action: {
   const {payload} = action;
   try {
     const {data}: any = yield call(forgot, payload);
-    // navigate('ResetPassword');
+    navigate('CheckEmail');
     yield put({type: CONSTANTS.FORGOT_SUCCEEDED, message: data.response});
   } catch (error) {
     yield put({type: CONSTANTS.FORGOT_FAILED, message: error.response.data});
+  }
+}
+
+export function* checkForgotSaga(action: {
+  type: string;
+  payload: IDeepLinkData;
+}): Generator {
+  const {
+    payload,
+    payload: {url},
+  } = action;
+  try {
+    const {data}: any = yield call(checkForgot, payload);
+    if (data.status == 'success') {
+      let route = url.replace(/.*?:\/\//g, '').split('/');
+      navigate('ResetPassword', {id: route[3]});
+      yield put({type: CONSTANTS.DEEP_LINK_SUCCEEDED, message: data.response});
+    }
+  } catch (error) {
+    yield put({type: CONSTANTS.DEEP_LINK_FAILED, message: error.response.data});
   }
 }
 
@@ -104,6 +123,7 @@ export default function* watchTologinSaga() {
   yield takeEvery(CONSTANTS.SIGNIN_REQUESTED, loginSaga);
   yield takeEvery(CONSTANTS.SIGNUP_REQUESTED, signUpSaga);
   yield takeEvery(CONSTANTS.FORGOT_REQUESTED, forgotSaga);
+  yield takeEvery(CONSTANTS.DEEP_LINK_REQUESTED, checkForgotSaga);
   yield takeEvery(CONSTANTS.RESET_PASSWORD_REQUESTED, resetSaga);
   yield takeEvery(CONSTANTS.SIGNOUT_REQUESTED, signOutSaga);
   yield takeEvery(CONSTANTS.GOOGLE_LOGIN_REQUESTED, googlelogin);

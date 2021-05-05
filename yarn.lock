@@ -6193,6 +6193,11 @@ react-native-easy-grid@0.2.2:
   dependencies:
     lodash "^4.17.15"
 
+react-native-email-link@^1.11.0:
+  version "1.11.0"
+  resolved "https://registry.yarnpkg.com/react-native-email-link/-/react-native-email-link-1.11.0.tgz#cdeb69e4176a84870408631c00224f006194edcf"
+  integrity sha512-VSGy+4/0opkjXuXYyAS9W5tkLtLte+qYZPCVZzRe5qj+2b7ZHRBxJAkUyHoEGnTX6eVXbXchIDhlTgIPsZDr1g==
+
 react-native-fbsdk@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/react-native-fbsdk/-/react-native-fbsdk-3.0.0.tgz#07ef41758bb17a0acaff744008af625a45ef9a01"
