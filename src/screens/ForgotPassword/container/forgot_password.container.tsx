@@ -1,12 +1,13 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect,useRef} from 'react';
 import {
   View,
   Text,
   ScrollView,
   KeyboardAvoidingView,
   SafeAreaView,
-  Alert,
   StatusBar,
+  Animated,
+  Keyboard
 } from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import styles from '../style/forgot_password.style';
@@ -27,16 +28,52 @@ export interface IforgetData {
 
 export function ForgotPasswordScreen({navigation}: Props) {
   const [email, setEmail] = useState('');
+  const keyboardAnim = useRef(new Animated.Value(150)).current;
+  const opacity = useRef(new Animated.Value(1)).current;
 
   const dispatch = useDispatch();
   const state = useSelector((state: RootState): authStateIF => state.auth);
 
   useEffect(() => {
     dispatch({type: CONSTANTS.CLEAR_ERROR});
+    Keyboard.addListener("keyboardDidShow", _keyboardDidShow);
+    Keyboard.addListener("keyboardDidHide", _keyboardDidHide);
     return () => {
       dispatch({type: CONSTANTS.CLEAR_ERROR});
+      Keyboard.removeListener("keyboardDidShow", _keyboardDidShow);
+      Keyboard.removeListener("keyboardDidHide", _keyboardDidHide);
     };
   }, []);
+
+  const _keyboardDidShow = () => {
+    Animated.parallel([
+      Animated.timing(opacity, {
+        toValue: 0,
+        duration: 500,
+        useNativeDriver: false,
+      }),
+      Animated.timing(keyboardAnim, {
+        toValue: 0,
+        duration: 500,
+        useNativeDriver: false,
+      }),
+    ]).start();
+  };
+
+  const _keyboardDidHide = () => {
+    Animated.parallel([
+      Animated.timing(opacity, {
+        toValue: 1,
+        duration: 500,
+        useNativeDriver: false,
+      }),
+      Animated.timing(keyboardAnim, {
+        toValue: 150,
+        duration: 500,
+        useNativeDriver: false,
+      }),
+    ]).start();
+  };
 
   const forgetPassword = (forgotData: IforgetData) => {
     dispatch({
@@ -48,9 +85,9 @@ export function ForgotPasswordScreen({navigation}: Props) {
   return (
     <SafeAreaView style={styles.mainContainer}>
       <StatusBar barStyle="light-content" backgroundColor={COLORS.base} />
-      <View style={styles.firstSubContainer}>
+      <Animated.View style={[styles.firstSubContainer,{height:keyboardAnim,opacity:opacity}]}>
         <MainLogo />
-      </View>
+      </Animated.View>
       <View style={styles.secondSubContainer}>
         <Text style={styles.forgotTextStyle}>Forgot Password?</Text>
       </View>
@@ -82,10 +119,13 @@ export function ForgotPasswordScreen({navigation}: Props) {
         <View style={{paddingHorizontal: 40}}>
           <ButtonWithoutLogo
             onButtonPress={() => {
-              forgetPassword({email: email.toLowerCase()});
+              forgetPassword({email: email.toLowerCase().trim()});
             }}
+            disabled={!FIELD_VALIDATIONS.email(email)}
+            name="invalid"
             buttonTitle={'RESET PASSWORD'}
             containerStyle={styles.buttonContainerStyle}
+            message={state.error}
             loading={state.loading}
           />
         </View>

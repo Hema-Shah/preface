@@ -8,7 +8,7 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.base,
   },
   firstSubContainer: {
-    flex: 0.3,
+    height:150,
     alignItems: 'center',
     justifyContent: 'center',
   },

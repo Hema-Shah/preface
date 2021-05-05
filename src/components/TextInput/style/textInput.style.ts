@@ -3,7 +3,7 @@ import {COLORS, FONTS} from 'theme';
 
 const styles = StyleSheet.create({
   mainContainer: {
-    marginTop: 8,
+    marginTop: 12,
   },
   labelStyle: {
     color: COLORS.base,
@@ -20,6 +20,7 @@ const styles = StyleSheet.create({
   iconStyle: {
     color: COLORS.base,
     opacity: 0.5,
+    fontSize: 20
   },
 });
 

@@ -1,14 +1,16 @@
 import {takeEvery, put, call, delay} from 'redux-saga/effects';
+import AsyncStorage from '@react-native-community/async-storage';
+import {Keyboard} from 'react-native'
 import {ISignUpData, Ilogindata, IforgetData, IresetData} from '../../screens';
 import {CONSTANTS} from '../../constants/index';
 import {login, signUp, forgot, signOut, reset, checkForgot} from '../actions';
 import {IDeepLinkData, navigate} from '../../navigators';
-import AsyncStorage from '@react-native-community/async-storage';
 
 export function* loginSaga(action: {
   type: string;
   payload: Ilogindata;
 }): Generator {
+  Keyboard.dismiss()
   const {payload} = action;
   try {
     const {data}: any = yield call(login, payload);
@@ -26,6 +28,7 @@ export function* signUpSaga(action: {
   type: string;
   payload: ISignUpData;
 }): Generator {
+  Keyboard.dismiss()
   const {payload} = action;
   try {
     const {data}: any = yield call(signUp, payload);
@@ -43,6 +46,7 @@ export function* forgotSaga(action: {
   type: string;
   payload: IforgetData;
 }): Generator {
+  Keyboard.dismiss()
   const {payload} = action;
   try {
     const {data}: any = yield call(forgot, payload);
@@ -77,6 +81,7 @@ export function* resetSaga(action: {
   type: string;
   payload: IresetData;
 }): Generator {
+  Keyboard.dismiss()
   const {payload} = action;
   try {
     const {data}: any = yield call(reset, payload);
@@ -119,7 +124,7 @@ export function* facebooklogin(action: any) {
   });
 }
 
-export default function* watchTologinSaga() {
+export default function* watchToauthSaga() {
   yield takeEvery(CONSTANTS.SIGNIN_REQUESTED, loginSaga);
   yield takeEvery(CONSTANTS.SIGNUP_REQUESTED, signUpSaga);
   yield takeEvery(CONSTANTS.FORGOT_REQUESTED, forgotSaga);

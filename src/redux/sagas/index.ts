@@ -1,7 +1,7 @@
 import {all} from 'redux-saga/effects';
 
-import watchTologinSaga from './authSaga';
+import watchToauthSaga from './authSaga';
 
 export default function* sagas() {
-  yield all([watchTologinSaga()]);
+  yield all([watchToauthSaga()]);
 }

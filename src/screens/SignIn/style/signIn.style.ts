@@ -8,16 +8,16 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.base,
   },
   firstSubContainer: {
-    height: 150,
+    height:150,
     alignItems: 'center',
     justifyContent: 'center',
   },
   secondSubContainer: {
-    height: '20%',
+    flex:0.2,
     justifyContent: 'center',
   },
   thirdSubContainer: {
-    height: '80%',
+    flex:0.8,
     backgroundColor: '#FFFFFF',
     borderTopRightRadius: 50,
     borderTopLeftRadius: 50,

@@ -10,7 +10,8 @@ type ButtonProps = {
   buttonTextStyle?: object;
   loading?: boolean;
   name?: string;
-  message?: string;
+  message?: object;
+  disabled?: boolean;
 };
 
 export const ButtonWithoutLogo = ({
@@ -21,6 +22,7 @@ export const ButtonWithoutLogo = ({
   loading = false,
   name,
   message,
+  disabled
 }: ButtonProps) => {
   const _renderMessage = (message: any) => {
     if (message != undefined) {
@@ -31,11 +33,12 @@ export const ButtonWithoutLogo = ({
   return (
     <>
       <TouchableOpacity
-        style={[styles.buttonViewStyle, containerStyle]}
+        style={[styles.buttonViewStyle, containerStyle,disabled ? {opacity:0.6}:null]}
         onPress={onButtonPress}
-        activeOpacity={0.8}>
+        activeOpacity={0.8}
+        disabled={disabled}>
         {loading ? (
-          <ActivityIndicator color={COLORS.white} />
+          <ActivityIndicator color={COLORS.white} size={14}/>
         ) : (
           <Text style={[styles.buttonTextStyle, buttonTextStyle]}>
             {buttonTitle}

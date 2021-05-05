@@ -76,8 +76,10 @@ export function ResetPasswordScreen({navigation, route}: Props) {
           onButtonPress={() => {
             resetPassword({new_password, confirm_password, id});
           }}
+          name="invalid"
           buttonTitle={'RESET PASSWORD'}
           containerStyle={styles.resetBtnStyle}
+          message={state.error}
           loading={state.loading}
         />
       </View>

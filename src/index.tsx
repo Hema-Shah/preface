@@ -4,7 +4,7 @@
  */
 
 import React from 'react';
-import {LogBox} from 'react-native';
+import {LogBox,ActivityIndicator} from 'react-native';
 import {Provider} from 'react-redux';
 import Configurestore from './redux/store';
 import {AppNavigation} from './navigators';
@@ -17,7 +17,7 @@ const {store, persistor} = Configurestore();
 const Root = () => {
   return (
     <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
+      <PersistGate loading={false} persistor={persistor}>
         <AppNavigation />
       </PersistGate>
     </Provider>

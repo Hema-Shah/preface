@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import {
   View,
   Text,
@@ -6,9 +6,10 @@ import {
   ScrollView,
   Platform,
   KeyboardAvoidingView,
-  Alert,
   SafeAreaView,
   StatusBar,
+  Animated,
+  Keyboard,
 } from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import styles from '../style/signUp.style';
@@ -45,7 +46,8 @@ export function SignUpScreen({navigation}: Props) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirm_password, setConfirmPassword] = useState('');
-  const [error, setError] = useState(false);
+  const keyboardAnim = useRef(new Animated.Value(150)).current;
+  const opacity = useRef(new Animated.Value(1)).current;
 
   const dispatch = useDispatch();
   const state = useSelector((state: RootState): authStateIF => state.auth);
@@ -55,32 +57,47 @@ export function SignUpScreen({navigation}: Props) {
   useEffect(() => {
     GoogleConfig();
     dispatch({type: CONSTANTS.CLEAR_ERROR});
+    Keyboard.addListener('keyboardDidShow', _keyboardDidShow);
+    Keyboard.addListener('keyboardDidHide', _keyboardDidHide);
     return () => {
       dispatch({type: CONSTANTS.CLEAR_ERROR});
+      Keyboard.removeListener('keyboardDidShow', _keyboardDidShow);
+      Keyboard.removeListener('keyboardDidHide', _keyboardDidHide);
     };
   }, []);
 
-  useEffect(() => {
-    if (state.error && state.error.length > 0) {
-      Alert.alert(
-        'Error',
-        state.error,
-        [
-          {
-            text: 'OK',
-            onPress: () => {
-              console.log('OK Pressed');
-              dispatch({type: CONSTANTS.CLEAR_ERROR});
-            },
-          },
-        ],
-        {cancelable: false},
-      );
-    }
-  }, [state.error]);
-
   const signUp = (signUpData: ISignUpData) => {
     dispatch({type: CONSTANTS.SIGNUP_REQUESTED, payload: {signUpData}});
+  };
+
+  const _keyboardDidShow = () => {
+    Animated.parallel([
+      Animated.timing(opacity, {
+        toValue: 0,
+        duration: 500,
+        useNativeDriver: false,
+      }),
+      Animated.timing(keyboardAnim, {
+        toValue: 0,
+        duration: 500,
+        useNativeDriver: false,
+      }),
+    ]).start();
+  };
+
+  const _keyboardDidHide = () => {
+    Animated.parallel([
+      Animated.timing(opacity, {
+        toValue: 1,
+        duration: 500,
+        useNativeDriver: false,
+      }),
+      Animated.timing(keyboardAnim, {
+        toValue: 150,
+        duration: 500,
+        useNativeDriver: false,
+      }),
+    ]).start();
   };
 
   const signIn = async () => {
@@ -140,9 +157,13 @@ export function SignUpScreen({navigation}: Props) {
   return (
     <SafeAreaView style={styles.mainContainer}>
       <StatusBar barStyle="light-content" backgroundColor={COLORS.base} />
-      <View style={styles.firstSubContainer}>
+      <Animated.View
+        style={[
+          styles.firstSubContainer,
+          {height: keyboardAnim, opacity: opacity},
+        ]}>
         <MainLogo />
-      </View>
+      </Animated.View>
       <View style={styles.secondSubContainer}>
         <Text style={styles.welcomeTextStyle}>Join Preface</Text>
       </View>
@@ -187,11 +208,12 @@ export function SignUpScreen({navigation}: Props) {
             <ButtonWithoutLogo
               onButtonPress={() => {
                 signUp({
-                  email: email.toLowerCase(),
+                  email: email.toLowerCase().trim(),
                   password,
                   confirm_password,
                 });
               }}
+              disabled={!FIELD_VALIDATIONS.email(email)}
               name="invalid"
               buttonTitle={'SIGN UP'}
               containerStyle={styles.buttonContainerStyle}

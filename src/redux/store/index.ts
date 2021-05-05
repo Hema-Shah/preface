@@ -9,7 +9,7 @@ import sagas from '../sagas';
 const persistConfig = {
   key: 'root',
   storage: AsyncStorage,
-  whitelist: ['auth'],
+  whitelist: ['auth','deep'],
 };
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
