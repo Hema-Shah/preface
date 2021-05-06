@@ -1,4 +1,3 @@
-export * from './Dashboard';
 export * from './Splash';
 export * from './SignIn';
 export * from './SignUp';
@@ -7,3 +6,7 @@ export * from './OpenEmail';
 export * from './ResetPassword';
 export * from './UpdatePassword';
 export * from './CheckEmail'
+export * from './Event'
+export * from './Calendar'
+export * from './Notification'
+export * from './Profile'

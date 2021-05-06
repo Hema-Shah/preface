@@ -7,7 +7,6 @@ import {
   SplashScreen,
   SignUpScreen,
   SignInScreen,
-  DashboardScreen,
   ForgotPasswordScreen,
   ResetPasswordScreen,
   CheckEmailScreen,
@@ -22,6 +21,7 @@ import { deepStateIF } from 'redux/reducers/deepReducer';
 import {navigationRef} from '../navigators';
 import {CONSTANTS, ROUTES} from '../constants';
 import {AppLinkHandler} from './AppLinkHandler';
+import { TabNavigation } from './TabNavigation';
 
 const Stack = createStackNavigator();
 
@@ -96,9 +96,9 @@ const AppNavigation = () => {
         <Stack.Navigator>
           {state.authenticated ? (
             <Stack.Screen
-              name={ROUTES.DASHBOARD}
-              component={DashboardScreen}
-              options={whiteHeaderBackOption}
+              name={ROUTES.HOME}
+              component={TabNavigation}
+              options={options}
             />
           ) : (
             <>

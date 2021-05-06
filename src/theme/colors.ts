@@ -3,7 +3,8 @@ export const COLORS = {
   white: '#FFFFFF',
   lightwhite: '#E5E5E5',
   lightblue: '#85BBCE',
-  lightgrey: '#CCCCCC',
+  lightgrey: '#C4C4C4',
   black: '#000000',
-  red: 'red',
+  red: '#FF0000',
+  poloblue: '#85BCCE',
 };

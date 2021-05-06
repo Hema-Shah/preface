@@ -16,7 +16,6 @@ export function* loginSaga(action: {
     const {data}: any = yield call(login, payload);
     yield put({type: CONSTANTS.SIGNIN_SUCCEEDED, payload: data});
   } catch (error) {
-    console.log('Sign up Error ==>', error.response.data);
     yield put({
       type: CONSTANTS.SIGNIN_FAILED,
       message: error.response.data,
@@ -34,7 +33,6 @@ export function* signUpSaga(action: {
     const {data}: any = yield call(signUp, payload);
     yield put({type: CONSTANTS.SIGNUP_SUCCEEDED, payload: data});
   } catch (error) {
-    console.log('Sign up Error ==>', error.response);
     yield put({
       type: CONSTANTS.SIGNUP_FAILED,
       message: error.response.data,

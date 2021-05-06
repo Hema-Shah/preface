@@ -6,5 +6,10 @@ export const ROUTES = {
   CHECK_EMAIL: 'CheckEmail',
   OPEN_EMAIL: 'OpenEmail',
   UPDATE_PASSWORD: 'UpdatePassword',
-  DASHBOARD: 'Dashboard',
+  HOME: 'Home',
+  EVENT:'Event',
+  CALENDAR: 'Calendar',
+  LOGO:'Logo',
+  NOTIFICATION: 'Notification',
+  PROFILE: 'Profile'
 };

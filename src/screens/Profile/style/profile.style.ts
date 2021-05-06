@@ -1,12 +1,13 @@
 import {StyleSheet} from 'react-native';
-import {COLORS} from 'theme';
+import {COLORS, FONTS} from 'theme';
 
 const styles = StyleSheet.create({
-  container: {
+  mainContainer: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: COLORS.lightwhite,
+    backgroundColor: COLORS.white,
+    padding: 40,
   },
   buttonContainerStyle: {
     marginTop: 8,
