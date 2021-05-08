@@ -6,7 +6,9 @@ export * from './OpenEmail';
 export * from './ResetPassword';
 export * from './UpdatePassword';
 export * from './CheckEmail'
-export * from './Event'
-export * from './Calendar'
+export * from './TechNews'
+export * from './Happening'
+export * from './HappeningEventDetail'
+export * from './Preface'
 export * from './Notification'
 export * from './Profile'

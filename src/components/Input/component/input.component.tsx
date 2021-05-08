@@ -1,9 +1,12 @@
 import React, {useState} from 'react';
 import {View, Text} from 'react-native';
-import {Item, Input, Label, Icon} from 'native-base';
-import styles from '../style/textInput.style';
+import {TextInput} from 'react-native-paper';
+import {COLORS, FONTS} from 'theme';
+// import {Item, Input, Label, Icon} from 'native-base';
+import Icon from 'react-native-vector-icons/FontAwesome5';
+import styles from '../style/input.style';
 
-type TextInputProps = {
+type InputProps = {
   placeholder: string;
   onChangeText: (text: string) => any;
   value: string;
@@ -15,7 +18,7 @@ type TextInputProps = {
   valid?: boolean;
 };
 
-export const TextInput = ({
+export const Input = ({
   placeholder,
   onChangeText,
   value,
@@ -25,7 +28,7 @@ export const TextInput = ({
   text,
   placeholderStyle,
   valid,
-}: TextInputProps) => {
+}: InputProps) => {
   const [isShow, setisShow] = useState(secure);
 
   const _renderMessage = (message: any) => {
@@ -42,7 +45,42 @@ export const TextInput = ({
 
   return (
     <>
-      <Item floatingLabel style={styles.mainContainer}>
+      <TextInput
+        label={placeholder.toUpperCase()}
+        value={value}
+        onChangeText={onChangeText}
+        secureTextEntry={isShow}
+        right={
+          secure && (
+            <TextInput.Icon
+              name={() => (
+                <Icon
+                  name={isShow ? 'eye-slash' : 'eye'}
+                  size={20}
+                  color={COLORS.lightgrey}
+                />
+              )}
+              onPress={() => {
+                setisShow(!isShow);
+              }}
+            />
+          )
+        }
+        theme={{
+          colors: {
+            primary: COLORS.base,
+            background: COLORS.transparent,
+            placeholder: COLORS.lightgrey,
+          },
+          fonts: {
+            regular: {
+              // fontWeight:'bold',
+              fontFamily: FONTS.galanoGrotesqueSemiBold,
+            },
+          },
+        }}
+      />
+      {/* <Item floatingLabel style={styles.mainContainer}>
         <Label style={[styles.labelStyle, placeholderStyle]}>
           {placeholder.toUpperCase()}
         </Label>
@@ -61,7 +99,7 @@ export const TextInput = ({
             }}
           />
         )}
-      </Item>
+      </Item> */}
       {(typeof message == 'object' && _renderMessage(message[name])) ||
         (typeof text == 'string' &&
           !valid &&

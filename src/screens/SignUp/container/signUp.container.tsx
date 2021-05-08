@@ -17,7 +17,7 @@ import MainLogo from '../../../assets/svgs/main_logo.svg';
 import {
   ButtonWithoutLogo,
   ButtonWithLogo,
-  TextInput,
+  Input,
 } from '../../../components';
 import {COLORS} from 'theme';
 import {CONSTANTS, FIELD_VALIDATIONS} from '../../../constants/index';
@@ -173,7 +173,7 @@ export function SignUpScreen({navigation}: Props) {
           keyboardShouldPersistTaps={'handled'}
           bounces={false}>
           <View style={styles.subScrollView}>
-            <TextInput
+            <Input
               placeholder="*Email"
               name="email"
               onChangeText={text => {
@@ -185,7 +185,7 @@ export function SignUpScreen({navigation}: Props) {
               text={'Please enter a valid email address.'}
               valid={FIELD_VALIDATIONS.email(email)}
             />
-            <TextInput
+            <Input
               placeholder="*Password"
               name="password"
               onChangeText={text => {
@@ -195,7 +195,7 @@ export function SignUpScreen({navigation}: Props) {
               message={state.error}
               secure={true}
             />
-            <TextInput
+            <Input
               placeholder="*Confirm Password"
               name="confirm_password"
               onChangeText={text => {

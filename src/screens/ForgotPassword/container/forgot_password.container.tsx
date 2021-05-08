@@ -12,7 +12,7 @@ import {
 import {useDispatch, useSelector} from 'react-redux';
 import styles from '../style/forgot_password.style';
 import MainLogo from '../../../assets/svgs/main_logo.svg';
-import {ButtonWithoutLogo, TextInput} from '../../../components';
+import {ButtonWithoutLogo, Input} from '../../../components';
 import {CONSTANTS, FIELD_VALIDATIONS} from '../../../constants';
 import {RootState} from 'redux/reducers';
 import {authStateIF} from 'redux/reducers/authReducer';
@@ -102,7 +102,7 @@ export function ForgotPasswordScreen({navigation}: Props) {
                 reset your password.
               </Text>
             </View>
-            <TextInput
+            <Input
               placeholder="Email"
               name="email"
               onChangeText={text => {

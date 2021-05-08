@@ -7,9 +7,15 @@ export const ROUTES = {
   OPEN_EMAIL: 'OpenEmail',
   UPDATE_PASSWORD: 'UpdatePassword',
   HOME: 'Home',
-  EVENT:'Event',
-  CALENDAR: 'Calendar',
-  LOGO:'Logo',
+  TECH_NEWS_TAB:'TechNewsTab',
+  TECH_NEWS:'TechNews',
+  HAPPENING_TAB: 'HappeningTab',
+  HAPPENING: 'Happening',
+  HAPPENING_EVENT_DETAIL: 'HappeningEventDetail',
+  PREFACE_TAB:'PrefaceTab',
+  PREFACE:'Preface',
+  NOTIFICATION_TAB: 'NotificationTab',
   NOTIFICATION: 'Notification',
+  PROFILE_TAB: 'ProfileTab',
   PROFILE: 'Profile'
 };

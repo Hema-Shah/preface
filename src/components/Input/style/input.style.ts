@@ -3,14 +3,11 @@ import {COLORS, FONTS} from 'theme';
 
 const styles = StyleSheet.create({
   mainContainer: {
-    marginTop: 12,
+    marginTop: 8,
   },
   labelStyle: {
-    color: COLORS.base,
-    fontFamily: FONTS.galanoGrotesqueSemiBold,
     fontSize: 16,
     lineHeight: 19,
-    opacity: 0.5,
   },
   errorMessage: {
     color: COLORS.red,

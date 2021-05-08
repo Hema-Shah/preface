@@ -1,28 +1,24 @@
 import {StyleSheet} from 'react-native';
-import { COLORS, FONTS } from 'theme';
+import {COLORS, FONTS} from 'theme';
 
 const styles = StyleSheet.create({
-    labelStyle: {
-        color: COLORS.lightgrey,
-        fontFamily: FONTS.galanoGrotesqueSemiBold,
-        fontSize: 16,
-      },
-      searchIconStyle: {
-        color: COLORS.lightgrey,
-        fontSize: 16,
-      },
-      backIconStyle:{
-          color:COLORS.base,
-          fontSize:24,
-          marginRight:8
-      },
-      inputTextStyle:{
-        color: COLORS.base,
-        fontFamily: FONTS.galanoGrotesqueSemiBold,
-        fontSize: 16,
-        textDecorationLine:'none'
-      }
+  mainContainer: {flexDirection: 'row', alignItems: 'center',flex:0},
+  backIconStyle:{flex:0.15},
+  subContainer: {
+    flex:1,
+    borderBottomColor: COLORS.lightgrey,
+    borderBottomWidth: 2,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  inputTextStyle: {
+    color: COLORS.base,
+    fontFamily: FONTS.galanoGrotesqueSemiBold,
+    fontSize: 16,
+    lineHeight: 19,
+    textDecorationLine: 'none',
+    flexGrow:1
+  },
 });
-
 
 export default styles;

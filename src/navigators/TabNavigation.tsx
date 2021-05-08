@@ -1,23 +1,22 @@
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {ROUTES} from '../constants';
-import {
-  EventScreen,
-  CalendarScreen,
-  NotificationScreen,
-  ProfileScreen,
-} from '../screens';
 import {COLORS} from 'theme';
-import {View, StyleSheet} from 'react-native';
+import {TouchableOpacity, StyleSheet} from 'react-native';
+import {HappeningNavigator} from './HappeningNavigator';
+import {TechNewsNavigator} from './TechNewsNavigator';
+import {PrefaceNavigator} from './PrefaceNavigator';
+import {NotificationNavigator} from './NotificationNavigator';
+import {ProfileNavigator} from './ProfileNavigator';
 import Logo from '../assets/svgs/logo_small.svg';
-import ActivePost from '../assets/svgs/post/active_post.svg'
-import InActivePost from '../assets/svgs/post/inactive_post.svg'
-import ActiveEvent from '../assets/svgs/event/active_event.svg'
-import InActiveEvent from '../assets/svgs/event/inactive_event.svg'
-import ActiveUpdate from '../assets/svgs/update/active_bell.svg'
-import InActiveUpdate from '../assets/svgs/update/inactive_bell.svg'
-import ActiveProfile from '../assets/svgs/profile/active_profile.svg'
-import InActiveProfile from '../assets/svgs/profile/inactive_profile.svg'
+import ActivePost from '../assets/svgs/post/active_post.svg';
+import InActivePost from '../assets/svgs/post/inactive_post.svg';
+import ActiveEvent from '../assets/svgs/event/active_event.svg';
+import InActiveEvent from '../assets/svgs/event/inactive_event.svg';
+import ActiveUpdate from '../assets/svgs/update/active_bell.svg';
+import InActiveUpdate from '../assets/svgs/update/inactive_bell.svg';
+import ActiveProfile from '../assets/svgs/profile/active_profile.svg';
+import InActiveProfile from '../assets/svgs/profile/inactive_profile.svg';
 
 const styles = StyleSheet.create({
   logoContainer: {
@@ -26,67 +25,69 @@ const styles = StyleSheet.create({
     width: 70,
     justifyContent: 'center',
     alignItems: 'center',
-    top: -24,
+    top: -20,
     borderRadius: 35,
   },
 });
 
 const Tab = createBottomTabNavigator();
 
+const CustomTabBarButton = ({onPress}:any) => (
+  <TouchableOpacity
+    style={styles.logoContainer}
+    onPress={onPress}
+    activeOpacity={1}>
+    <Logo />
+  </TouchableOpacity>
+)
+
 const TabNavigation = () => {
   return (
     <Tab.Navigator
-      initialRouteName={ROUTES.EVENT}
+      initialRouteName={ROUTES.TECH_NEWS_TAB}
       tabBarOptions={{
         activeTintColor: COLORS.poloblue,
         showLabel: false,
-        style:{borderTopColor:COLORS.lightgrey,borderTopWidth:2}
+        style: {borderTopColor: COLORS.lightgrey, borderTopWidth: 2},
+        safeAreaInsets: {bottom: 8},
       }}>
       <Tab.Screen
-        name={ROUTES.EVENT}
-        component={EventScreen}
+        name={ROUTES.TECH_NEWS_TAB}
+        component={TechNewsNavigator}
         options={{
-          tabBarIcon: ({focused}) => (
-            focused ? <ActivePost /> : <InActivePost />
-          ),
+          tabBarIcon: ({focused}) =>
+            focused ? <ActivePost /> : <InActivePost />,
         }}
       />
       <Tab.Screen
-        name={ROUTES.CALENDAR}
-        component={CalendarScreen}
+        name={ROUTES.HAPPENING_TAB}
+        component={HappeningNavigator}
         options={{
-          tabBarIcon: ({focused}) => (
-            focused ? <ActiveEvent /> : <InActiveEvent />
-          ),
+          tabBarIcon: ({focused}) =>
+            focused ? <ActiveEvent /> : <InActiveEvent />,
         }}
       />
       <Tab.Screen
-        name={ROUTES.LOGO}
-        component={CalendarScreen}
+        name={ROUTES.PREFACE_TAB}
+        component={PrefaceNavigator}
         options={{
-          tabBarButton: () => (
-            <View style={styles.logoContainer}>
-              <Logo />
-            </View>
-          ),
+          tabBarButton: props => <CustomTabBarButton {...props} />,
         }}
       />
       <Tab.Screen
-        name={ROUTES.NOTIFICATION}
-        component={NotificationScreen}
+        name={ROUTES.NOTIFICATION_TAB}
+        component={NotificationNavigator}
         options={{
-          tabBarIcon: ({focused}) => (
-            focused ? <ActiveUpdate /> : <InActiveUpdate />
-          ),
+          tabBarIcon: ({focused}) =>
+            focused ? <ActiveUpdate /> : <InActiveUpdate />,
         }}
       />
       <Tab.Screen
-        name={ROUTES.PROFILE}
-        component={ProfileScreen}
+        name={ROUTES.PROFILE_TAB}
+        component={ProfileNavigator}
         options={{
-          tabBarIcon: ({focused}) => (
-            focused ? <ActiveProfile /> : <InActiveProfile />
-          ),
+          tabBarIcon: ({focused}) =>
+            focused ? <ActiveProfile /> : <InActiveProfile />,
         }}
       />
     </Tab.Navigator>

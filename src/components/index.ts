@@ -1,4 +1,4 @@
 export * from './Button'
 export * from './SearchHeader'
-export * from './TextInput'
+export * from './Input'
 export * from './GoogleConfig'

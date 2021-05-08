@@ -3,7 +3,7 @@ import {View, Text, StatusBar} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import styles from '../style/reset_password.style';
 import ResetPasswordLogo from '../../../assets/svgs/reset_password.svg';
-import {ButtonWithoutLogo, TextInput} from '../../../components';
+import {ButtonWithoutLogo, Input} from '../../../components';
 import {RootState} from 'redux/reducers';
 import {authStateIF} from 'redux/reducers/authReducer';
 import {COLORS} from 'theme';
@@ -52,7 +52,7 @@ export function ResetPasswordScreen({navigation, route}: Props) {
         <Text style={styles.resetPasswordText}>Reset password</Text>
       </View>
       <View style={styles.secondSubContainer}>
-        <TextInput
+        <Input
           placeholder="New Password"
           name="new_password"
           onChangeText={text => {
@@ -62,7 +62,7 @@ export function ResetPasswordScreen({navigation, route}: Props) {
           message={state.error}
           secure={true}
         />
-        <TextInput
+        <Input
           placeholder="Confirm Password"
           name="confirm_password"
           onChangeText={text => {

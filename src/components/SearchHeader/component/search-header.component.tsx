@@ -1,29 +1,43 @@
 import React from 'react';
-import {Item, Input, Icon} from 'native-base';
 import styles from '../style/search-header.style';
-import { COLORS } from 'theme';
+import {COLORS} from 'theme';
+import ArrowLeft from '../../../assets/svgs/arrow_left.svg'
+import Search from '../../../assets/svgs/search.svg'
+import {View, TextInput, TouchableOpacity} from 'react-native';
 
 type SearchHeaderProps = {
   placeholder: string;
+  showHeaderBack?: boolean;
   onChangeText: (text: string) => any;
+  onBackPress?: () => any;
   value: string;
 };
 
 export const SearchHeader = ({
   placeholder,
+  showHeaderBack,
   onChangeText,
+  onBackPress,
   value,
-  }:SearchHeaderProps) => {
+}: SearchHeaderProps) => {
   return (
-      <Item>
-        <Icon type="Ionicons" name={'search'} style={styles.searchIconStyle}/>
-        <Input
+    <View style={styles.mainContainer}>
+      {showHeaderBack && (
+        <TouchableOpacity style={styles.backIconStyle} onPress={onBackPress}>
+          <ArrowLeft />
+        </TouchableOpacity>
+      )}
+      <View style={styles.subContainer}>
+        <Search />
+        <TextInput
           onChangeText={onChangeText}
           value={value}
           placeholder={placeholder.toUpperCase()}
           placeholderTextColor={COLORS.lightgrey}
           style={styles.inputTextStyle}
+          autoCapitalize={'none'}
         />
-      </Item>
+      </View>
+    </View>
   );
 };
