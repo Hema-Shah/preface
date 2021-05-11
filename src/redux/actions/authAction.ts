@@ -33,6 +33,9 @@ export async function checkForgot(params: IDeepLinkData) {
   return axios.get(url);
 }
 
-export async function signOut() {
-  return client.post('logout');
+export async function signOut(accessToken: any) {
+  let data = '';
+  return client.post('logout',data,{
+    headers: {'Authorization': `Bearer ${accessToken}`},
+  });
 }

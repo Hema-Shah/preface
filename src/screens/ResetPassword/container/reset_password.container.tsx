@@ -21,7 +21,6 @@ export interface IresetData {
 }
 
 export function ResetPasswordScreen({navigation, route}: Props) {
-  console.log('route', route);
   const [new_password, setNewPassword] = useState('');
   const [confirm_password, setConfirmPassword] = useState('');
   const {

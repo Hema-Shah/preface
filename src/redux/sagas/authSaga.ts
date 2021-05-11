@@ -1,19 +1,20 @@
-import {takeEvery, put, call, delay} from 'redux-saga/effects';
-import AsyncStorage from '@react-native-community/async-storage';
-import {Keyboard} from 'react-native'
+import {takeEvery, put, call, delay, select} from 'redux-saga/effects';
+import {Keyboard} from 'react-native';
 import {ISignUpData, Ilogindata, IforgetData, IresetData} from '../../screens';
 import {CONSTANTS} from '../../constants/index';
 import {login, signUp, forgot, signOut, reset, checkForgot} from '../actions';
 import {IDeepLinkData, navigate} from '../../navigators';
+import {saveKey, clearKey} from 'helpers';
 
 export function* loginSaga(action: {
   type: string;
   payload: Ilogindata;
 }): Generator {
-  Keyboard.dismiss()
+  Keyboard.dismiss();
   const {payload} = action;
   try {
     const {data}: any = yield call(login, payload);
+    saveKey(CONSTANTS.TOKEN, data.access_token);
     yield put({type: CONSTANTS.SIGNIN_SUCCEEDED, payload: data});
   } catch (error) {
     yield put({
@@ -27,10 +28,11 @@ export function* signUpSaga(action: {
   type: string;
   payload: ISignUpData;
 }): Generator {
-  Keyboard.dismiss()
+  Keyboard.dismiss();
   const {payload} = action;
   try {
     const {data}: any = yield call(signUp, payload);
+    saveKey(CONSTANTS.TOKEN, data.access_token);
     yield put({type: CONSTANTS.SIGNUP_SUCCEEDED, payload: data});
   } catch (error) {
     yield put({
@@ -44,7 +46,7 @@ export function* forgotSaga(action: {
   type: string;
   payload: IforgetData;
 }): Generator {
-  Keyboard.dismiss()
+  Keyboard.dismiss();
   const {payload} = action;
   try {
     const {data}: any = yield call(forgot, payload);
@@ -79,7 +81,7 @@ export function* resetSaga(action: {
   type: string;
   payload: IresetData;
 }): Generator {
-  Keyboard.dismiss()
+  Keyboard.dismiss();
   const {payload} = action;
   try {
     const {data}: any = yield call(reset, payload);
@@ -98,12 +100,12 @@ export function* resetSaga(action: {
 
 export function* signOutSaga(): Generator {
   try {
-    // const response = yield call(signOut);
-    // console.log('Response ==>', response);
-    yield delay(2000);
+    const {auth}: any = yield select();
+    yield call(signOut, auth.accessToken);
+    clearKey();
     yield put({type: CONSTANTS.SIGNOUT_SUCCEEDED});
-    AsyncStorage.clear();
   } catch (error) {
+    console.log('Error ==>', error.response);
     yield put({type: CONSTANTS.SIGNOUT_FAILED});
   }
 }

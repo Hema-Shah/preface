@@ -8,15 +8,26 @@ import {ROUTES} from '../constants';
 const Stack = createStackNavigator();
 
 const HappeningStack = () => {
+  const options = {
+    headerShown: false,
+  };
+
+  const eventDetailOptions = {
+    headerTitle: '',
+    headerStyle: {backgroundColor: COLORS.white, elevation: 0}
+  };
+
   return (
-    <Stack.Navigator initialRouteName={ROUTES.HAPPENING} screenOptions={{headerShown:false}}>
+    <Stack.Navigator initialRouteName={ROUTES.HAPPENING}>
       <Stack.Screen
         name={ROUTES.HAPPENING}
         component={HappeningScreen}
+        options={options}
       />
       <Stack.Screen
         name={ROUTES.HAPPENING_EVENT_DETAIL}
         component={HappeningEventDetailScreen}
+        options={eventDetailOptions}
       />
     </Stack.Navigator>
   );

@@ -14,11 +14,7 @@ import {
 import {useDispatch, useSelector} from 'react-redux';
 import styles from '../style/signUp.style';
 import MainLogo from '../../../assets/svgs/main_logo.svg';
-import {
-  ButtonWithoutLogo,
-  ButtonWithLogo,
-  Input,
-} from '../../../components';
+import {ButtonWithoutLogo, ButtonWithLogo, Input} from '../../../components';
 import {COLORS} from 'theme';
 import {CONSTANTS, FIELD_VALIDATIONS} from '../../../constants/index';
 import {GoogleSignin, statusCodes} from 'react-native-login-google';
@@ -101,7 +97,6 @@ export function SignUpScreen({navigation}: Props) {
   };
 
   const signIn = async () => {
-    console.log('LOgin');
     try {
       await GoogleSignin.hasPlayServices();
       const userinfo = await GoogleSignin.signIn();
@@ -126,7 +121,6 @@ export function SignUpScreen({navigation}: Props) {
             const responseInfoCallback = (error: any, fbuserInfo: any) => {
               if (error) {
                 console.log(error);
-                console.log('Error==>', error);
               } else {
                 dispatch({
                   type: CONSTANTS.GOOGLE_LOGIN_REQUESTED,
@@ -208,7 +202,7 @@ export function SignUpScreen({navigation}: Props) {
             <ButtonWithoutLogo
               onButtonPress={() => {
                 signUp({
-                  email: email.toLowerCase().trim(),
+                  email: email.toLowerCase(),
                   password,
                   confirm_password,
                 });
@@ -224,7 +218,6 @@ export function SignUpScreen({navigation}: Props) {
               <ButtonWithLogo
                 onButtonPress={() => {
                   signIn();
-                  // console.log('GOOGLE LOGIN');
                 }}
                 logo={'Google'}
                 buttonTitle={'Continue with Google'}
@@ -233,7 +226,6 @@ export function SignUpScreen({navigation}: Props) {
               <ButtonWithLogo
                 onButtonPress={() => {
                   FBLogin();
-                  // console.log('FACEBOOK LOGIN');
                 }}
                 logo={'Facebook'}
                 buttonTitle={'Continue with Facebook'}
@@ -241,9 +233,7 @@ export function SignUpScreen({navigation}: Props) {
               />
               {Platform.OS == 'ios' && (
                 <ButtonWithLogo
-                  onButtonPress={() => {
-                    console.log('APPLE LOGIN');
-                  }}
+                  onButtonPress={() => {}}
                   logo={'Apple'}
                   buttonTitle={'Continue with Apple'}
                   containerStyle={styles.buttonContainerStyle}

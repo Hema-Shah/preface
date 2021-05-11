@@ -2,7 +2,6 @@ import React, {useState} from 'react';
 import {View, Text} from 'react-native';
 import {TextInput} from 'react-native-paper';
 import {COLORS, FONTS} from 'theme';
-// import {Item, Input, Label, Icon} from 'native-base';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import styles from '../style/input.style';
 
@@ -18,6 +17,20 @@ type InputProps = {
   valid?: boolean;
 };
 
+const InputTheme = {
+  colors: {
+    primary: COLORS.black,
+    background: COLORS.transparent,
+    placeholder: COLORS.lightgrey,
+    text: COLORS.base,
+  },
+  fonts: {
+    regular: {
+      fontFamily: FONTS.galanoGrotesqueSemiBold,
+    },
+  },
+};
+
 export const Input = ({
   placeholder,
   onChangeText,
@@ -26,7 +39,6 @@ export const Input = ({
   secure = false,
   message,
   text,
-  placeholderStyle,
   valid,
 }: InputProps) => {
   const [isShow, setisShow] = useState(secure);
@@ -50,6 +62,8 @@ export const Input = ({
         value={value}
         onChangeText={onChangeText}
         secureTextEntry={isShow}
+        autoCapitalize={'none'}
+        style={styles.textInputStyle}
         right={
           secure && (
             <TextInput.Icon
@@ -66,40 +80,8 @@ export const Input = ({
             />
           )
         }
-        theme={{
-          colors: {
-            primary: COLORS.base,
-            background: COLORS.transparent,
-            placeholder: COLORS.lightgrey,
-          },
-          fonts: {
-            regular: {
-              // fontWeight:'bold',
-              fontFamily: FONTS.galanoGrotesqueSemiBold,
-            },
-          },
-        }}
+        theme={InputTheme}
       />
-      {/* <Item floatingLabel style={styles.mainContainer}>
-        <Label style={[styles.labelStyle, placeholderStyle]}>
-          {placeholder.toUpperCase()}
-        </Label>
-        <Input
-          onChangeText={onChangeText}
-          value={value}
-          secureTextEntry={isShow}
-        />
-        {secure && (
-          <Icon
-            type="FontAwesome5"
-            name={isShow ? 'eye-slash' : 'eye'}
-            style={styles.iconStyle}
-            onPress={() => {
-              setisShow(!isShow);
-            }}
-          />
-        )}
-      </Item> */}
       {(typeof message == 'object' && _renderMessage(message[name])) ||
         (typeof text == 'string' &&
           !valid &&

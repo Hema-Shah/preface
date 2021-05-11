@@ -14,11 +14,7 @@ import {
 import {useDispatch, useSelector} from 'react-redux';
 import styles from '../style/signIn.style';
 import MainLogo from '../../../assets/svgs/main_logo.svg';
-import {
-  ButtonWithoutLogo,
-  ButtonWithLogo,
-  Input,
-} from '../../../components';
+import {ButtonWithoutLogo, ButtonWithLogo, Input} from '../../../components';
 import {COLORS} from 'theme';
 import {CONSTANTS, FIELD_VALIDATIONS} from '../../../constants';
 import {GoogleSignin, statusCodes} from 'react-native-login-google';
@@ -66,12 +62,12 @@ export function SignInScreen({navigation}: Props) {
     Animated.parallel([
       Animated.timing(opacity, {
         toValue: 0,
-        duration: 500,
+        duration: 300,
         useNativeDriver: false,
       }),
       Animated.timing(keyboardAnim, {
         toValue: 0,
-        duration: 500,
+        duration: 300,
         useNativeDriver: false,
       }),
     ]).start();
@@ -81,12 +77,12 @@ export function SignInScreen({navigation}: Props) {
     Animated.parallel([
       Animated.timing(opacity, {
         toValue: 1,
-        duration: 500,
+        duration: 300,
         useNativeDriver: false,
       }),
       Animated.timing(keyboardAnim, {
         toValue: 150,
-        duration: 500,
+        duration: 300,
         useNativeDriver: false,
       }),
     ]).start();
@@ -97,11 +93,10 @@ export function SignInScreen({navigation}: Props) {
   };
 
   const googleSignIn = async () => {
-    console.log('LOgin');
     try {
       await GoogleSignin.hasPlayServices();
       const userinfo = await GoogleSignin.signIn();
-      // navigation.navigate('Dashboard');
+      console.log('User Info ==>', userinfo);
       dispatch({type: CONSTANTS.GOOGLE_LOGIN_REQUESTED, payload: {userinfo}});
     } catch (error) {
       if (error.code === statusCodes.SIGN_IN_CANCELLED) {
@@ -117,45 +112,41 @@ export function SignInScreen({navigation}: Props) {
       'public_profile',
       'email',
       'user_friends',
-    ]).then(
-      function (result: any) {
-        if (result.isCancelled) {
-          console.log('Login cancelled');
-        } else {
-          AccessToken.getCurrentAccessToken().then((data: any) => {
-            let accessToken = data.accessToken;
-            const responseInfoCallback = (error: any, fbuserInfo: any) => {
-              if (error) {
-                console.log(error);
-              } else {
-                // navigation.navigate('Dashboard');
-                dispatch({
-                  type: CONSTANTS.FB_LOGIN_REQUESTED,
-                  payload: {fbuserInfo, accessToken},
-                });
-              }
-            };
-            const infoRequest = new GraphRequest(
-              '/me',
-              {
-                accessToken: accessToken,
-                parameters: {
-                  fields: {
-                    string:
-                      'email,name,first_name,middle_name,last_name,picture.type(large)',
-                  },
-                },
-              },
-              responseInfoCallback,
-            );
-            new GraphRequestManager().addRequest(infoRequest).start();
-          });
-        }
-      },
-      function (error: any) {
-        console.log('Login fail with error: ' + error);
-      },
-    );
+    ]).then(function (result: any) {
+      if (result.isCancelled) {
+        console.log('Login cancelled');
+      } else {
+        AccessToken.getCurrentAccessToken().then((data: any) => {
+          console.log('Facebook Data ==>', data);
+          // let accessToken = data.accessToken;
+          // const responseInfoCallback = (error: any, fbuserInfo: any) => {
+          //   if (error) {
+          //     console.log(error);
+          //   } else {
+          //     // navigation.navigate('Dashboard');
+          //     dispatch({
+          //       type: CONSTANTS.FB_LOGIN_REQUESTED,
+          //       payload: {fbuserInfo, accessToken},
+          //     });
+          //   }
+          // };
+          // const infoRequest = new GraphRequest(
+          //   '/me',
+          //   {
+          //     accessToken: accessToken,
+          //     parameters: {
+          //       fields: {
+          //         string:
+          //           'email,name,first_name,middle_name,last_name,picture.type(large)',
+          //       },
+          //     },
+          //   },
+          //   responseInfoCallback,
+          // );
+          // new GraphRequestManager().addRequest(infoRequest).start();
+        });
+      }
+    });
   };
 
   return (
@@ -200,7 +191,7 @@ export function SignInScreen({navigation}: Props) {
             />
             <ButtonWithoutLogo
               onButtonPress={() => {
-                logIn({email: email.toLowerCase().trim(), password});
+                logIn({email: email.toLowerCase(), password});
               }}
               disabled={!FIELD_VALIDATIONS.email(email)}
               name="invalid"
@@ -220,7 +211,6 @@ export function SignInScreen({navigation}: Props) {
               <ButtonWithLogo
                 onButtonPress={() => {
                   googleSignIn();
-                  // console.log('GOOGLE LOGIN');
                 }}
                 logo={'Google'}
                 buttonTitle={'Continue with Google'}
@@ -230,7 +220,6 @@ export function SignInScreen({navigation}: Props) {
               <ButtonWithLogo
                 onButtonPress={() => {
                   FBLogin();
-                  // console.log('FACEBOOK LOGIN');
                 }}
                 logo={'Facebook'}
                 buttonTitle={'Continue with Facebook'}
@@ -238,9 +227,7 @@ export function SignInScreen({navigation}: Props) {
               />
               {Platform.OS == 'ios' && (
                 <ButtonWithLogo
-                  onButtonPress={() => {
-                    console.log('APPLE LOGIN');
-                  }}
+                  onButtonPress={() => {}}
                   logo={'Apple'}
                   buttonTitle={'Continue with Apple'}
                   containerStyle={styles.buttonContainerStyle}

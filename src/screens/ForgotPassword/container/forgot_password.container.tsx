@@ -1,4 +1,4 @@
-import React, {useState, useEffect,useRef} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import {
   View,
   Text,
@@ -7,7 +7,7 @@ import {
   SafeAreaView,
   StatusBar,
   Animated,
-  Keyboard
+  Keyboard,
 } from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import styles from '../style/forgot_password.style';
@@ -36,12 +36,12 @@ export function ForgotPasswordScreen({navigation}: Props) {
 
   useEffect(() => {
     dispatch({type: CONSTANTS.CLEAR_ERROR});
-    Keyboard.addListener("keyboardDidShow", _keyboardDidShow);
-    Keyboard.addListener("keyboardDidHide", _keyboardDidHide);
+    Keyboard.addListener('keyboardDidShow', _keyboardDidShow);
+    Keyboard.addListener('keyboardDidHide', _keyboardDidHide);
     return () => {
       dispatch({type: CONSTANTS.CLEAR_ERROR});
-      Keyboard.removeListener("keyboardDidShow", _keyboardDidShow);
-      Keyboard.removeListener("keyboardDidHide", _keyboardDidHide);
+      Keyboard.removeListener('keyboardDidShow', _keyboardDidShow);
+      Keyboard.removeListener('keyboardDidHide', _keyboardDidHide);
     };
   }, []);
 
@@ -85,7 +85,11 @@ export function ForgotPasswordScreen({navigation}: Props) {
   return (
     <SafeAreaView style={styles.mainContainer}>
       <StatusBar barStyle="light-content" backgroundColor={COLORS.base} />
-      <Animated.View style={[styles.firstSubContainer,{height:keyboardAnim,opacity:opacity}]}>
+      <Animated.View
+        style={[
+          styles.firstSubContainer,
+          {height: keyboardAnim, opacity: opacity},
+        ]}>
         <MainLogo />
       </Animated.View>
       <View style={styles.secondSubContainer}>
@@ -119,7 +123,7 @@ export function ForgotPasswordScreen({navigation}: Props) {
         <View style={{paddingHorizontal: 40}}>
           <ButtonWithoutLogo
             onButtonPress={() => {
-              forgetPassword({email: email.toLowerCase().trim()});
+              forgetPassword({email: email.toLowerCase()});
             }}
             disabled={!FIELD_VALIDATIONS.email(email)}
             name="invalid"

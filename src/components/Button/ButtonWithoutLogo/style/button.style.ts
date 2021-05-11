@@ -18,8 +18,10 @@ const styles = StyleSheet.create({
   },
   errorMessage: {
     color: COLORS.red,
-    fontFamily: FONTS.galanoGrotesqueSemiBold,
-    marginBottom: 8,
+    fontFamily: FONTS.galanoGrotesqueMedium,
+    fontSize: 10,
+    lineHeight: 12,
+    marginBottom: 4,
   },
 });
 

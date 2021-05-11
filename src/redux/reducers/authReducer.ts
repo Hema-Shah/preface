@@ -79,7 +79,6 @@ const authReducer = (state = initialState, action: any) => {
 export default authReducer;
 
 function loginSuccess(state: authStateIF, action: any) {
-  console.log('UserInfo ==>', action.payload);
   const {data, access_token} = action.payload;
   return {
     ...state,
@@ -92,7 +91,6 @@ function loginSuccess(state: authStateIF, action: any) {
 }
 function loginFailed(state: authStateIF, action: any) {
   const {response} = action.message;
-  console.log('Response ==>', response);
   return {
     ...state,
     authenticated: false,

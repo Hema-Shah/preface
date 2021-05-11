@@ -2,14 +2,14 @@ import axios, {AxiosInstance} from 'axios';
 import {CONFIG} from '../../config';
 
 export const client: AxiosInstance = axios.create({
-  baseURL: CONFIG.domain,
+  baseURL: CONFIG.apiURL,
   headers: {
     'Content-Type': 'application/x-www-form-urlencoded',
   },
 });
 
 export const event: AxiosInstance = axios.create({
-  baseURL: CONFIG.eventbrite_domain,
+  baseURL: CONFIG.eventbriteURL,
   headers: {
     'Content-Type': 'application/x-www-form-urlencoded',
   },

@@ -22,21 +22,27 @@ import {eventStateIF} from 'redux/reducers/eventReducer';
 import Sharable from 'assets/svgs/share.svg';
 import ActiveHeart from 'assets/svgs/heart/active_heart.svg';
 import InActiveHeart from 'assets/svgs/heart/inactive_heart.svg';
-import {mapTime} from '../../../helper';
+import {mapTime} from '../../../helpers';
 
 interface Props {
   navigation: any;
 }
 
 export function HappeningScreen({navigation}: Props) {
+  const state = useSelector((state: RootState): eventStateIF => state.event);
   const [search, setSearch] = useState('');
 
+  const [filterDataSource, setFilterDataSource] = useState([]);
+
   const dispatch = useDispatch();
-  const state = useSelector((state: RootState): eventStateIF => state.event);
 
   useEffect(() => {
     dispatch({type: EVENT.CURRENT_GET_ALL_EVENT_REQUESTED});
   }, []);
+
+  useEffect(() => {
+    setFilterDataSource(state.eventData);
+  }, [state.eventData]);
 
   const renderItem = ({item}: any) => {
     return (
@@ -54,11 +60,13 @@ export function HappeningScreen({navigation}: Props) {
         <View style={styles.eventSubContainer}>
           <View style={styles.eventFirstSubContainer}>
             <Text style={styles.lableNameStyle}>{item.name.text}</Text>
-            <Text style={styles.labelDateStyle}>{mapTime(item.created)}</Text>
-            <Text style={styles.lableDescStyle}>{"Preface Coffee & Wine"}</Text>
+            <Text style={styles.labelDateStyle}>
+              {mapTime(item.start.local)}
+            </Text>
+            <Text style={styles.lableDescStyle}>{'Preface Coffee & Wine'}</Text>
           </View>
           <View style={styles.eventSecondSubContainer}>
-            <ActiveHeart />
+            {/* <ActiveHeart /> */}
             {/* <InActiveHeart /> */}
             {item.shareable == true && (
               <TouchableOpacity
@@ -75,13 +83,33 @@ export function HappeningScreen({navigation}: Props) {
     );
   };
 
+  const searchFilterFunction = (text: string) => {
+    // Check if searched text is not blank
+    if (text) {
+      const newData = state.eventData.filter(function (item: any) {
+        const itemData = item.name.text
+          ? item.name.text.toUpperCase()
+          : ''.toUpperCase();
+        const textData = text.toUpperCase();
+        return itemData.indexOf(textData) > -1;
+      });
+      setFilterDataSource(newData);
+      setSearch(text);
+    } else {
+      // Inserted text is blank
+      // Update FilteredDataSource with masterDataSource
+      setFilterDataSource(state.eventData);
+      setSearch(text);
+    }
+  };
+
   const onShare = async (item: any) => {
     try {
       await Share.share(
         {
-          message: item.description.text,
+          message: item.url,
           url: item.url,
-          title: 'React Native',
+          title: `You're invited to ${item.name.text}`,
         },
         {
           dialogTitle: item.name.text,
@@ -106,7 +134,7 @@ export function HappeningScreen({navigation}: Props) {
         placeholder={'SEARCH FOR EVENTS'}
         value={search}
         onChangeText={text => {
-          setSearch(text);
+          searchFilterFunction(text);
         }}
       />
       <View style={styles.lableContainer}>
@@ -133,10 +161,10 @@ export function HappeningScreen({navigation}: Props) {
       <View style={{flex: 1}}>
         <Text style={styles.trendingTextStyle}>Trending Events</Text>
         <FlatList
-          data={state.eventData}
+          data={filterDataSource}
           renderItem={renderItem}
           showsVerticalScrollIndicator={false}
-          keyExtractor={item => item.id}
+          keyExtractor={(item: any) => item.id}
           ListEmptyComponent={renderLoader}
         />
       </View>

@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import {createStackNavigator} from '@react-navigation/stack';
 import {NavigationContainer} from '@react-navigation/native';
-import {Linking,Alert} from 'react-native';
+import {Linking, Alert} from 'react-native';
 import {
   SplashScreen,
   SignUpScreen,
@@ -17,11 +17,11 @@ import {COLORS} from 'theme';
 import {RootState} from 'redux/reducers';
 import {splashStateIF} from 'redux/reducers/splashReducer';
 import {authStateIF} from 'redux/reducers/authReducer';
-import { deepStateIF } from 'redux/reducers/deepReducer';
+import {deepStateIF} from 'redux/reducers/deepReducer';
 import {navigationRef} from '../navigators';
 import {CONSTANTS, ROUTES} from '../constants';
-import {AppLinkHandler} from './AppLinkHandler';
-import { TabNavigation } from './TabNavigation';
+import {AppLinkHandler} from '../boot';
+import {TabNavigation} from './TabNavigation';
 
 const Stack = createStackNavigator();
 
@@ -54,7 +54,6 @@ const AppNavigation = () => {
           {
             text: 'OK',
             onPress: () => {
-              console.log('OK Pressed');
               dispatch({type: CONSTANTS.CLEAR_DEEP_LINK_ERROR});
             },
           },

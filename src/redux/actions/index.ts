@@ -1,2 +1,2 @@
-export * from './loginAction';
+export * from './authAction';
 export * from './eventAction';

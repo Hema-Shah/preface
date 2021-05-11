@@ -1,8 +1,8 @@
 import React from 'react';
 import styles from '../style/search-header.style';
 import {COLORS} from 'theme';
-import ArrowLeft from '../../../assets/svgs/arrow_left.svg'
-import Search from '../../../assets/svgs/search.svg'
+import ArrowLeft from '../../../assets/svgs/arrow_left.svg';
+import Search from '../../../assets/svgs/search.svg';
 import {View, TextInput, TouchableOpacity} from 'react-native';
 
 type SearchHeaderProps = {
@@ -36,6 +36,7 @@ export const SearchHeader = ({
           placeholderTextColor={COLORS.lightgrey}
           style={styles.inputTextStyle}
           autoCapitalize={'none'}
+          returnKeyType="done"
         />
       </View>
     </View>

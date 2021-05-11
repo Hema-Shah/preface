@@ -32,24 +32,25 @@ const styles = StyleSheet.create({
 
 const Tab = createBottomTabNavigator();
 
-const CustomTabBarButton = ({onPress}:any) => (
+const CustomTabBarButton = ({onPress, focused}: any) => (
   <TouchableOpacity
     style={styles.logoContainer}
     onPress={onPress}
     activeOpacity={1}>
     <Logo />
   </TouchableOpacity>
-)
+);
 
 const TabNavigation = () => {
   return (
     <Tab.Navigator
-      initialRouteName={ROUTES.TECH_NEWS_TAB}
+      initialRouteName={ROUTES.HAPPENING_TAB}
       tabBarOptions={{
         activeTintColor: COLORS.poloblue,
         showLabel: false,
         style: {borderTopColor: COLORS.lightgrey, borderTopWidth: 2},
-        safeAreaInsets: {bottom: 8},
+        safeAreaInsets: {bottom: 20},
+        keyboardHidesTabBar: true,
       }}>
       <Tab.Screen
         name={ROUTES.TECH_NEWS_TAB}

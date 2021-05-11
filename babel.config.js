@@ -24,7 +24,8 @@ const plugins = [
         "navigators": "./app/navigators/index",
       }
     }
-  ]
+  ],
+  require.resolve('react-native-paper/babel'),
 ];
 
 

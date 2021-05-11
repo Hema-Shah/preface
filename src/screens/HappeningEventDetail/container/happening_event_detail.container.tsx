@@ -2,18 +2,17 @@ import React, {useState} from 'react';
 import {View, Text, Image, TouchableOpacity, Share, Alert} from 'react-native';
 import styles from '../style/happening_event_detail.style';
 import {ButtonWithoutLogo} from '../../../components';
-import {SearchHeader} from '../../../components';
 import Sharable from 'assets/svgs/share.svg';
 import ActiveHeart from 'assets/svgs/heart/active_heart.svg';
 import InActiveHeart from 'assets/svgs/heart/inactive_heart.svg';
-import {mapTime} from '../../../helper';
+import {mapTime} from '../../../helpers';
 
 interface Props {
   navigation: any;
   route: any;
 }
 
-export function HappeningEventDetailScreen({route,navigation}: Props) {
+export function HappeningEventDetailScreen({route, navigation}: Props) {
   const [search, setSearch] = useState('');
   const {
     params: {item},
@@ -23,9 +22,9 @@ export function HappeningEventDetailScreen({route,navigation}: Props) {
     try {
       await Share.share(
         {
-          message: item.description.text,
+          message: item.url,
           url: item.url,
-          title: 'React Native',
+          title: `You're invited to ${item.name.text}`,
         },
         {
           dialogTitle: item.name.text,
@@ -38,15 +37,6 @@ export function HappeningEventDetailScreen({route,navigation}: Props) {
 
   return (
     <View style={styles.mainContainer}>
-      <SearchHeader
-        placeholder={'SEARCH FOR EVENTS'}
-        value={search}
-        showHeaderBack={true}
-        onBackPress={()=>{navigation.goBack()}}
-        onChangeText={text => {
-          setSearch(text);
-        }}
-      />
       <View style={styles.eventContainer}>
         <Image
           source={{uri: item.logo.url}}
@@ -56,11 +46,13 @@ export function HappeningEventDetailScreen({route,navigation}: Props) {
         <View style={styles.eventSubContainer}>
           <View style={styles.eventFirstSubContainer}>
             <Text style={styles.lableNameStyle}>{item.name.text}</Text>
-            <Text style={styles.labelDateStyle}>{mapTime(item.created)}</Text>
-            <Text style={styles.lableDescStyle}>{"Preface Coffee & Wine"}</Text>
+            <Text style={styles.labelDateStyle}>
+              {mapTime(item.start.local)}
+            </Text>
+            <Text style={styles.lableDescStyle}>{'Preface Coffee & Wine'}</Text>
           </View>
           <View style={styles.eventSecondSubContainer}>
-            <ActiveHeart />
+            {/* <ActiveHeart /> */}
             {item.shareable == true && (
               <TouchableOpacity
                 activeOpacity={0.8}
@@ -72,9 +64,9 @@ export function HappeningEventDetailScreen({route,navigation}: Props) {
             )}
           </View>
         </View>
-        <View style={{padding:12}}>
+        <View style={{padding: 12}}>
           <Text style={styles.textStyle}>{item.summary}</Text>
-          <Text style={styles.aboutTextStyle}>{"About this Event"}</Text>
+          <Text style={styles.aboutTextStyle}>{'About this Event'}</Text>
           <Text style={styles.summuryTextStyle}>{item.description.text}</Text>
         </View>
         <ButtonWithoutLogo
