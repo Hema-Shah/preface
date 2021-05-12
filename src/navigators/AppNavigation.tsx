@@ -94,11 +94,13 @@ const AppNavigation = () => {
       <NavigationContainer ref={navigationRef}>
         <Stack.Navigator>
           {state.authenticated ? (
+            <>
             <Stack.Screen
               name={ROUTES.HOME}
               component={TabNavigation}
               options={options}
             />
+            </>
           ) : (
             <>
               <Stack.Screen

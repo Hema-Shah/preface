@@ -17,5 +17,6 @@ export const ROUTES = {
   NOTIFICATION_TAB: 'NotificationTab',
   NOTIFICATION: 'Notification',
   PROFILE_TAB: 'ProfileTab',
-  PROFILE: 'Profile'
+  PROFILE: 'Profile',
+  WEBVIEW: 'WebView',
 };

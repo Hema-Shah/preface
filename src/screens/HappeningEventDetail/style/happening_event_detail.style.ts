@@ -39,33 +39,106 @@ const styles = StyleSheet.create({
     color: COLORS.lightgrey,
     marginTop: 8,
   },
-  textStyle:{
+  textStyle: {
     fontSize: 12,
     lineHeight: 16,
     fontFamily: FONTS.galanoGrotesqueBold,
     color: COLORS.base,
     marginBottom: 16,
-    textAlign:'justify'
+    textAlign: 'justify',
   },
-  aboutTextStyle:{
+  aboutTextStyle: {
     fontSize: 14,
     lineHeight: 19,
     fontFamily: FONTS.galanoGrotesqueBold,
     color: COLORS.lightgrey,
     marginVertical: 8,
   },
-  summuryTextStyle:{
+  summuryTextStyle: {
     fontSize: 12,
     lineHeight: 16,
     fontFamily: FONTS.galanoGrotesqueSemiBold,
     color: COLORS.base,
     marginTop: 8,
-    textAlign:'justify',
-    opacity:0.8
+    textAlign: 'justify',
+    opacity: 0.8,
   },
-  registerBtnStyle:{
-    marginTop:16
+  registerBtnStyle: {
+    marginTop: 16,
   },
+  cardContainer: {
+    borderRadius: 10,
+    marginHorizontal: 12,
+    marginVertical: 24,
+    elevation: 3,
+  },
+  cardTitle: {
+    fontSize: 18,
+    lineHeight: 21,
+    fontFamily: FONTS.galanoGrotesqueBold,
+    color: COLORS.base,
+  },
+  cardSubtitle: {
+    fontSize: 12,
+    lineHeight: 17,
+    fontFamily: FONTS.galanoGrotesqueSemiBold,
+    color: COLORS.lightgrey,
+  },
+  cardLeft: {alignSelf: 'flex-start', marginTop: 8},
+  cardContentTitle: {
+    fontSize: 18,
+    lineHeight: 25,
+    fontFamily: FONTS.galanoGrotesqueSemiBold,
+    color: COLORS.red,
+    marginLeft: 56,
+  },
+  cardBottomContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 16,
+  },
+  pickerStyle: {
+    borderColor: COLORS.base,
+    borderWidth: 1,
+    borderRadius: 10,
+    width: '30%',
+    marginLeft: 24,
+  },
+  personIcon:{marginLeft:4},
+  discoverBtn: {
+    backgroundColor: COLORS.white,
+    borderColor: COLORS.base,
+    borderWidth: 1,
+  },
+  discoverText: {
+    color: COLORS.black,
+  },
+  centeredView:{
+    flex:1,
+    justifyContent:'center',
+    padding:38
+  },
+  centeredSubView:{
+    alignItems:'center',
+    marginVertical: 24,
+  },
+  successOrderTextContainer:{
+      marginVertical: 28
+  },
+  orderSuccess:{
+    fontSize: 24,
+    lineHeight: 28,
+    fontFamily: FONTS.galanoGrotesqueBold,
+    color: COLORS.base,
+    textAlign:'center'
+  },
+  seeEventText:{
+    fontSize: 14,
+    lineHeight: 16,
+    fontFamily: FONTS.galanoGrotesqueSemiBold,
+    color: COLORS.poloblue,
+    textAlign:'center'
+  }
 });
 
 export default styles;

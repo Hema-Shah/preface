@@ -16,7 +16,7 @@ import Happening from '../../../assets/svgs/happening.svg';
 import Ticket from '../../../assets/svgs/ticket.svg';
 import Calendar from '../../../assets/svgs/calendar.svg';
 import {useDispatch, useSelector} from 'react-redux';
-import {EVENT} from '../../../constants';
+import {EVENT, ROUTES} from '../../../constants';
 import {RootState} from 'redux/reducers';
 import {eventStateIF} from 'redux/reducers/eventReducer';
 import Sharable from 'assets/svgs/share.svg';
@@ -151,7 +151,8 @@ export function HappeningScreen({navigation}: Props) {
           <TouchableOpacity
             activeOpacity={0.8}
             onPress={() => {
-              Alert.alert('Calendar');
+              // Alert.alert('Calendar');
+              navigation.navigate(ROUTES.WEBVIEW);
             }}>
             <Calendar />
           </TouchableOpacity>
