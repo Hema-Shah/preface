@@ -2,7 +2,7 @@ import {takeEvery, put, call, delay, select} from 'redux-saga/effects';
 import {Keyboard} from 'react-native';
 import {ISignUpData, Ilogindata, IforgetData, IresetData} from '../../screens';
 import {CONSTANTS} from '../../constants/index';
-import {login, signUp, forgot, signOut, reset, checkForgot} from '../actions';
+import {login, signUp, forgot, signOut, reset, checkForgot, social} from '../actions';
 import {IDeepLinkData, navigate} from '../../navigators';
 import {saveKey, clearKey} from 'helpers';
 
@@ -37,6 +37,20 @@ export function* signUpSaga(action: {
   } catch (error) {
     yield put({
       type: CONSTANTS.SIGNUP_FAILED,
+      message: error.response.data,
+    });
+  }
+}
+
+export function* socialSaga(action: any): Generator {
+  const {payload} = action;
+  try {
+    const {data}: any = yield call(social, payload);
+    saveKey(CONSTANTS.TOKEN, data.access_token);
+    yield put({type: CONSTANTS.SOCIAL_LOGIN_SUCCEEDED, payload: data});
+  } catch (error) {
+    yield put({
+      type: CONSTANTS.SOCIAL_LOGIN_FAILED,
       message: error.response.data,
     });
   }
@@ -110,27 +124,12 @@ export function* signOutSaga(): Generator {
   }
 }
 
-export function* googlelogin(action: any) {
-  yield put({
-    type: CONSTANTS.GOOGLE_LOGIN_SUCCEEDED,
-    payload: action.payload,
-  });
-}
-
-export function* facebooklogin(action: any) {
-  yield put({
-    type: CONSTANTS.FB_LOGIN_SUCCEEDED,
-    payload: action.payload,
-  });
-}
-
 export default function* watchToauthSaga() {
   yield takeEvery(CONSTANTS.SIGNIN_REQUESTED, loginSaga);
   yield takeEvery(CONSTANTS.SIGNUP_REQUESTED, signUpSaga);
+  yield takeEvery(CONSTANTS.SOCIAL_LOGIN_REQUESTED, socialSaga);
   yield takeEvery(CONSTANTS.FORGOT_REQUESTED, forgotSaga);
   yield takeEvery(CONSTANTS.DEEP_LINK_REQUESTED, checkForgotSaga);
   yield takeEvery(CONSTANTS.RESET_PASSWORD_REQUESTED, resetSaga);
   yield takeEvery(CONSTANTS.SIGNOUT_REQUESTED, signOutSaga);
-  yield takeEvery(CONSTANTS.GOOGLE_LOGIN_REQUESTED, googlelogin);
-  yield takeEvery(CONSTANTS.FB_LOGIN_REQUESTED, facebooklogin);
 }

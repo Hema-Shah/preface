@@ -24,7 +24,7 @@ import {
   GraphRequest,
   LoginManager,
 } from 'react-native-fbsdk';
-import {GoogleConfig} from '../../../components/GoogleConfig';
+import {GoogleConfig} from '../../../config';
 import {RootState} from 'redux/reducers';
 import {authStateIF} from 'redux/reducers/authReducer';
 
@@ -96,8 +96,12 @@ export function SignInScreen({navigation}: Props) {
     try {
       await GoogleSignin.hasPlayServices();
       const userinfo = await GoogleSignin.signIn();
-      console.log('User Info ==>', userinfo);
-      dispatch({type: CONSTANTS.GOOGLE_LOGIN_REQUESTED, payload: {userinfo}});
+      let socialData = {
+        email: userinfo.user.email,
+        social_id: userinfo.user.id,
+        login_type: 'Google'
+      }
+      dispatch({type: CONSTANTS.SOCIAL_LOGIN_REQUESTED, payload: {socialData}});
     } catch (error) {
       if (error.code === statusCodes.SIGN_IN_CANCELLED) {
       } else if (error.code === statusCodes.IN_PROGRESS) {

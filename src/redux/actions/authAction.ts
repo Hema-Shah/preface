@@ -1,7 +1,7 @@
 import axios from 'axios';
 import {IDeepLinkData} from 'navigators';
 import qs from 'qs';
-import {IresetData, IforgetData, Ilogindata} from 'screens';
+import {IresetData, IforgetData, Ilogindata, ISignUpData} from 'screens';
 import {client} from '../services';
 
 export async function login(params: Ilogindata) {
@@ -10,10 +10,20 @@ export async function login(params: Ilogindata) {
   return client.post('login', data);
 }
 
-export async function signUp(params: Ilogindata) {
+export async function signUp(params: ISignUpData) {
   const {signUpData}: any = params;
   let data = qs.stringify(signUpData);
   return client.post('register', data);
+}
+
+export async function social(params:{
+  email: string;
+  social_id: string;
+  login_type: string
+}) {
+  const {socialData}: any = params;
+  let data = qs.stringify(socialData);
+  return client.post('login_social', data);
 }
 
 export async function forgot(params: IforgetData) {
