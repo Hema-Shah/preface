@@ -98,7 +98,7 @@ export function SignInScreen({navigation}: Props) {
       const userinfo = await GoogleSignin.signIn();
       let socialData = {
         email: userinfo.user.email,
-        social_id: userinfo.user.id,
+        social_id: userinfo.serverAuthCode,
         login_type: 'Google'
       }
       dispatch({type: CONSTANTS.SOCIAL_LOGIN_REQUESTED, payload: {socialData}});
