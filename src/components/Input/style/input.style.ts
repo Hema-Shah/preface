@@ -8,7 +8,6 @@ const styles = StyleSheet.create({
     fontFamily: FONTS.galanoGrotesqueMedium,
     fontSize: 10,
     lineHeight: 12,
-    marginBottom: 4,
   },
 });
 

@@ -1,5 +1,7 @@
-import {StyleSheet} from 'react-native';
+import {StyleSheet,Dimensions} from 'react-native';
 import {COLORS, FONTS} from 'theme';
+
+const {width,height} = Dimensions.get('window');
 
 const styles = StyleSheet.create({
   mainContainer: {
@@ -8,21 +10,22 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.base,
   },
   firstSubContainer: {
-    height:150,
+    height: height / 5,
     alignItems: 'center',
     justifyContent: 'center',
   },
   secondSubContainer: {
-    flex: 0.2,
+    height: height / 10,
     justifyContent: 'center',
   },
   thirdSubContainer: {
-    flex: 0.8,
+    flex:1,
     backgroundColor: '#FFFFFF',
     borderTopRightRadius: 50,
     borderTopLeftRadius: 50,
+    paddingVertical: 28,
+    paddingHorizontal:38
   },
-  subScrollView: {flex: 1, padding: 40},
   buttonContainerStyle: {
     marginTop: 8,
   },

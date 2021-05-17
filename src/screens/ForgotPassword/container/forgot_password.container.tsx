@@ -8,6 +8,7 @@ import {
   StatusBar,
   Animated,
   Keyboard,
+  useWindowDimensions,
 } from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import styles from '../style/forgot_password.style';
@@ -27,8 +28,10 @@ export interface IforgetData {
 }
 
 export function ForgotPasswordScreen({navigation}: Props) {
+  const {width, height} = useWindowDimensions();
+
   const [email, setEmail] = useState('');
-  const keyboardAnim = useRef(new Animated.Value(150)).current;
+  const keyboardAnim = useRef(new Animated.Value(height / 5)).current;
   const opacity = useRef(new Animated.Value(1)).current;
 
   const dispatch = useDispatch();
@@ -45,31 +48,31 @@ export function ForgotPasswordScreen({navigation}: Props) {
     };
   }, []);
 
-  const _keyboardDidShow = () => {
+  const _keyboardDidShow = (event: {duration: number}) => {
     Animated.parallel([
       Animated.timing(opacity, {
         toValue: 0,
-        duration: 500,
+        duration: event.duration,
         useNativeDriver: false,
       }),
       Animated.timing(keyboardAnim, {
         toValue: 0,
-        duration: 500,
+        duration: event.duration,
         useNativeDriver: false,
       }),
     ]).start();
   };
 
-  const _keyboardDidHide = () => {
+  const _keyboardDidHide = (event: {duration: number}) => {
     Animated.parallel([
       Animated.timing(opacity, {
         toValue: 1,
-        duration: 500,
+        duration: event.duration,
         useNativeDriver: false,
       }),
       Animated.timing(keyboardAnim, {
-        toValue: 150,
-        duration: 500,
+        toValue: height / 5,
+        duration: event.duration,
         useNativeDriver: false,
       }),
     ]).start();
@@ -99,40 +102,36 @@ export function ForgotPasswordScreen({navigation}: Props) {
         <ScrollView
           showsVerticalScrollIndicator={false}
           keyboardShouldPersistTaps={'handled'}>
-          <View style={styles.subScrollView}>
-            <View style={styles.forgotView}>
-              <Text style={styles.forgotText}>
-                Don’t worry! We will send you an email with instructions to
-                reset your password.
-              </Text>
-            </View>
-            <Input
-              placeholder="Email"
-              name="email"
-              onChangeText={text => {
-                setEmail(text);
-                dispatch({type: CONSTANTS.CLEAR_ERROR});
-              }}
-              value={email}
-              message={state.error}
-              text={'Please enter a valid email address.'}
-              valid={FIELD_VALIDATIONS.email(email)}
-            />
+          <View style={styles.forgotView}>
+            <Text style={styles.forgotText}>
+              Don’t worry! We will send you an email with instructions to reset
+              your password.
+            </Text>
           </View>
-        </ScrollView>
-        <View style={{paddingHorizontal: 40}}>
-          <ButtonWithoutLogo
-            onButtonPress={() => {
-              forgetPassword({email: email.toLowerCase()});
+          <Input
+            placeholder="Email"
+            name="email"
+            onChangeText={text => {
+              setEmail(text);
+              dispatch({type: CONSTANTS.CLEAR_ERROR});
             }}
-            disabled={!FIELD_VALIDATIONS.email(email)}
-            name="invalid"
-            buttonTitle={'RESET PASSWORD'}
-            containerStyle={styles.buttonContainerStyle}
+            value={email}
             message={state.error}
-            loading={state.loading}
+            text={'Please enter a valid email address.'}
+            valid={FIELD_VALIDATIONS.email(email)}
           />
-        </View>
+        </ScrollView>
+        <ButtonWithoutLogo
+          onButtonPress={() => {
+            forgetPassword({email: email.toLowerCase()});
+          }}
+          disabled={!FIELD_VALIDATIONS.email(email)}
+          name="invalid"
+          buttonTitle={'RESET PASSWORD'}
+          containerStyle={styles.buttonContainerStyle}
+          message={state.error}
+          loading={state.loading}
+        />
       </KeyboardAvoidingView>
     </SafeAreaView>
   );

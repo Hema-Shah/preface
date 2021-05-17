@@ -1,5 +1,5 @@
 import env from 'react-native-config';
-import {GoogleSignin} from 'react-native-login-google';
+import {GoogleSignin} from '@react-native-google-signin/google-signin';
 
 export const CONFIG = {
   apiURL: env.API_HOST,

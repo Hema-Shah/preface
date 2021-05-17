@@ -68,8 +68,7 @@ const styles = StyleSheet.create({
   },
   cardContainer: {
     borderRadius: 10,
-    marginHorizontal: 12,
-    marginVertical: 24,
+    marginVertical: 16,
     elevation: 3,
   },
   cardTitle: {

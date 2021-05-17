@@ -5,6 +5,7 @@ import {CONSTANTS} from '../../constants/index';
 import {login, signUp, forgot, signOut, reset, checkForgot, social} from '../actions';
 import {IDeepLinkData, navigate} from '../../navigators';
 import {saveKey, clearKey} from 'helpers';
+import { GoogleSignin } from '@react-native-google-signin/google-signin';
 
 export function* loginSaga(action: {
   type: string;
@@ -116,10 +117,10 @@ export function* signOutSaga(): Generator {
   try {
     const {auth}: any = yield select();
     yield call(signOut, auth.accessToken);
+    yield GoogleSignin.signOut();
     clearKey();
     yield put({type: CONSTANTS.SIGNOUT_SUCCEEDED});
   } catch (error) {
-    console.log('Error ==>', error.response);
     yield put({type: CONSTANTS.SIGNOUT_FAILED});
   }
 }

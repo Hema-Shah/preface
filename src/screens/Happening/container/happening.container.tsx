@@ -143,7 +143,7 @@ export function HappeningScreen({navigation}: Props) {
           <TouchableOpacity
             activeOpacity={0.8}
             onPress={() => {
-              Alert.alert('Your Tickets');
+              // Alert.alert('Your Tickets');
             }}>
             <Ticket />
           </TouchableOpacity>
@@ -152,7 +152,6 @@ export function HappeningScreen({navigation}: Props) {
             activeOpacity={0.8}
             onPress={() => {
               // Alert.alert('Calendar');
-              navigation.navigate(ROUTES.WEBVIEW);
             }}>
             <Calendar />
           </TouchableOpacity>
