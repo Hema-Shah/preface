@@ -3,13 +3,13 @@ import {CONSTANTS} from '../../constants/index';
 export interface deepStateIF {
   loading: boolean;
   isError: boolean;
-  message: string;
+  message: any;
 }
 
 const initialState: deepStateIF = {
   loading: false,
   isError: false,
-  message: '',
+  message: [],
 };
 
 const deepReducer = (state = initialState, action: any) => {

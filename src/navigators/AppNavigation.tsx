@@ -46,10 +46,10 @@ const AppNavigation = () => {
   }, []);
 
   useEffect(() => {
-    if (typeof deep.message === 'string' && deep.message.length > 0) {
+    if (typeof deep.message === 'object' && deep.message.invalid) {
       Alert.alert(
         'Error',
-        deep.message,
+        deep.message.invalid[0],
         [
           {
             text: 'OK',
