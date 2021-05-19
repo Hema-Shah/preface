@@ -10,8 +10,8 @@
 				<action android:name="android.intent.action.VIEW" />
 				<category android:name="android.intent.category.DEFAULT" />
 				<category android:name="android.intent.category.BROWSABLE" />
-				<data android:scheme="http" android:host="ec2-18-236-220-155.us-west-2.compute.amazonaws.com" />
-				<!-- <data android:scheme="http" android:host="preface-app-staging.herokuapp.com" /> -->
+				<!-- <data android:scheme="http" android:host="ec2-18-236-220-155.us-west-2.compute.amazonaws.com" /> -->
+				<data android:scheme="http" android:host="preface-app-staging.herokuapp.com" />
 			</intent-filter>
 		</activity>
 		<meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id" />

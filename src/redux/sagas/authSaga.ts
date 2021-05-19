@@ -121,7 +121,7 @@ export function* signOutSaga(): Generator {
     clearKey();
     yield put({type: CONSTANTS.SIGNOUT_SUCCEEDED});
   } catch (error) {
-    yield put({type: CONSTANTS.SIGNOUT_FAILED});
+    yield put({type: CONSTANTS.SIGNOUT_FAILED,message: error.response.data,});
   }
 }
 
