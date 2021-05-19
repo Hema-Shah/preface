@@ -1,4 +1,5 @@
 export * from './Button'
 export * from './SearchHeader'
+export * from './TicketView'
 export * from './Input'
 export * from './EventBrite'

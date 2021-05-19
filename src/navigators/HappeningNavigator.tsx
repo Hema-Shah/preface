@@ -1,6 +1,6 @@
 import React, {Fragment} from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
-import {HappeningScreen, HappeningEventDetailScreen, WebView} from '../screens';
+import {HappeningScreen, HappeningEventDetailScreen, WebView, HappeningTicketScreen} from '../screens';
 import {StatusBar} from 'react-native';
 import {COLORS} from 'theme';
 import {ROUTES} from '../constants';
@@ -28,6 +28,11 @@ const HappeningStack = () => {
         name={ROUTES.HAPPENING_EVENT_DETAIL}
         component={HappeningEventDetailScreen}
         options={eventDetailOptions}
+      />
+      <Stack.Screen
+        name={ROUTES.HAPPENING_TICKETS}
+        component={HappeningTicketScreen}
+        options={options}
       />
       <Stack.Screen
         name={ROUTES.WEBVIEW}

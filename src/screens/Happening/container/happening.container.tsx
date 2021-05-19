@@ -50,7 +50,7 @@ export function HappeningScreen({navigation}: Props) {
         style={styles.eventContainer}
         activeOpacity={0.9}
         onPress={() => {
-          navigation.navigate('HappeningEventDetail', {item});
+          navigation.navigate(ROUTES.HAPPENING_EVENT_DETAIL, {item});
         }}>
         <Image
           source={{uri: item.logo.url}}
@@ -144,6 +144,7 @@ export function HappeningScreen({navigation}: Props) {
             activeOpacity={0.8}
             onPress={() => {
               // Alert.alert('Your Tickets');
+              navigation.navigate(ROUTES.HAPPENING_TICKETS);
             }}>
             <Ticket />
           </TouchableOpacity>

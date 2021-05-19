@@ -12,6 +12,7 @@ export const ROUTES = {
   HAPPENING_TAB: 'HappeningTab',
   HAPPENING: 'Happening',
   HAPPENING_EVENT_DETAIL: 'HappeningEventDetail',
+  HAPPENING_TICKETS: 'HappeningTickets',
   PREFACE_TAB:'PrefaceTab',
   PREFACE:'Preface',
   NOTIFICATION_TAB: 'NotificationTab',
