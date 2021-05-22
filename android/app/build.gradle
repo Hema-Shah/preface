@@ -88,10 +88,10 @@ apply from: "../../node_modules/react-native/react.gradle"
 project.ext.envConfigFiles = [
     // debug: "src/environments/.env.production",
     // release: "src/environments/.env.production"
-    // debug: "src/environments/.env.development",
-    // release: "src/environments/.env.development"
-    debug: "src/environments/.env.staging",
-    release: "src/environments/.env.staging"
+    debug: "src/environments/.env.development",
+    release: "src/environments/.env.development"
+    // debug: "src/environments/.env.staging",
+    // release: "src/environments/.env.staging"
 ]
 
 apply from: project(':react-native-config').projectDir.getPath() + "/dotenv.gradle"

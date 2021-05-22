@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
     elevation: 3,
     borderRadius: 25,
     flexDirection: 'row',
-    overflow:'hidden'
+    overflow:'hidden',
   },
   upcomingFirstSubContainer:{flex:0.05,backgroundColor:COLORS.poloblue},
   upcomingSecondSubContainer: {

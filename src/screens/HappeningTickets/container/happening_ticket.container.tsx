@@ -1,10 +1,11 @@
 import React, {useState} from 'react';
-import {Text, View, useWindowDimensions, FlatList, ActivityIndicator, TouchableOpacity} from 'react-native';
+import {Text, View, useWindowDimensions, FlatList, ActivityIndicator, TouchableOpacity,ImageBackground} from 'react-native';
 import {SearchHeader, TicketView} from '../../../components';
-import styles from '../style/happening_ticket.style';
+import styles from '../style/happening_ticket.modules.scss';
 import {TabView, SceneMap, TabBar} from 'react-native-tab-view';
 import {COLORS} from 'theme';
 import Preface from 'assets/svgs/preface_mini.svg';
+import TicketBG from 'assets/svgs/ticketBG.svg';
 
 interface Props {
   navigation: any;
@@ -43,6 +44,7 @@ const UpcomingRoute = () => {
   const renderItem = ({item}: any) =>{
     return(
         <TouchableOpacity style={styles.upcomingTicketContainet}>
+          {/* <TicketView/> */}
           <View style={styles.upcomingFirstSubContainer}>
           </View>
           <View style={styles.upcomingSecondSubContainer}>
