@@ -7,18 +7,16 @@ import {
   Share,
   Alert,
   Modal,
+  ScrollView,
 } from 'react-native';
 import styles from '../style/happening_event_detail.style';
 import {ButtonWithoutLogo} from '../../../components';
 import Sharable from 'assets/svgs/share.svg';
-import {Card, RadioButton} from 'react-native-paper';
-import {Picker} from '@react-native-picker/picker';
-import Icon from 'react-native-vector-icons/Ionicons';
+import HTMLView from 'react-native-render-html';
 import ActiveHeart from 'assets/svgs/heart/active_heart.svg';
 import InActiveHeart from 'assets/svgs/heart/inactive_heart.svg';
 import Success from 'assets/svgs/success.svg';
-import {mapStartEndTime, mapTime} from '../../../helpers';
-import {COLORS} from 'theme';
+import {mapTime} from '../../../helpers';
 import {ROUTES} from '../../../constants';
 
 interface Props {
@@ -27,9 +25,7 @@ interface Props {
 }
 
 export function HappeningEventDetailScreen({route, navigation}: Props) {
-  const [selectedPerson, setSelectedPerson] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
-  const [isRegister, setIsRegister] = useState(false);
   const {
     params: {item},
   } = route;
@@ -50,15 +46,6 @@ export function HappeningEventDetailScreen({route, navigation}: Props) {
       Alert.alert(error.message);
     }
   };
-
-  const LeftContent = () => (
-    <RadioButton
-      value="first"
-      status={'checked'}
-      onPress={() => {}}
-      color={COLORS.poloblue}
-    />
-  );
 
   return (
     <View style={[styles.mainContainer, {opacity: modalVisible ? 0.1 : 1}]}>
@@ -94,94 +81,64 @@ export function HappeningEventDetailScreen({route, navigation}: Props) {
           />
         </View>
       </Modal>
-      <View style={styles.eventContainer}>
-        <Image
-          source={{uri: item.logo.url}}
-          style={styles.eventImageStyle}
-          resizeMode="stretch"
-        />
-        <View style={styles.eventSubContainer}>
-          <View style={styles.eventFirstSubContainer}>
-            <Text style={styles.lableNameStyle}>{item.name.text}</Text>
-            <Text style={styles.labelDateStyle}>
-              {mapTime(item.start.local)}
-            </Text>
-            <Text style={styles.lableDescStyle}>{'Preface Coffee & Wine'}</Text>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <View style={styles.eventContainer}>
+          <Image
+            source={{uri: item.logo.url}}
+            style={styles.eventImageStyle}
+            resizeMode="stretch"
+          />
+          <View style={styles.eventSubContainer}>
+            <View style={styles.eventFirstSubContainer}>
+              <Text style={styles.lableNameStyle}>{item.name.text}</Text>
+              <Text style={styles.labelDateStyle}>
+                {mapTime(item.start.local)}
+              </Text>
+              <Text style={styles.lableDescStyle}>
+                {item.venue.name +
+                  ' ' +
+                  '\u25CF' +
+                  ' ' +
+                  item.venue.address.city +
+                  ',' +
+                  item.venue.address.region}
+              </Text>
+            </View>
+            <View style={styles.eventSecondSubContainer}>
+              {/* <ActiveHeart /> */}
+              {item.shareable == true && (
+                <TouchableOpacity
+                  activeOpacity={0.8}
+                  onPress={() => {
+                    onShare(item);
+                  }}>
+                  <Sharable />
+                </TouchableOpacity>
+              )}
+            </View>
           </View>
-          <View style={styles.eventSecondSubContainer}>
-            {/* <ActiveHeart /> */}
-            {item.shareable == true && (
-              <TouchableOpacity
-                activeOpacity={0.8}
-                onPress={() => {
-                  onShare(item);
-                }}>
-                <Sharable />
-              </TouchableOpacity>
-            )}
-          </View>
-        </View>
-        {!isRegister ? (
           <View style={{padding: 12}}>
             <Text style={styles.textStyle}>{item.summary}</Text>
-            <Text style={styles.aboutTextStyle}>{'About this Event'}</Text>
-            <Text style={styles.summuryTextStyle}>{item.description.text}</Text>
-          </View>
-        ) : (
-          <Card style={styles.cardContainer}>
-            <Card.Title
-              title={mapStartEndTime(item.start.local, item.end.local)}
-              subtitle="Preface Coffee & Wine"
-              titleStyle={styles.cardTitle}
-              subtitleStyle={styles.cardSubtitle}
-              left={LeftContent}
-              leftStyle={styles.cardLeft}
+            {/* <Text style={styles.aboutTextStyle}>{'About this Event'}</Text> */}
+            <HTMLView
+              source={{html:item.organizer.description.html}}
+              tagsStyles={{p:styles.summuryTextStyle}}
             />
-            <Card.Content>
-              <Text style={styles.cardContentTitle}>
-                {item.is_free ? 'Free!' : 'Paid'}
-              </Text>
-            </Card.Content>
-            <Card.Content style={styles.cardBottomContainer}>
-              <Icon
-                name="person"
-                size={24}
-                color={COLORS.base}
-                style={styles.personIcon}
-              />
-              <View style={styles.pickerStyle}>
-                <Picker
-                  selectedValue={selectedPerson}
-                  mode="dialog"
-                  dropdownIconColor={COLORS.poloblue}
-                  style={{height: 40}}
-                  onValueChange={(itemValue, itemIndex) =>
-                    setSelectedPerson(itemValue)
-                  }>
-                  {[...Array(10)].map((_, i) => {
-                    return (
-                      <Picker.Item label={`0${i}`} value={`0${i}`} key={i} />
-                    );
-                  })}
-                </Picker>
-              </View>
-            </Card.Content>
-          </Card>
-        )}
-        <ButtonWithoutLogo
-          onButtonPress={() => {
-            !isRegister
-              ? setIsRegister(true)
-              : navigation.navigate(ROUTES.WEBVIEW,{id: item.id});
-          }}
-          // disabled={!FIELD_VALIDATIONS.email(email)}
-          name="invalid"
-          buttonTitle={!isRegister ? 'REGISTER NOW' : 'CONFIRM'}
-          containerStyle={styles.registerBtnStyle}
-          // message={state.error}
-          // loading={state.loading}
-        />
-      </View>
+            {/* <Text style={styles.summuryTextStyle}>{item.organizer.description.text}</Text> */}
+          </View>
+          <ButtonWithoutLogo
+            onButtonPress={() => {
+              navigation.navigate(ROUTES.WEBVIEW, {id: item.id});
+            }}
+            // disabled={!FIELD_VALIDATIONS.email(email)}
+            name="invalid"
+            buttonTitle={'REGISTER NOW'}
+            containerStyle={styles.registerBtnStyle}
+            // message={state.error}
+            // loading={state.loading}
+          />
+        </View>
+      </ScrollView>
     </View>
   );
 }

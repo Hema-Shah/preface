@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {Text, View, useWindowDimensions, FlatList, ActivityIndicator, TouchableOpacity,ImageBackground} from 'react-native';
 import {SearchHeader, TicketView} from '../../../components';
-import styles from '../style/happening_ticket.modules.scss';
+import styles from '../style/happening_ticket.style'
 import {TabView, SceneMap, TabBar} from 'react-native-tab-view';
 import {COLORS} from 'theme';
 import Preface from 'assets/svgs/preface_mini.svg';

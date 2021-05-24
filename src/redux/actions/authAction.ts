@@ -49,3 +49,7 @@ export async function signOut(accessToken: any) {
     headers: {'Authorization': `Bearer ${accessToken}`},
   });
 }
+
+export async function checkout(event_ID: string) {
+  return client.get(`event-payment-checkout/${event_ID}`);
+}

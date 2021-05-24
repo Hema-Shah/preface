@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
   summuryTextStyle: {
     fontSize: 12,
     lineHeight: 16,
-    fontFamily: FONTS.galanoGrotesqueSemiBold,
+    fontFamily: FONTS.galanoGrotesqueMedium,
     color: COLORS.base,
     marginTop: 8,
     textAlign: 'justify',

@@ -63,7 +63,15 @@ export function HappeningScreen({navigation}: Props) {
             <Text style={styles.labelDateStyle}>
               {mapTime(item.start.local)}
             </Text>
-            <Text style={styles.lableDescStyle}>{'Preface Coffee & Wine'}</Text>
+            <Text style={styles.lableDescStyle}>
+              {item.venue.name +
+                ' ' +
+                '\u25CF' +
+                ' ' +
+                item.venue.address.city +
+                ',' +
+                item.venue.address.region}
+            </Text>
           </View>
           <View style={styles.eventSecondSubContainer}>
             {/* <ActiveHeart /> */}
@@ -167,6 +175,7 @@ export function HappeningScreen({navigation}: Props) {
           showsVerticalScrollIndicator={false}
           keyExtractor={(item: any) => item.id}
           ListEmptyComponent={renderLoader}
+          contentContainerStyle={{paddingBottom:16}}
         />
       </View>
     </View>
