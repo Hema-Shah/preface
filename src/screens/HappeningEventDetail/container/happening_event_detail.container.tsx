@@ -8,7 +8,14 @@ import {
   Alert,
   Modal,
   ScrollView,
+  ActivityIndicator,
+  StyleSheet,
 } from 'react-native';
+import _ from 'lodash';
+import {useSelector} from 'react-redux';
+import {RootState} from 'redux/reducers';
+import {COLORS, FONTS} from 'theme';
+import {eventStateIF} from 'redux/reducers/eventReducer';
 import styles from '../style/happening_event_detail.style';
 import {ButtonWithoutLogo} from '../../../components';
 import Sharable from 'assets/svgs/share.svg';
@@ -25,6 +32,7 @@ interface Props {
 }
 
 export function HappeningEventDetailScreen({route, navigation}: Props) {
+  const state = useSelector((state: RootState): eventStateIF => state.event);
   const [modalVisible, setModalVisible] = useState(false);
   const {
     params: {item},
@@ -45,6 +53,14 @@ export function HappeningEventDetailScreen({route, navigation}: Props) {
     } catch (error) {
       Alert.alert(error.message);
     }
+  };
+
+  const renderLoader = () => {
+    return state.loading ? (
+      <View style={{paddingVertical: 8}}>
+        <ActivityIndicator animating size={'small'} color={COLORS.base} />
+      </View>
+    ) : null;
   };
 
   return (
@@ -97,10 +113,10 @@ export function HappeningEventDetailScreen({route, navigation}: Props) {
               <Text style={styles.lableDescStyle}>
                 {item.venue.name +
                   ' ' +
-                  '\u25CF' +
+                  '\u2022' +
                   ' ' +
                   item.venue.address.city +
-                  ',' +
+                  ', ' +
                   item.venue.address.region}
               </Text>
             </View>
@@ -119,11 +135,15 @@ export function HappeningEventDetailScreen({route, navigation}: Props) {
           </View>
           <View style={{padding: 12}}>
             <Text style={styles.textStyle}>{item.summary}</Text>
-            {/* <Text style={styles.aboutTextStyle}>{'About this Event'}</Text> */}
-            <HTMLView
-              source={{html:item.organizer.description.html}}
-              tagsStyles={{p:styles.summuryTextStyle}}
-            />
+            <Text style={styles.aboutTextStyle}>{'About this Event'}</Text>
+            {state.loading ? (
+              renderLoader()
+            ) : (
+              <HTMLView
+                source={{html: state.structureData.join('')}}
+                tagsStyles={htmlStyles}
+              />
+            )}
             {/* <Text style={styles.summuryTextStyle}>{item.organizer.description.text}</Text> */}
           </View>
           <ButtonWithoutLogo
@@ -142,3 +162,24 @@ export function HappeningEventDetailScreen({route, navigation}: Props) {
     </View>
   );
 }
+
+const htmlStyles = StyleSheet.create({
+  p: {
+    fontSize: 12,
+    lineHeight: 16,
+    fontFamily: FONTS.galanoGrotesqueMedium,
+    textAlign: 'justify',
+  },
+  li: {
+    fontSize: 12,
+    lineHeight: 16,
+    fontFamily: FONTS.galanoGrotesqueMedium,
+    textAlign: 'justify',
+  },
+  a: {
+    fontSize: 12,
+    lineHeight: 16,
+    fontFamily: FONTS.galanoGrotesqueMedium,
+    textAlign: 'justify',
+  }
+})

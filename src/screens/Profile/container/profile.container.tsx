@@ -1,6 +1,8 @@
 import * as React from 'react';
 import {View, Text} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
+import { CONFIG } from 'config';
+import { getBuildNumber } from 'react-native-device-info';
 import styles from '../style/profile.style';
 import {ButtonWithoutLogo} from '../../../components';
 import {CONSTANTS} from '../../../constants';
@@ -19,7 +21,7 @@ export function ProfileScreen({navigation}: Props) {
   };
   return (
     <View style={styles.mainContainer}>
-      <Text>Profile Screen</Text>
+      <Text>{`Version: ${getBuildNumber()}(${CONFIG.environment})`}</Text>
       <ButtonWithoutLogo
         onButtonPress={() => {
           Logout();

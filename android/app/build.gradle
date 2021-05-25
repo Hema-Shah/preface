@@ -148,10 +148,6 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
-    // lintOptions { 
-    // checkReleaseBuilds true
-    // }
-
     defaultConfig {
         applicationId "com.preface"
         minSdkVersion rootProject.ext.minSdkVersion

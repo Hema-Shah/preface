@@ -1,9 +1,10 @@
+import { heightPercentageToDP } from 'helpers';
 import {StyleSheet} from 'react-native';
 import { COLORS, FONTS } from 'theme';
 
 const styles = StyleSheet.create({
     buttonViewStyle:{
-        paddingVertical:13,
+        paddingVertical:heightPercentageToDP(2),
         borderColor:COLORS.base,
         borderWidth:1,
         borderRadius:5,

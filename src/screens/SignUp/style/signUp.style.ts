@@ -1,7 +1,6 @@
-import {StyleSheet,Dimensions} from 'react-native';
+import {StyleSheet} from 'react-native';
 import {COLORS, FONTS} from 'theme';
-
-const {width,height} = Dimensions.get('window');
+import { heightPercentageToDP} from 'helpers';
 
 const styles = StyleSheet.create({
   mainContainer: {
@@ -10,12 +9,12 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.base,
   },
   firstSubContainer: {
-    height: height / 5,
+    height: heightPercentageToDP(15),
     alignItems: 'center',
     justifyContent: 'center',
   },
   secondSubContainer: {
-    height: height / 10,
+    height: heightPercentageToDP(8),
     justifyContent: 'center',
   },
   thirdSubContainer: {
@@ -23,8 +22,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
     borderTopRightRadius: 50,
     borderTopLeftRadius: 50,
-    paddingVertical: 28,
-    paddingHorizontal:38
+    paddingHorizontal:heightPercentageToDP(4),
+    paddingVertical:heightPercentageToDP(3)
   },
   buttonContainerStyle: {
     marginTop: 8,
@@ -44,7 +43,7 @@ const styles = StyleSheet.create({
     color: COLORS.base,
   },
   buttonLogoContainer: {
-    marginBottom: 24,
+    marginBottom: heightPercentageToDP(3),
   },
 });
 

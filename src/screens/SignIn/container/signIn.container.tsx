@@ -9,7 +9,6 @@ import {
   StatusBar,
   Animated,
   Keyboard,
-  useWindowDimensions,
 } from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import styles from '../style/signIn.style';
@@ -17,7 +16,10 @@ import MainLogo from '../../../assets/svgs/main_logo.svg';
 import {ButtonWithoutLogo, ButtonWithLogo, Input} from '../../../components';
 import {COLORS} from 'theme';
 import {CONSTANTS, FIELD_VALIDATIONS} from '../../../constants';
-import {GoogleSignin, statusCodes} from '@react-native-google-signin/google-signin';
+import {
+  GoogleSignin,
+  statusCodes,
+} from '@react-native-google-signin/google-signin';
 import {
   AccessToken,
   GraphRequestManager,
@@ -27,6 +29,7 @@ import {
 import {GoogleConfig} from '../../../config';
 import {RootState} from 'redux/reducers';
 import {authStateIF} from 'redux/reducers/authReducer';
+import {heightPercentageToDP} from 'helpers';
 
 interface Props {
   navigation: any;
@@ -38,11 +41,11 @@ export interface Ilogindata {
 }
 
 export function SignInScreen({navigation}: Props) {
-  const {width, height} = useWindowDimensions();
-
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const keyboardAnim = useRef(new Animated.Value(height / 5)).current;
+  const keyboardAnim = useRef(
+    new Animated.Value(heightPercentageToDP(18)),
+  ).current;
   const opacity = useRef(new Animated.Value(1)).current;
 
   const dispatch = useDispatch();
@@ -83,7 +86,7 @@ export function SignInScreen({navigation}: Props) {
         useNativeDriver: false,
       }),
       Animated.timing(keyboardAnim, {
-        toValue: height / 5,
+        toValue: heightPercentageToDP(18),
         duration: event.duration,
         useNativeDriver: false,
       }),
@@ -222,7 +225,6 @@ export function SignInScreen({navigation}: Props) {
             buttonTitle={'Continue with Google'}
             containerStyle={styles.buttonContainerStyle}
           />
-
           <ButtonWithLogo
             onButtonPress={() => {
               FBLogin();

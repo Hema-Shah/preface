@@ -64,6 +64,7 @@ export const Input = ({
         secureTextEntry={isShow}
         autoCapitalize={'none'}
         style={styles.textInputStyle}
+        underlineColorAndroid='transparent'
         right={
           secure && (
             <TextInput.Icon

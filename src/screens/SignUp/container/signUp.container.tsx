@@ -9,7 +9,6 @@ import {
   StatusBar,
   Animated,
   Keyboard,
-  useWindowDimensions,
 } from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import styles from '../style/signUp.style';
@@ -27,6 +26,7 @@ import {
 import {GoogleConfig} from '../../../config';
 import {RootState} from 'redux/reducers';
 import {authStateIF} from 'redux/reducers/authReducer';
+import { heightPercentageToDP } from 'helpers';
 
 interface Props {
   navigation: any;
@@ -39,12 +39,10 @@ export interface ISignUpData {
 }
 
 export function SignUpScreen({navigation}: Props) {
-  const {width, height} = useWindowDimensions();
-
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirm_password, setConfirmPassword] = useState('');
-  const keyboardAnim = useRef(new Animated.Value(height / 5)).current;
+  const keyboardAnim = useRef(new Animated.Value(heightPercentageToDP(15))).current;
   const opacity = useRef(new Animated.Value(1)).current;
 
   const dispatch = useDispatch();
@@ -89,7 +87,7 @@ export function SignUpScreen({navigation}: Props) {
         useNativeDriver: false,
       }),
       Animated.timing(keyboardAnim, {
-        toValue: height / 5,
+        toValue: heightPercentageToDP(15),
         duration: event.duration,
         useNativeDriver: false,
       }),

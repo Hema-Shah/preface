@@ -50,6 +50,8 @@ export function* socialSaga(action: any): Generator {
     saveKey(CONSTANTS.TOKEN, data.access_token);
     yield put({type: CONSTANTS.SOCIAL_LOGIN_SUCCEEDED, payload: data});
   } catch (error) {
+    yield GoogleSignin.revokeAccess();
+    yield GoogleSignin.signOut();
     yield put({
       type: CONSTANTS.SOCIAL_LOGIN_FAILED,
       message: error.response.data,
@@ -117,10 +119,16 @@ export function* signOutSaga(): Generator {
   try {
     const {auth}: any = yield select();
     yield call(signOut, auth.accessToken);
-    yield GoogleSignin.signOut();
+    if(auth.isGoogleLogin){
+      console.log("SignOut")
+      yield GoogleSignin.revokeAccess();
+      yield GoogleSignin.signOut();
+    }
     clearKey();
     yield put({type: CONSTANTS.SIGNOUT_SUCCEEDED});
   } catch (error) {
+    console.log("Error ==>",error);
+    console.log("Signout ==>",error.response)
     yield put({type: CONSTANTS.SIGNOUT_FAILED,message: error.response.data,});
   }
 }

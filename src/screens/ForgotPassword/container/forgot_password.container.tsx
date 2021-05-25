@@ -8,7 +8,6 @@ import {
   StatusBar,
   Animated,
   Keyboard,
-  useWindowDimensions,
 } from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import styles from '../style/forgot_password.style';
@@ -18,6 +17,7 @@ import {CONSTANTS, FIELD_VALIDATIONS} from '../../../constants';
 import {RootState} from 'redux/reducers';
 import {authStateIF} from 'redux/reducers/authReducer';
 import {COLORS} from 'theme';
+import {heightPercentageToDP} from 'helpers';
 
 interface Props {
   navigation: any;
@@ -28,10 +28,10 @@ export interface IforgetData {
 }
 
 export function ForgotPasswordScreen({navigation}: Props) {
-  const {width, height} = useWindowDimensions();
-
   const [email, setEmail] = useState('');
-  const keyboardAnim = useRef(new Animated.Value(height / 5)).current;
+  const keyboardAnim = useRef(
+    new Animated.Value(heightPercentageToDP(18)),
+  ).current;
   const opacity = useRef(new Animated.Value(1)).current;
 
   const dispatch = useDispatch();
@@ -71,7 +71,7 @@ export function ForgotPasswordScreen({navigation}: Props) {
         useNativeDriver: false,
       }),
       Animated.timing(keyboardAnim, {
-        toValue: height / 5,
+        toValue: heightPercentageToDP(18),
         duration: event.duration,
         useNativeDriver: false,
       }),
@@ -99,15 +99,11 @@ export function ForgotPasswordScreen({navigation}: Props) {
         <Text style={styles.forgotTextStyle}>Forgot Password?</Text>
       </View>
       <KeyboardAvoidingView style={styles.thirdSubContainer}>
-        <ScrollView
-          showsVerticalScrollIndicator={false}
-          keyboardShouldPersistTaps={'handled'}>
-          <View style={styles.forgotView}>
-            <Text style={styles.forgotText}>
-              Don’t worry! We will send you an email with instructions to reset
-              your password.
-            </Text>
-          </View>
+        <View>
+          <Text style={styles.forgotText}>
+            Don’t worry! We will send you an email with instructions to reset
+            your password.
+          </Text>
           <Input
             placeholder="Email"
             name="email"
@@ -120,7 +116,7 @@ export function ForgotPasswordScreen({navigation}: Props) {
             text={'Please enter a valid email address.'}
             valid={FIELD_VALIDATIONS.email(email)}
           />
-        </ScrollView>
+        </View>
         <ButtonWithoutLogo
           onButtonPress={() => {
             forgetPassword({email: email.toLowerCase()});

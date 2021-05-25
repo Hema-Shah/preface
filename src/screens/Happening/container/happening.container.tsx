@@ -28,6 +28,10 @@ interface Props {
   navigation: any;
 }
 
+export interface IStructuredData {
+  id: string;
+}
+
 export function HappeningScreen({navigation}: Props) {
   const state = useSelector((state: RootState): eventStateIF => state.event);
   const [search, setSearch] = useState('');
@@ -50,6 +54,10 @@ export function HappeningScreen({navigation}: Props) {
         style={styles.eventContainer}
         activeOpacity={0.9}
         onPress={() => {
+          dispatch({
+            type: EVENT.GET_STRUCTURED_CONTENT_REQUESTED,
+            payload: {id: item.id},
+          });
           navigation.navigate(ROUTES.HAPPENING_EVENT_DETAIL, {item});
         }}>
         <Image
@@ -66,10 +74,10 @@ export function HappeningScreen({navigation}: Props) {
             <Text style={styles.lableDescStyle}>
               {item.venue.name +
                 ' ' +
-                '\u25CF' +
+                '\u2022' +
                 ' ' +
                 item.venue.address.city +
-                ',' +
+                ', ' +
                 item.venue.address.region}
             </Text>
           </View>
@@ -175,7 +183,7 @@ export function HappeningScreen({navigation}: Props) {
           showsVerticalScrollIndicator={false}
           keyExtractor={(item: any) => item.id}
           ListEmptyComponent={renderLoader}
-          contentContainerStyle={{paddingBottom:16}}
+          contentContainerStyle={{paddingBottom: 16}}
         />
       </View>
     </View>

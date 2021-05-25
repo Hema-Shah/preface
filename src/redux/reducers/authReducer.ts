@@ -8,6 +8,7 @@ export interface authStateIF {
   isError: boolean;
   error: any;
   message: string;
+  isGoogleLogin: boolean;
 }
 
 const initialState: authStateIF = {
@@ -16,31 +17,33 @@ const initialState: authStateIF = {
   userData: [],
   loading: false,
   isError: false,
-  error: <any>[],
+  error: [],
   message: '',
+  isGoogleLogin: false,
 };
 
 const authReducer = (state = initialState, action: any) => {
   switch (action.type) {
-    case CONSTANTS.SPLASH_SCREEN:
-      return {...state, isSplash: false, error: ''};
-
     case CONSTANTS.SIGNIN_REQUESTED:
     case CONSTANTS.SIGNUP_REQUESTED:
-    case CONSTANTS.SOCIAL_LOGIN_REQUESTED:
     case CONSTANTS.FORGOT_REQUESTED:
     case CONSTANTS.RESET_PASSWORD_REQUESTED:
       return loginRequest(state, action);
 
     case CONSTANTS.SIGNIN_SUCCEEDED:
-    case CONSTANTS.SOCIAL_LOGIN_SUCCEEDED:
     case CONSTANTS.SIGNUP_SUCCEEDED:
       return loginSuccess(state, action);
 
     case CONSTANTS.SIGNIN_FAILED:
-    case CONSTANTS.SOCIAL_LOGIN_FAILED:
     case CONSTANTS.SIGNUP_FAILED:
       return loginFailed(state, action);
+
+    case CONSTANTS.SOCIAL_LOGIN_REQUESTED:
+      return socialLoginRequest(state,action);
+    case CONSTANTS.SOCIAL_LOGIN_SUCCEEDED:
+      return socialLoginSuccess(state,action);
+    case CONSTANTS.SOCIAL_LOGIN_FAILED:
+      return socialLoginFailed(state,action);
 
     case CONSTANTS.RESET_PASSWORD_SUCCEEDED:
     case CONSTANTS.FORGOT_SUCCEEDED:
@@ -75,6 +78,10 @@ const authReducer = (state = initialState, action: any) => {
 
 export default authReducer;
 
+function loginRequest(state: authStateIF, action: any) {
+  return {...state, loading: true, error: ''};
+}
+
 function loginSuccess(state: authStateIF, action: any) {
   const {data, access_token} = action.payload;
   return {
@@ -86,6 +93,7 @@ function loginSuccess(state: authStateIF, action: any) {
     error: '',
   };
 }
+
 function loginFailed(state: authStateIF, action: any) {
   const {response} = action.message;
   return {
@@ -96,6 +104,32 @@ function loginFailed(state: authStateIF, action: any) {
     error: response,
   };
 }
-function loginRequest(state: authStateIF, action: any) {
+
+function socialLoginRequest(state: authStateIF, action: any) {
   return {...state, loading: true, error: ''};
+}
+
+function socialLoginSuccess(state: authStateIF, action: any) {
+  const {data, access_token} = action.payload;
+  return {
+    ...state,
+    authenticated: true,
+    accessToken: access_token,
+    userData: data,
+    loading: false,
+    isGoogleLogin: true,
+    error: ''
+  };
+}
+
+function socialLoginFailed(state: authStateIF, action: any) {
+  const {response} = action.message;
+  return {
+    ...state,
+    authenticated: false,
+    isError: true,
+    loading: false,
+    isGoogleLogin: false,
+    error: response,
+  };
 }
