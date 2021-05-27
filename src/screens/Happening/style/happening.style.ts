@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   eventSeparator: {
-    height:16
+    height: 16,
   },
   eventSubContainer: {flexDirection: 'row'},
   eventFirstSubContainer: {flex: 0.9},
@@ -56,6 +56,11 @@ const styles = StyleSheet.create({
     fontFamily: FONTS.galanoGrotesqueBold,
     color: COLORS.poloblue,
     marginTop: 8,
+  },
+  noEvent: {alignItems: 'center'},
+  noEventTextStyle: {
+    fontFamily: FONTS.galanoGrotesqueMedium,
+    color: COLORS.base,
   },
   lableDescStyle: {
     fontSize: 12,

@@ -15,11 +15,19 @@
       },
       "oauth_client": [
         {
-          "client_id": "187661395493-4uvgolutp712h8u2hja298m1nfhbea31.apps.googleusercontent.com",
+          "client_id": "187661395493-01q6han09b77ro6a20db9ts5pj7297rk.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.example.fluttergooglelogin",
-            "certificate_hash": "97e4004adc62ec8fa81c17f0d073cb8fd80944ac"
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "187661395493-779tj7rjcmf9pn674jes8khnj7judtio.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.fluttergooglelogin",
+            "certificate_hash": "71c96dab774c440d1a802aa2d4eb41276d6e5994"
           }
         },
         {
@@ -52,19 +60,19 @@
       },
       "oauth_client": [
         {
-          "client_id": "187661395493-ebjire8b8pjbau3ik09d65p1v4dlp064.apps.googleusercontent.com",
+          "client_id": "187661395493-350rh3imk95kmn93v6numathhoafh023.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.preface",
+            "certificate_hash": "71c96dab774c440d1a802aa2d4eb41276d6e5994"
+          }
+        },
+        {
+          "client_id": "187661395493-nuno1fgc4mev96lo2r3pf533adru05bb.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.preface",
             "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
-          }
-        },
-        {
-          "client_id": "187661395493-kn8teumvjoqcdcg9dhuermuo4pimffmu.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.preface",
-            "certificate_hash": "12ba9cf6049902aabab791d3bf8f38bd05a13d33"
           }
         },
         {

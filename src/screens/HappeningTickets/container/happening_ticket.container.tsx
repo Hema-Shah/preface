@@ -1,7 +1,15 @@
 import React, {useState} from 'react';
-import {Text, View, useWindowDimensions, FlatList, ActivityIndicator, TouchableOpacity,ImageBackground} from 'react-native';
+import {
+  Text,
+  View,
+  useWindowDimensions,
+  FlatList,
+  ActivityIndicator,
+  TouchableOpacity,
+  ImageBackground,
+} from 'react-native';
 import {SearchHeader, TicketView} from '../../../components';
-import styles from '../style/happening_ticket.style'
+import styles from '../style/happening_ticket.style';
 import {TabView, SceneMap, TabBar} from 'react-native-tab-view';
 import {COLORS} from 'theme';
 import Preface from 'assets/svgs/preface_mini.svg';
@@ -11,58 +19,57 @@ interface Props {
   navigation: any;
 }
 
-const DATA = [
-{
-  id: 1,
-  name: 'Learn Python & Web Scraping With Any Website Like Nike!',
-  description:'Preface Coffee & Wine',
-  date:'Wed, April 28. 2021'
-},
-{
-  id: 2,
-  name: 'Learn Python & Web Scraping With Any Website Like Nike!',
-  description:'Preface Coffee & Wine',
-  date:'Wed, April 28. 2021'
-},
-{
-  id: 3,
-  name: 'Learn Python & Web Scraping With Any Website Like Nike!',
-  description:'Preface Coffee & Wine',
-  date:'Wed, April 28. 2021'
-},
-{
-  id: 4,
-  name: 'Learn Python & Web Scraping With Any Website Like Nike!',
-  description:'Preface Coffee & Wine',
-  date:'Wed, April 28. 2021'
-},
-]
+const UPCOMING_DATA = [
+  {
+    id: 1,
+    name: 'Learn Python & Web Scraping With Any Website Like Nike!',
+    description: 'Preface Coffee & Wine',
+    date: 'Wed, April 28. 2021',
+  },
+  {
+    id: 2,
+    name: 'Learn Python & Web Scraping With Any Website Like Nike!',
+    description: 'Preface Coffee & Wine',
+    date: 'Wed, April 28. 2021',
+  },
+  {
+    id: 3,
+    name: 'Learn Python & Web Scraping With Any Website Like Nike!',
+    description: 'Preface Coffee & Wine',
+    date: 'Wed, April 28. 2021',
+  },
+  {
+    id: 4,
+    name: 'Learn Python & Web Scraping With Any Website Like Nike!',
+    description: 'Preface Coffee & Wine',
+    date: 'Wed, April 28. 2021',
+  },
+];
 
+const PAST_DATA: readonly any[] | null | undefined = [];
 
 const UpcomingRoute = () => {
-
-  const renderItem = ({item}: any) =>{
-    return(
-        <TouchableOpacity style={styles.upcomingTicketContainet}>
-          {/* <TicketView/> */}
-          <View style={styles.upcomingFirstSubContainer}>
-          </View>
-          <View style={styles.upcomingSecondSubContainer}>
-            <View style={{width:"15%",alignItems:'center'}}>
+  const renderItem = ({item}: any) => {
+    return (
+      <TouchableOpacity style={styles.upcomingTicketContainet}>
+        {/* <TicketView/> */}
+        <View style={styles.upcomingFirstSubContainer}></View>
+        <View style={styles.upcomingSecondSubContainer}>
+          <View style={{width: '15%', alignItems: 'center'}}>
             <Preface />
-            </View>
-            <View style={{width:"85%",justifyContent:'center'}}>
-              <Text style={styles.titleTextStyle}>{item.name}</Text>
-              <Text style={styles.descTextStyle}>{item.description}</Text>
-            </View>
           </View>
-          <View style={styles.upcomingThirdSubContainer}>
-            <Text style={styles.dateTextStyle}>{"Date"}</Text>
-            <Text style={styles.formattedDateTextStyle}>{item.date}</Text>
+          <View style={{width: '85%', justifyContent: 'center'}}>
+            <Text style={styles.titleTextStyle}>{item.name}</Text>
+            <Text style={styles.descTextStyle}>{item.description}</Text>
           </View>
-        </TouchableOpacity>
+        </View>
+        <View style={styles.upcomingThirdSubContainer}>
+          <Text style={styles.dateTextStyle}>{'Date'}</Text>
+          <Text style={styles.formattedDateTextStyle}>{item.date}</Text>
+        </View>
+      </TouchableOpacity>
     );
-  } 
+  };
 
   // const renderLoader = () => {
   //   return state.loading ? (
@@ -75,7 +82,7 @@ const UpcomingRoute = () => {
   return (
     <View style={styles.wrapperContainer}>
       <FlatList
-        data={DATA}
+        data={UPCOMING_DATA}
         renderItem={renderItem}
         showsVerticalScrollIndicator={false}
         keyExtractor={(item: any) => item.id}
@@ -85,7 +92,40 @@ const UpcomingRoute = () => {
   );
 };
 
-const PastRoute = () => <View style={styles.wrapperContainer} />;
+const PastRoute = () => {
+
+  const renderItem = ({item}: any) => {
+    return (
+      <TouchableOpacity style={styles.upcomingTicketContainet}>
+        {/* <TicketView/> */}
+        <View style={styles.upcomingFirstSubContainer}></View>
+        <View style={styles.upcomingSecondSubContainer}>
+          <View style={{width: '15%', alignItems: 'center'}}>
+            <Preface />
+          </View>
+          <View style={{width: '85%', justifyContent: 'center'}}>
+            <Text style={styles.titleTextStyle}>{item.name}</Text>
+            <Text style={styles.descTextStyle}>{item.description}</Text>
+          </View>
+        </View>
+        <View style={styles.upcomingThirdSubContainer}>
+          <Text style={styles.dateTextStyle}>{'Date'}</Text>
+          <Text style={styles.formattedDateTextStyle}>{item.date}</Text>
+        </View>
+      </TouchableOpacity>
+    );
+  };
+
+  return <View style={styles.wrapperContainer}>
+    <FlatList
+        data={PAST_DATA}
+        renderItem={renderItem}
+        showsVerticalScrollIndicator={false}
+        keyExtractor={(item: any) => item.id}
+        // ListEmptyComponent={renderLoader}
+      />
+  </View>;
+};
 
 export function HappeningTicketScreen({navigation}: Props) {
   const {width} = useWindowDimensions();

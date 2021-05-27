@@ -72,13 +72,15 @@ export function HappeningScreen({navigation}: Props) {
               {mapTime(item.start.local)}
             </Text>
             <Text style={styles.lableDescStyle}>
-              {item.venue.name +
-                ' ' +
-                '\u2022' +
-                ' ' +
-                item.venue.address.city +
-                ', ' +
-                item.venue.address.region}
+              {item.venue != null
+                ? item.venue.name +
+                  ' ' +
+                  '\u2022' +
+                  ' ' +
+                  item.venue.address.city +
+                  ', ' +
+                  item.venue.address.region
+                : 'N/A'}
             </Text>
           </View>
           <View style={styles.eventSecondSubContainer}>
@@ -145,8 +147,12 @@ export function HappeningScreen({navigation}: Props) {
     //   </View>
     // )
     return state.loading ? (
-      <View style={{paddingVertical: 8}}>
+      <View style={styles.noEvent}>
         <ActivityIndicator animating size={'large'} color={COLORS.base} />
+      </View>
+    ) : _.isEmpty(state.eventData) ? (
+      <View style={styles.noEvent}>
+        <Text style={styles.noEventTextStyle}>No Events Found!</Text>
       </View>
     ) : null;
   };

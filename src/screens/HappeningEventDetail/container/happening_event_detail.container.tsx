@@ -111,13 +111,15 @@ export function HappeningEventDetailScreen({route, navigation}: Props) {
                 {mapTime(item.start.local)}
               </Text>
               <Text style={styles.lableDescStyle}>
-                {item.venue.name +
-                  ' ' +
-                  '\u2022' +
-                  ' ' +
-                  item.venue.address.city +
-                  ', ' +
-                  item.venue.address.region}
+                {item.venue != null
+                  ? item.venue.name +
+                    ' ' +
+                    '\u2022' +
+                    ' ' +
+                    item.venue.address.city +
+                    ', ' +
+                    item.venue.address.region
+                  : 'N/A'}
               </Text>
             </View>
             <View style={styles.eventSecondSubContainer}>
@@ -181,5 +183,5 @@ const htmlStyles = StyleSheet.create({
     lineHeight: 16,
     fontFamily: FONTS.galanoGrotesqueMedium,
     textAlign: 'justify',
-  }
-})
+  },
+});
