@@ -9,6 +9,7 @@ import {
   Share,
   TouchableOpacity,
 } from 'react-native';
+import _ from 'lodash';
 import {COLORS} from 'theme';
 import styles from '../style/happening.style';
 import {SearchHeader} from '../../../components';
@@ -51,7 +52,6 @@ export function HappeningScreen({navigation}: Props) {
   const renderItem = ({item}: any) => {
     return (
       <TouchableOpacity
-        style={styles.eventContainer}
         activeOpacity={0.9}
         onPress={() => {
           dispatch({
@@ -136,7 +136,14 @@ export function HappeningScreen({navigation}: Props) {
     }
   };
 
+  const renderSeparator = () => <View style={styles.eventSeparator} />;
+
   const renderLoader = () => {
+    // _.isEmpty(state.eventData) &&(
+    //   <View style={{paddingVertical: 8}}>
+    //     <Text>No Events</Text>
+    //   </View>
+    // )
     return state.loading ? (
       <View style={{paddingVertical: 8}}>
         <ActivityIndicator animating size={'large'} color={COLORS.base} />
@@ -182,8 +189,9 @@ export function HappeningScreen({navigation}: Props) {
           renderItem={renderItem}
           showsVerticalScrollIndicator={false}
           keyExtractor={(item: any) => item.id}
+          ItemSeparatorComponent={renderSeparator}
           ListEmptyComponent={renderLoader}
-          contentContainerStyle={{paddingBottom: 16}}
+          contentContainerStyle={{paddingBottom: 20}}
         />
       </View>
     </View>

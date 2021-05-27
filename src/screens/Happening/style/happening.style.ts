@@ -29,8 +29,8 @@ const styles = StyleSheet.create({
     color: COLORS.base,
     marginBottom: 8,
   },
-  eventContainer: {
-    marginVertical: 8,
+  eventSeparator: {
+    height:16
   },
   eventSubContainer: {flexDirection: 'row'},
   eventFirstSubContainer: {flex: 0.9},

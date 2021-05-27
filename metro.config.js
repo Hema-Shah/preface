@@ -4,25 +4,22 @@
  *
  * @format
  */
-const { getDefaultConfig } = require("metro-config");
+const {getDefaultConfig} = require('metro-config');
 
 module.exports = (async () => {
   const {
-    resolver: {
-      sourceExts,
-      assetExts
-    }
+    resolver: {sourceExts, assetExts},
   } = await getDefaultConfig();
 
   return {
     transformer: {
-      babelTransformerPath: require.resolve("./transformer.js"),
+      babelTransformerPath: require.resolve('./transformer.js'),
       experimentalImportSupport: false,
       inlineRequires: false,
     },
     resolver: {
-      assetExts: assetExts.filter(ext => ext !== "svg" && ext !== 'scss'),
-      sourceExts: [...sourceExts, "svg", "scss", "sass"]
-    }
+      assetExts: assetExts.filter(ext => ext !== 'svg' && ext !== 'scss'),
+      sourceExts: [...sourceExts, 'svg', 'scss', 'sass'],
+    },
   };
 })();

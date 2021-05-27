@@ -39,11 +39,11 @@ const authReducer = (state = initialState, action: any) => {
       return loginFailed(state, action);
 
     case CONSTANTS.SOCIAL_LOGIN_REQUESTED:
-      return socialLoginRequest(state,action);
+      return socialLoginRequest(state, action);
     case CONSTANTS.SOCIAL_LOGIN_SUCCEEDED:
-      return socialLoginSuccess(state,action);
+      return socialLoginSuccess(state, action);
     case CONSTANTS.SOCIAL_LOGIN_FAILED:
-      return socialLoginFailed(state,action);
+      return socialLoginFailed(state, action);
 
     case CONSTANTS.RESET_PASSWORD_SUCCEEDED:
     case CONSTANTS.FORGOT_SUCCEEDED:
@@ -66,7 +66,13 @@ const authReducer = (state = initialState, action: any) => {
       return {...state, loading: true, error: ''};
 
     case CONSTANTS.SIGNOUT_SUCCEEDED:
-      return {...state, loading: false, authenticated: false};
+      return {
+        ...state,
+        loading: false,
+        authenticated: false,
+        isGoogleLogin: false,
+        accessToken: '',
+      };
 
     case CONSTANTS.SIGNOUT_FAILED:
       return {...state, loading: false, error: action.message};
@@ -118,7 +124,7 @@ function socialLoginSuccess(state: authStateIF, action: any) {
     userData: data,
     loading: false,
     isGoogleLogin: true,
-    error: ''
+    error: '',
   };
 }
 

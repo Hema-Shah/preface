@@ -118,17 +118,14 @@ export function* resetSaga(action: {
 export function* signOutSaga(): Generator {
   try {
     const {auth}: any = yield select();
-    yield call(signOut, auth.accessToken);
     if(auth.isGoogleLogin){
-      console.log("SignOut")
       yield GoogleSignin.revokeAccess();
       yield GoogleSignin.signOut();
     }
+    yield call(signOut, auth.accessToken);
     clearKey();
     yield put({type: CONSTANTS.SIGNOUT_SUCCEEDED});
   } catch (error) {
-    console.log("Error ==>",error);
-    console.log("Signout ==>",error.response)
     yield put({type: CONSTANTS.SIGNOUT_FAILED,message: error.response.data,});
   }
 }
