@@ -1,5 +1,5 @@
-import {StyleSheet} from 'react-native';
-import {COLORS, FONTS} from 'theme';
+import { StyleSheet } from 'react-native';
+import { COLORS, FONTS } from 'theme';
 
 const styles = StyleSheet.create({
   mainContainer: {
@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     marginTop: 16,
   },
-  lableSubContainer: {alignItems: 'center'},
+  lableSubContainer: { alignItems: 'center' },
   trendingTextStyle: {
     fontSize: 18,
     lineHeight: 24,
@@ -32,14 +32,14 @@ const styles = StyleSheet.create({
   eventSeparator: {
     height: 16,
   },
-  eventSubContainer: {flexDirection: 'row'},
-  eventFirstSubContainer: {flex: 0.9},
+  eventSubContainer: { flexDirection: 'row' },
+  eventFirstSubContainer: { flex: 0.9 },
   eventSecondSubContainer: {
     flex: 0.1,
     justifyContent: 'space-evenly',
     alignItems: 'center',
   },
-  eventImageStyle: {width: '100%', height: 150},
+  eventImageStyle: { width: '100%', height: 150 },
   iconStyle: {
     fontSize: 16,
   },
@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
     color: COLORS.poloblue,
     marginTop: 8,
   },
-  noEvent: {alignItems: 'center'},
+  noEvent: { alignItems: 'center' },
   noEventTextStyle: {
     fontFamily: FONTS.galanoGrotesqueMedium,
     color: COLORS.base,

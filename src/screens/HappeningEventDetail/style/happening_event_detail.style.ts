@@ -1,5 +1,5 @@
-import {StyleSheet} from 'react-native';
-import {COLORS, FONTS} from 'theme';
+import { StyleSheet } from 'react-native';
+import { COLORS, FONTS } from 'theme';
 
 const styles = StyleSheet.create({
   mainContainer: {
@@ -10,14 +10,14 @@ const styles = StyleSheet.create({
   eventContainer: {
     marginVertical: 12,
   },
-  eventSubContainer: {flexDirection: 'row'},
-  eventFirstSubContainer: {flex: 0.9},
+  eventSubContainer: { flexDirection: 'row' },
+  eventFirstSubContainer: { flex: 0.9 },
   eventSecondSubContainer: {
     flex: 0.1,
     justifyContent: 'space-evenly',
     alignItems: 'center',
   },
-  eventImageStyle: {width: '100%', height: 150},
+  eventImageStyle: { width: '100%', height: 150 },
   lableNameStyle: {
     fontSize: 16,
     lineHeight: 22,
@@ -65,31 +65,31 @@ const styles = StyleSheet.create({
   discoverText: {
     color: COLORS.black,
   },
-  centeredView:{
-    flex:1,
-    justifyContent:'center',
-    padding:38
+  centeredView: {
+    flex: 1,
+    justifyContent: 'center',
+    padding: 38
   },
-  centeredSubView:{
-    alignItems:'center',
+  centeredSubView: {
+    alignItems: 'center',
     marginVertical: 24,
   },
-  successOrderTextContainer:{
-      marginVertical: 28
+  successOrderTextContainer: {
+    marginVertical: 28
   },
-  orderSuccess:{
+  orderSuccess: {
     fontSize: 24,
     lineHeight: 28,
     fontFamily: FONTS.galanoGrotesqueBold,
     color: COLORS.base,
-    textAlign:'center'
+    textAlign: 'center'
   },
-  seeEventText:{
+  seeEventText: {
     fontSize: 14,
     lineHeight: 16,
     fontFamily: FONTS.galanoGrotesqueSemiBold,
     color: COLORS.poloblue,
-    textAlign:'center'
+    textAlign: 'center'
   }
 });
 

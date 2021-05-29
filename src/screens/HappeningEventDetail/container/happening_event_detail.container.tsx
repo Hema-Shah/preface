@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import {
   View,
   Text,
@@ -12,30 +12,30 @@ import {
   StyleSheet,
 } from 'react-native';
 import _ from 'lodash';
-import {useSelector} from 'react-redux';
-import {RootState} from 'redux/reducers';
-import {COLORS, FONTS} from 'theme';
-import {eventStateIF} from 'redux/reducers/eventReducer';
+import { useSelector } from 'react-redux';
+import { RootState } from 'redux/reducers';
+import { COLORS, FONTS } from 'theme';
+import { eventStateIF } from 'redux/reducers/eventReducer';
 import styles from '../style/happening_event_detail.style';
-import {ButtonWithoutLogo} from '../../../components';
+import { ButtonWithoutLogo } from '../../../components';
 import Sharable from 'assets/svgs/share.svg';
 import HTMLView from 'react-native-render-html';
 import ActiveHeart from 'assets/svgs/heart/active_heart.svg';
 import InActiveHeart from 'assets/svgs/heart/inactive_heart.svg';
 import Success from 'assets/svgs/success.svg';
-import {mapTime} from '../../../helpers';
-import {ROUTES} from '../../../constants';
+import { mapTime } from '../../../helpers';
+import { ROUTES } from '../../../constants';
 
 interface Props {
   navigation: any;
   route: any;
 }
 
-export function HappeningEventDetailScreen({route, navigation}: Props) {
+export function HappeningEventDetailScreen({ route, navigation }: Props) {
   const state = useSelector((state: RootState): eventStateIF => state.event);
   const [modalVisible, setModalVisible] = useState(false);
   const {
-    params: {item},
+    params: { item },
   } = route;
 
   const onShare = async (item: any) => {
@@ -57,14 +57,14 @@ export function HappeningEventDetailScreen({route, navigation}: Props) {
 
   const renderLoader = () => {
     return state.loading ? (
-      <View style={{paddingVertical: 8}}>
+      <View style={{ paddingVertical: 8 }}>
         <ActivityIndicator animating size={'small'} color={COLORS.base} />
       </View>
     ) : null;
   };
 
   return (
-    <View style={[styles.mainContainer, {opacity: modalVisible ? 0.1 : 1}]}>
+    <View style={[styles.mainContainer, { opacity: modalVisible ? 0.1 : 1 }]}>
       <Modal
         animationType="fade"
         transparent={true}
@@ -100,7 +100,7 @@ export function HappeningEventDetailScreen({route, navigation}: Props) {
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.eventContainer}>
           <Image
-            source={{uri: item.logo.url}}
+            source={{ uri: item.logo.url }}
             style={styles.eventImageStyle}
             resizeMode="stretch"
           />
@@ -113,12 +113,12 @@ export function HappeningEventDetailScreen({route, navigation}: Props) {
               <Text style={styles.lableDescStyle}>
                 {item.venue != null
                   ? item.venue.name +
-                    ' ' +
-                    '\u2022' +
-                    ' ' +
-                    item.venue.address.city +
-                    ', ' +
-                    item.venue.address.region
+                  ' ' +
+                  '\u2022' +
+                  ' ' +
+                  item.venue.address.city +
+                  ', ' +
+                  item.venue.address.region
                   : 'N/A'}
               </Text>
             </View>
@@ -135,14 +135,14 @@ export function HappeningEventDetailScreen({route, navigation}: Props) {
               )}
             </View>
           </View>
-          <View style={{padding: 12}}>
+          <View style={{ padding: 12 }}>
             <Text style={styles.textStyle}>{item.summary}</Text>
             <Text style={styles.aboutTextStyle}>{'About this Event'}</Text>
             {state.loading ? (
               renderLoader()
             ) : (
               <HTMLView
-                source={{html: state.structureData.join('')}}
+                source={{ html: state.structureData.join('') }}
                 tagsStyles={htmlStyles}
               />
             )}
@@ -150,14 +150,14 @@ export function HappeningEventDetailScreen({route, navigation}: Props) {
           </View>
           <ButtonWithoutLogo
             onButtonPress={() => {
-              navigation.navigate(ROUTES.WEBVIEW, {id: item.id});
+              navigation.navigate(ROUTES.WEBVIEW, { id: item.id });
             }}
             // disabled={!FIELD_VALIDATIONS.email(email)}
             name="invalid"
             buttonTitle={'REGISTER NOW'}
             containerStyle={styles.registerBtnStyle}
-            // message={state.error}
-            // loading={state.loading}
+          // message={state.error}
+          // loading={state.loading}
           />
         </View>
       </ScrollView>

@@ -1,7 +1,7 @@
-import React, {useState} from 'react';
-import {View, Text} from 'react-native';
-import {TextInput} from 'react-native-paper';
-import {COLORS, FONTS} from 'theme';
+import React, { useState } from 'react';
+import { View, Text } from 'react-native';
+import { TextInput } from 'react-native-paper';
+import { COLORS, FONTS } from 'theme';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import styles from '../style/input.style';
 
@@ -64,7 +64,7 @@ export const Input = ({
         secureTextEntry={isShow}
         autoCapitalize={'none'}
         style={styles.textInputStyle}
-        underlineColorAndroid='transparent'
+        underlineColor={COLORS.lightgrey}
         right={
           secure && (
             <TextInput.Icon

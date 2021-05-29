@@ -1,13 +1,13 @@
 import React from 'react';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {ROUTES} from '../constants';
-import {COLORS} from 'theme';
-import {TouchableOpacity, StyleSheet} from 'react-native';
-import {HappeningNavigator} from './HappeningNavigator';
-import {TechNewsNavigator} from './TechNewsNavigator';
-import {PrefaceNavigator} from './PrefaceNavigator';
-import {NotificationNavigator} from './NotificationNavigator';
-import {ProfileNavigator} from './ProfileNavigator';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { ROUTES } from '../constants';
+import { COLORS } from 'theme';
+import { TouchableOpacity, StyleSheet } from 'react-native';
+import { HappeningNavigator } from './HappeningNavigator';
+import { TechNewsNavigator } from './TechNewsNavigator';
+import { PrefaceNavigator } from './PrefaceNavigator';
+import { NotificationNavigator } from './NotificationNavigator';
+import { ProfileNavigator } from './ProfileNavigator';
 import Logo from '../assets/svgs/logo_small.svg';
 import ActivePost from '../assets/svgs/post/active_post.svg';
 import InActivePost from '../assets/svgs/post/inactive_post.svg';
@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
 
 const Tab = createBottomTabNavigator();
 
-const CustomTabBarButton = ({onPress, focused}: any) => (
+const CustomTabBarButton = ({ onPress, focused }: any) => (
   <TouchableOpacity
     style={styles.logoContainer}
     onPress={onPress}
@@ -48,15 +48,14 @@ const TabNavigation = () => {
       tabBarOptions={{
         activeTintColor: COLORS.poloblue,
         showLabel: false,
-        style: {borderTopColor: COLORS.lightgrey, borderTopWidth: 2},
-        safeAreaInsets: {bottom: 20},
+        style: { borderTopColor: COLORS.lightgrey, borderTopWidth: 2 },
         keyboardHidesTabBar: true,
       }}>
       <Tab.Screen
         name={ROUTES.TECH_NEWS_TAB}
         component={TechNewsNavigator}
         options={{
-          tabBarIcon: ({focused}) =>
+          tabBarIcon: ({ focused }) =>
             focused ? <ActivePost /> : <InActivePost />,
         }}
       />
@@ -64,7 +63,7 @@ const TabNavigation = () => {
         name={ROUTES.HAPPENING_TAB}
         component={HappeningNavigator}
         options={{
-          tabBarIcon: ({focused}) =>
+          tabBarIcon: ({ focused }) =>
             focused ? <ActiveEvent /> : <InActiveEvent />,
         }}
       />
@@ -79,7 +78,7 @@ const TabNavigation = () => {
         name={ROUTES.NOTIFICATION_TAB}
         component={NotificationNavigator}
         options={{
-          tabBarIcon: ({focused}) =>
+          tabBarIcon: ({ focused }) =>
             focused ? <ActiveUpdate /> : <InActiveUpdate />,
         }}
       />
@@ -87,7 +86,7 @@ const TabNavigation = () => {
         name={ROUTES.PROFILE_TAB}
         component={ProfileNavigator}
         options={{
-          tabBarIcon: ({focused}) =>
+          tabBarIcon: ({ focused }) =>
             focused ? <ActiveProfile /> : <InActiveProfile />,
         }}
       />
@@ -95,4 +94,4 @@ const TabNavigation = () => {
   );
 };
 
-export {TabNavigation};
+export { TabNavigation };

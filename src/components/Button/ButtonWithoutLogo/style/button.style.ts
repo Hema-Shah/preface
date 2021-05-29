@@ -1,13 +1,13 @@
 import { heightPercentageToDP } from 'helpers';
-import {StyleSheet} from 'react-native';
-import {COLORS, FONTS} from 'theme';
+import { StyleSheet } from 'react-native';
+import { COLORS, FONTS } from 'theme';
 
 const styles = StyleSheet.create({
   buttonViewStyle: {
     paddingVertical: heightPercentageToDP(2),
     marginBottom: 8,
     alignItems: 'center',
-    backgroundColor: COLORS.lightblue,
+    backgroundColor: COLORS.poloblue,
     borderRadius: 5,
   },
   buttonTextStyle: {

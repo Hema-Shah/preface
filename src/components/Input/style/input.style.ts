@@ -1,8 +1,8 @@
-import {StyleSheet} from 'react-native';
-import {COLORS, FONTS} from 'theme';
+import { StyleSheet } from 'react-native';
+import { COLORS, FONTS } from 'theme';
 
 const styles = StyleSheet.create({
-  textInputStyle: {paddingHorizontal: 0},
+  textInputStyle: { paddingHorizontal: 0 },
   errorMessage: {
     color: COLORS.red,
     fontFamily: FONTS.galanoGrotesqueMedium,

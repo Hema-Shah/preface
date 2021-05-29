@@ -1,10 +1,10 @@
-import {StyleSheet} from 'react-native';
-import {COLORS, FONTS} from 'theme';
+import { StyleSheet } from 'react-native';
+import { COLORS, FONTS } from 'theme';
 import { heightPercentageToDP } from 'helpers';
 
 const styles = StyleSheet.create({
   mainContainer: {
-    flex:1,
+    flex: 1,
     flexDirection: 'column',
     backgroundColor: COLORS.base,
   },
@@ -18,12 +18,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   thirdSubContainer: {
-    flex:1,
+    flex: 1,
     backgroundColor: '#FFFFFF',
     borderTopRightRadius: 50,
     borderTopLeftRadius: 50,
-    paddingHorizontal:heightPercentageToDP(4),
-    paddingVertical:heightPercentageToDP(3)
+    paddingHorizontal: heightPercentageToDP(4),
+    paddingVertical: heightPercentageToDP(3)
   },
   buttonContainerStyle: {
     marginTop: 8,
@@ -35,12 +35,15 @@ const styles = StyleSheet.create({
     fontFamily: FONTS.galanoGrotesqueSemiBold,
     textAlign: 'center',
   },
+  forgotView: { alignSelf: 'center', borderBottomWidth: 1, borderBottomColor: COLORS.base },
   forgotTextStyle: {
     fontSize: 12,
     lineHeight: 14,
-    textDecorationLine: 'underline',
     fontFamily: FONTS.galanoGrotesqueMedium,
     textAlign: 'center',
+  },
+  signUpView: {
+    alignSelf: 'center', borderBottomWidth: 1, borderBottomColor: COLORS.poloblue
   },
   signUpText: {
     fontSize: 14,

@@ -1,20 +1,20 @@
-import React, {Fragment} from 'react';
-import {createStackNavigator} from '@react-navigation/stack';
-import {HappeningScreen, HappeningEventDetailScreen, WebView, HappeningTicketScreen} from '../screens';
-import {StatusBar} from 'react-native';
-import {COLORS} from 'theme';
-import {ROUTES} from '../constants';
+import React, { Fragment } from 'react';
+import { createStackNavigator } from '@react-navigation/stack';
+import { HappeningScreen, HappeningEventDetailScreen, WebView, HappeningTicketScreen } from '../screens';
+import { StatusBar } from 'react-native';
+import { COLORS } from 'theme';
+import { ROUTES } from '../constants';
 
 const Stack = createStackNavigator();
 
 const HappeningStack = () => {
   const options = {
-    headerShown: false,
+    headerShown: false
   };
 
   const eventDetailOptions = {
     headerTitle: '',
-    headerStyle: {backgroundColor: COLORS.white, elevation: 0},
+    headerStyle: { backgroundColor: COLORS.white, elevation: 0, shadowOpacity: 0 },
   };
 
   return (
@@ -52,4 +52,4 @@ const HappeningNavigator = () => {
   );
 };
 
-export {HappeningNavigator};
+export { HappeningNavigator };

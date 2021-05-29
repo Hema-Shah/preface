@@ -1,6 +1,6 @@
 import React from 'react';
-import {View, Text, TouchableOpacity, ActivityIndicator} from 'react-native';
-import {COLORS} from 'theme';
+import { View, Text, TouchableOpacity, ActivityIndicator } from 'react-native';
+import { COLORS } from 'theme';
 import styles from '../style/button.style';
 
 type ButtonProps = {
@@ -33,12 +33,12 @@ export const ButtonWithoutLogo = ({
   return (
     <>
       <TouchableOpacity
-        style={[styles.buttonViewStyle, containerStyle,disabled ? {opacity:0.6}:null]}
+        style={[styles.buttonViewStyle, containerStyle, disabled ? { opacity: 0.6 } : null]}
         onPress={onButtonPress}
         activeOpacity={0.8}
         disabled={disabled}>
         {loading ? (
-          <ActivityIndicator color={COLORS.white} size={14}/>
+          <ActivityIndicator color={COLORS.white} size={14} />
         ) : (
           <Text style={[styles.buttonTextStyle, buttonTextStyle]}>
             {buttonTitle}

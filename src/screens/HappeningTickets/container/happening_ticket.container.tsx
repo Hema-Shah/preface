@@ -1,17 +1,17 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import {
   Text,
   View,
   useWindowDimensions,
   FlatList,
   ActivityIndicator,
-  TouchableOpacity,
-  ImageBackground,
+  TouchableOpacity
 } from 'react-native';
-import {SearchHeader, TicketView} from '../../../components';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { SearchHeader, TicketView } from '../../../components';
 import styles from '../style/happening_ticket.style';
-import {TabView, SceneMap, TabBar} from 'react-native-tab-view';
-import {COLORS} from 'theme';
+import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
+import { COLORS } from 'theme';
 import Preface from 'assets/svgs/preface_mini.svg';
 import TicketBG from 'assets/svgs/ticketBG.svg';
 
@@ -49,16 +49,16 @@ const UPCOMING_DATA = [
 const PAST_DATA: readonly any[] | null | undefined = [];
 
 const UpcomingRoute = () => {
-  const renderItem = ({item}: any) => {
+  const renderItem = ({ item }: any) => {
     return (
       <TouchableOpacity style={styles.upcomingTicketContainet}>
         {/* <TicketView/> */}
         <View style={styles.upcomingFirstSubContainer}></View>
         <View style={styles.upcomingSecondSubContainer}>
-          <View style={{width: '15%', alignItems: 'center'}}>
+          <View style={{ width: '15%', alignItems: 'center' }}>
             <Preface />
           </View>
-          <View style={{width: '85%', justifyContent: 'center'}}>
+          <View style={{ width: '85%', justifyContent: 'center' }}>
             <Text style={styles.titleTextStyle}>{item.name}</Text>
             <Text style={styles.descTextStyle}>{item.description}</Text>
           </View>
@@ -86,7 +86,7 @@ const UpcomingRoute = () => {
         renderItem={renderItem}
         showsVerticalScrollIndicator={false}
         keyExtractor={(item: any) => item.id}
-        // ListEmptyComponent={renderLoader}
+      // ListEmptyComponent={renderLoader}
       />
     </View>
   );
@@ -94,16 +94,16 @@ const UpcomingRoute = () => {
 
 const PastRoute = () => {
 
-  const renderItem = ({item}: any) => {
+  const renderItem = ({ item }: any) => {
     return (
       <TouchableOpacity style={styles.upcomingTicketContainet}>
         {/* <TicketView/> */}
         <View style={styles.upcomingFirstSubContainer}></View>
         <View style={styles.upcomingSecondSubContainer}>
-          <View style={{width: '15%', alignItems: 'center'}}>
+          <View style={{ width: '15%', alignItems: 'center' }}>
             <Preface />
           </View>
-          <View style={{width: '85%', justifyContent: 'center'}}>
+          <View style={{ width: '85%', justifyContent: 'center' }}>
             <Text style={styles.titleTextStyle}>{item.name}</Text>
             <Text style={styles.descTextStyle}>{item.description}</Text>
           </View>
@@ -118,23 +118,23 @@ const PastRoute = () => {
 
   return <View style={styles.wrapperContainer}>
     <FlatList
-        data={PAST_DATA}
-        renderItem={renderItem}
-        showsVerticalScrollIndicator={false}
-        keyExtractor={(item: any) => item.id}
-        // ListEmptyComponent={renderLoader}
-      />
+      data={PAST_DATA}
+      renderItem={renderItem}
+      showsVerticalScrollIndicator={false}
+      keyExtractor={(item: any) => item.id}
+    // ListEmptyComponent={renderLoader}
+    />
   </View>;
 };
 
-export function HappeningTicketScreen({navigation}: Props) {
-  const {width} = useWindowDimensions();
+export function HappeningTicketScreen({ navigation }: Props) {
+  const { width } = useWindowDimensions();
 
   const [search, setSearch] = useState('');
   const [index, setIndex] = React.useState(0);
   const [routes] = React.useState([
-    {key: 'upcoming', title: 'Upcoming'},
-    {key: 'past', title: 'Past tickets'},
+    { key: 'upcoming', title: 'Upcoming' },
+    { key: 'past', title: 'Past tickets' },
   ]);
 
   const renderScene = SceneMap({
@@ -147,8 +147,8 @@ export function HappeningTicketScreen({navigation}: Props) {
       <TabBar
         {...props}
         indicatorStyle={styles.indicatorStyle}
-        renderLabel={({route, color, focused}) => (
-          <Text style={[styles.renderTextStyle, {color: color}]}>
+        renderLabel={({ route, color, focused }) => (
+          <Text style={[styles.renderTextStyle, { color: color }]}>
             {route.title}
           </Text>
         )}
@@ -160,7 +160,7 @@ export function HappeningTicketScreen({navigation}: Props) {
   };
 
   return (
-    <View style={styles.mainContainer}>
+    <SafeAreaView style={styles.mainContainer} edges={['top']}>
       <SearchHeader
         placeholder={'SEARCH FOR EVENTS'}
         value={search}
@@ -172,16 +172,16 @@ export function HappeningTicketScreen({navigation}: Props) {
           setSearch(text);
         }}
       />
-      <View style={{marginVertical: 18}}>
+      <View style={{ marginVertical: 18 }}>
         <Text style={styles.ticketTextStyle}>{'Your Tickets'}</Text>
       </View>
       <TabView
-        navigationState={{index, routes}}
+        navigationState={{ index, routes }}
         renderScene={renderScene}
         onIndexChange={setIndex}
-        initialLayout={{width: width}}
+        initialLayout={{ width: width }}
         renderTabBar={renderTabBar}
       />
-    </View>
+    </SafeAreaView>
   );
 }

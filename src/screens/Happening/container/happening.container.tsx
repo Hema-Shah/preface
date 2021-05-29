@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   View,
   Text,
@@ -7,23 +7,24 @@ import {
   ActivityIndicator,
   Alert,
   Share,
-  TouchableOpacity,
+  TouchableOpacity
 } from 'react-native';
 import _ from 'lodash';
-import {COLORS} from 'theme';
+import { COLORS } from 'theme';
 import styles from '../style/happening.style';
-import {SearchHeader} from '../../../components';
+import { SearchHeader } from '../../../components';
 import Happening from '../../../assets/svgs/happening.svg';
 import Ticket from '../../../assets/svgs/ticket.svg';
 import Calendar from '../../../assets/svgs/calendar.svg';
-import {useDispatch, useSelector} from 'react-redux';
-import {EVENT, ROUTES} from '../../../constants';
-import {RootState} from 'redux/reducers';
-import {eventStateIF} from 'redux/reducers/eventReducer';
+import { useDispatch, useSelector } from 'react-redux';
+import { EVENT, ROUTES } from '../../../constants';
+import { RootState } from 'redux/reducers';
+import { eventStateIF } from 'redux/reducers/eventReducer';
 import Sharable from 'assets/svgs/share.svg';
 import ActiveHeart from 'assets/svgs/heart/active_heart.svg';
 import InActiveHeart from 'assets/svgs/heart/inactive_heart.svg';
-import {mapTime} from '../../../helpers';
+import { mapTime } from '../../../helpers';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 interface Props {
   navigation: any;
@@ -33,7 +34,7 @@ export interface IStructuredData {
   id: string;
 }
 
-export function HappeningScreen({navigation}: Props) {
+export function HappeningScreen({ navigation }: Props) {
   const state = useSelector((state: RootState): eventStateIF => state.event);
   const [search, setSearch] = useState('');
 
@@ -42,26 +43,26 @@ export function HappeningScreen({navigation}: Props) {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch({type: EVENT.CURRENT_GET_ALL_EVENT_REQUESTED});
+    dispatch({ type: EVENT.CURRENT_GET_ALL_EVENT_REQUESTED });
   }, []);
 
   useEffect(() => {
     setFilterDataSource(state.eventData);
   }, [state.eventData]);
 
-  const renderItem = ({item}: any) => {
+  const renderItem = ({ item }: any) => {
     return (
       <TouchableOpacity
         activeOpacity={0.9}
         onPress={() => {
           dispatch({
             type: EVENT.GET_STRUCTURED_CONTENT_REQUESTED,
-            payload: {id: item.id},
+            payload: { id: item.id },
           });
-          navigation.navigate(ROUTES.HAPPENING_EVENT_DETAIL, {item});
+          navigation.navigate(ROUTES.HAPPENING_EVENT_DETAIL, { item });
         }}>
         <Image
-          source={{uri: item.logo.url}}
+          source={{ uri: item.logo.url }}
           style={styles.eventImageStyle}
           resizeMode="stretch"
         />
@@ -74,12 +75,12 @@ export function HappeningScreen({navigation}: Props) {
             <Text style={styles.lableDescStyle}>
               {item.venue != null
                 ? item.venue.name +
-                  ' ' +
-                  '\u2022' +
-                  ' ' +
-                  item.venue.address.city +
-                  ', ' +
-                  item.venue.address.region
+                ' ' +
+                '\u2022' +
+                ' ' +
+                item.venue.address.city +
+                ', ' +
+                item.venue.address.region
                 : 'N/A'}
             </Text>
           </View>
@@ -141,11 +142,6 @@ export function HappeningScreen({navigation}: Props) {
   const renderSeparator = () => <View style={styles.eventSeparator} />;
 
   const renderLoader = () => {
-    // _.isEmpty(state.eventData) &&(
-    //   <View style={{paddingVertical: 8}}>
-    //     <Text>No Events</Text>
-    //   </View>
-    // )
     return state.loading ? (
       <View style={styles.noEvent}>
         <ActivityIndicator animating size={'large'} color={COLORS.base} />
@@ -158,7 +154,7 @@ export function HappeningScreen({navigation}: Props) {
   };
 
   return (
-    <View style={styles.mainContainer}>
+    <SafeAreaView style={styles.mainContainer} edges={['top']}>
       <SearchHeader
         placeholder={'SEARCH FOR EVENTS'}
         value={search}
@@ -188,7 +184,7 @@ export function HappeningScreen({navigation}: Props) {
           <Text style={styles.textStyle}>Calendar</Text>
         </View>
       </View>
-      <View style={{flex: 1}}>
+      <View style={{ flex: 1 }}>
         <Text style={styles.trendingTextStyle}>Trending Events</Text>
         <FlatList
           data={filterDataSource}
@@ -197,9 +193,9 @@ export function HappeningScreen({navigation}: Props) {
           keyExtractor={(item: any) => item.id}
           ItemSeparatorComponent={renderSeparator}
           ListEmptyComponent={renderLoader}
-          contentContainerStyle={{paddingBottom: 20}}
+          contentContainerStyle={{ paddingBottom: 20 }}
         />
       </View>
-    </View>
+    </SafeAreaView>
   );
 }

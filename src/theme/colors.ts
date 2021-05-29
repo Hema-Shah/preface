@@ -3,7 +3,6 @@ export const COLORS = {
   transparent: '#FFFFFF00',
   white: '#FFFFFF',
   lightwhite: '#E5E5E5',
-  lightblue: '#85BBCE',
   lightgrey: '#C4C4C4',
   black: '#000000',
   red: '#F3725F',

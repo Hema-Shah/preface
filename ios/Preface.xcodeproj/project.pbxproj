@@ -55,6 +55,7 @@
 		03046E7E26610D0800870B8F /* Preface-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Preface-Bridging-Header.h"; sourceTree = "<group>"; };
 		03046E7F26610D0900870B8F /* EmptyFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyFile.swift; sourceTree = "<group>"; };
 		03046EC52661186300870B8F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		03100A352662019200AAC76E /* Preface.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = Preface.entitlements; path = Preface/Preface.entitlements; sourceTree = "<group>"; };
 		04EEAFE157874A5EB75DC5DC /* GalanoGrotesque-Heavy.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "GalanoGrotesque-Heavy.otf"; path = "../src/assets/fonts/GalanoGrotesque-Heavy.otf"; sourceTree = "<group>"; };
 		094B55B07F404B587F3D95C5 /* libPods-Preface-PrefaceTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Preface-PrefaceTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		107D731A9CD64160B97DCC00 /* AntDesign.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = AntDesign.ttf; path = "../node_modules/react-native-vector-icons/Fonts/AntDesign.ttf"; sourceTree = "<group>"; };
@@ -158,6 +159,7 @@
 		13B07FAE1A68108700A75B9A /* Preface */ = {
 			isa = PBXGroup;
 			children = (
+				03100A352662019200AAC76E /* Preface.entitlements */,
 				03046EC52661186300870B8F /* GoogleService-Info.plist */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
@@ -615,7 +617,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = Preface/Preface.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 5FG72ZMR7A;
 				ENABLE_BITCODE = NO;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -689,7 +693,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.preface;
 				PRODUCT_NAME = Preface;
 				SWIFT_OBJC_BRIDGING_HEADER = "Preface-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -704,7 +708,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = Preface/Preface.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 5FG72ZMR7A;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"${PODS_ROOT}/Headers/Public\"",
@@ -777,7 +783,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.preface;
 				PRODUCT_NAME = Preface;
 				SWIFT_OBJC_BRIDGING_HEADER = "Preface-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;

@@ -1,31 +1,32 @@
-import React, {useState, useEffect, useRef} from 'react';
+import React, { useState, useEffect, useRef, Fragment } from 'react';
 import {
   View,
   Text,
   TouchableOpacity,
   Platform,
   KeyboardAvoidingView,
-  SafeAreaView,
   StatusBar,
   Animated,
   Keyboard,
 } from 'react-native';
-import {useDispatch, useSelector} from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import styles from '../style/signUp.style';
 import MainLogo from '../../../assets/svgs/main_logo.svg';
-import {ButtonWithoutLogo, ButtonWithLogo, Input} from '../../../components';
-import {COLORS} from 'theme';
-import {CONSTANTS, FIELD_VALIDATIONS} from '../../../constants/index';
-import {GoogleSignin, statusCodes} from '@react-native-google-signin/google-signin';
+import { ButtonWithoutLogo, ButtonWithLogo, Input } from '../../../components';
+import { COLORS } from 'theme';
+import { CONSTANTS, FIELD_VALIDATIONS } from '../../../constants/index';
+import { GoogleSignin, statusCodes } from '@react-native-google-signin/google-signin';
 import {
   AccessToken,
   GraphRequestManager,
   GraphRequest,
   LoginManager,
 } from 'react-native-fbsdk';
-import {GoogleConfig} from '../../../config';
-import {RootState} from 'redux/reducers';
-import {authStateIF} from 'redux/reducers/authReducer';
+import appleAuth from '@invertase/react-native-apple-authentication';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import jwt_decode from 'jwt-decode';
+import { RootState } from 'redux/reducers';
+import { authStateIF } from 'redux/reducers/authReducer';
 import { heightPercentageToDP } from 'helpers';
 
 interface Props {
@@ -38,7 +39,7 @@ export interface ISignUpData {
   confirm_password: string;
 }
 
-export function SignUpScreen({navigation}: Props) {
+export function SignUpScreen({ navigation }: Props) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirm_password, setConfirmPassword] = useState('');
@@ -49,22 +50,21 @@ export function SignUpScreen({navigation}: Props) {
   const state = useSelector((state: RootState): authStateIF => state.auth);
 
   useEffect(() => {
-    GoogleConfig();
-    dispatch({type: CONSTANTS.CLEAR_ERROR});
+    dispatch({ type: CONSTANTS.CLEAR_ERROR });
     Keyboard.addListener('keyboardDidShow', _keyboardDidShow);
     Keyboard.addListener('keyboardDidHide', _keyboardDidHide);
     return () => {
-      dispatch({type: CONSTANTS.CLEAR_ERROR});
+      dispatch({ type: CONSTANTS.CLEAR_ERROR });
       Keyboard.removeListener('keyboardDidShow', _keyboardDidShow);
       Keyboard.removeListener('keyboardDidHide', _keyboardDidHide);
     };
   }, []);
 
   const signUp = (signUpData: ISignUpData) => {
-    dispatch({type: CONSTANTS.SIGNUP_REQUESTED, payload: {signUpData}});
+    dispatch({ type: CONSTANTS.SIGNUP_REQUESTED, payload: { signUpData } });
   };
 
-  const _keyboardDidShow = (event: {duration: number}) => {
+  const _keyboardDidShow = (event: { duration: number }) => {
     Animated.parallel([
       Animated.timing(opacity, {
         toValue: 0,
@@ -79,7 +79,7 @@ export function SignUpScreen({navigation}: Props) {
     ]).start();
   };
 
-  const _keyboardDidHide = (event: {duration: number}) => {
+  const _keyboardDidHide = (event: { duration: number }) => {
     Animated.parallel([
       Animated.timing(opacity, {
         toValue: 1,
@@ -94,17 +94,16 @@ export function SignUpScreen({navigation}: Props) {
     ]).start();
   };
 
-  const signIn = async () => {
+  const GLogin = async () => {
     try {
       await GoogleSignin.hasPlayServices();
       const userinfo = await GoogleSignin.signIn();
-      console.log('UserInfo ==>', userinfo);
       let socialData = {
         email: userinfo.user.email,
-        social_id: userinfo.serverAuthCode,
+        social_id: userinfo.user.id,
         login_type: 'Google',
       };
-      dispatch({type: CONSTANTS.SOCIAL_LOGIN_REQUESTED, payload: {socialData}});
+      dispatch({ type: CONSTANTS.SOCIAL_LOGIN_REQUESTED, payload: { socialData } });
     } catch (error) {
       if (error.code === statusCodes.SIGN_IN_CANCELLED) {
       } else if (error.code === statusCodes.IN_PROGRESS) {
@@ -115,50 +114,75 @@ export function SignUpScreen({navigation}: Props) {
   };
 
   const FBLogin = () => {
-    LoginManager.logInWithPermissions(['public_profile', 'email']).then(
-      function (result: any) {
-        if (result.isCancelled) {
-          console.log('Login cancelled');
-        } else {
-          AccessToken.getCurrentAccessToken().then((data: any) => {
-            let accessToken = data.accessToken;
-            const responseInfoCallback = (error: any, fbuserInfo: any) => {
-              if (error) {
-                console.log(error);
-              } else {
-                // dispatch({
-                //   type: CONSTANTS.GOOGLE_LOGIN_REQUESTED,
-                //   payload: {fbuserInfo, accessToken},
-                // });
-              }
-            };
-            const infoRequest = new GraphRequest(
-              '/me',
-              {
-                accessToken: accessToken,
-                parameters: {
-                  fields: {
-                    string:
-                      'email,name,first_name,middle_name,last_name,picture.type(large)',
-                  },
-                },
-              },
-              responseInfoCallback,
-            );
-            new GraphRequestManager().addRequest(infoRequest).start();
-          });
-        }
-      },
-    );
+    LoginManager.logInWithPermissions([
+      'public_profile',
+    ]).then(function (result: any) {
+      if (result.isCancelled) {
+        console.log('Login cancelled');
+      } else {
+        AccessToken.getCurrentAccessToken().then((data: any) => {
+          // let accessToken = data.accessToken;
+          // const responseInfoCallback = (error: any, fbuserInfo: any) => {
+          //   if (error) {
+          //     console.log(error);
+          //   } else {
+          //     // navigation.navigate('Dashboard');
+          //     dispatch({
+          //       type: CONSTANTS.FB_LOGIN_REQUESTED,
+          //       payload: {fbuserInfo, accessToken},
+          //     });
+          //   }
+          // };
+          // const infoRequest = new GraphRequest(
+          //   '/me',
+          //   {
+          //     accessToken: accessToken,
+          //     parameters: {
+          //       fields: {
+          //         string:
+          //           'email,name,first_name,middle_name,last_name,picture.type(large)',
+          //       },
+          //     },
+          //   },
+          //   responseInfoCallback,
+          // );
+          // new GraphRequestManager().addRequest(infoRequest).start();
+        });
+      }
+    });
   };
 
+  const AppleLogin = async () => {
+    // performs login request
+    const appleAuthRequestResponse = await appleAuth.performRequest({
+      requestedOperation: appleAuth.Operation.LOGIN,
+      requestedScopes: [appleAuth.Scope.EMAIL, appleAuth.Scope.FULL_NAME],
+    });
+
+    // get current authentication state for user
+    // /!\ This method must be tested on a real device. On the iOS simulator it always throws an error.
+    const credentialState = await appleAuth.getCredentialStateForUser(appleAuthRequestResponse.user);
+
+    const { email, sub }: any = jwt_decode(appleAuthRequestResponse.identityToken ?? '');
+    // use credentialState response to ensure the user is authenticated
+    if (credentialState === appleAuth.State.AUTHORIZED) {
+      // user is authenticated
+      let socialData = {
+        email: email,
+        social_id: sub,
+        login_type: 'apple',
+      };
+      dispatch({ type: CONSTANTS.SOCIAL_LOGIN_REQUESTED, payload: { socialData } });
+    }
+  }
+
   return (
-    <SafeAreaView style={styles.mainContainer}>
+    <SafeAreaView style={styles.mainContainer} edges={['top']}>
       <StatusBar barStyle="light-content" backgroundColor={COLORS.base} />
       <Animated.View
         style={[
           styles.firstSubContainer,
-          {height: keyboardAnim, opacity: opacity},
+          { height: keyboardAnim, opacity: opacity },
         ]}>
         <MainLogo />
       </Animated.View>
@@ -171,7 +195,7 @@ export function SignUpScreen({navigation}: Props) {
           name="email"
           onChangeText={text => {
             setEmail(text);
-            dispatch({type: CONSTANTS.CLEAR_ERROR});
+            dispatch({ type: CONSTANTS.CLEAR_ERROR });
           }}
           value={email}
           message={state.error}
@@ -216,7 +240,7 @@ export function SignUpScreen({navigation}: Props) {
         <View style={styles.buttonLogoContainer}>
           <ButtonWithLogo
             onButtonPress={() => {
-              signIn();
+              GLogin();
             }}
             logo={'Google'}
             buttonTitle={'Continue with Google'}
@@ -232,7 +256,7 @@ export function SignUpScreen({navigation}: Props) {
           />
           {Platform.OS == 'ios' && (
             <ButtonWithLogo
-              onButtonPress={() => {}}
+              onButtonPress={() => { AppleLogin() }}
               logo={'Apple'}
               buttonTitle={'Continue with Apple'}
               containerStyle={styles.buttonContainerStyle}
@@ -240,16 +264,17 @@ export function SignUpScreen({navigation}: Props) {
           )}
         </View>
         <View>
-          <Text style={styles.signUpText}>ALREADY HAVE AN ACCOUNT?</Text>
+          <Text style={styles.signInText}>ALREADY HAVE AN ACCOUNT?</Text>
           <TouchableOpacity
             activeOpacity={0.8}
+            style={styles.signInView}
             onPress={() => {
               navigation.navigate('SignIn');
             }}>
             <Text
               style={[
-                styles.signUpText,
-                {textDecorationLine: 'underline', color: COLORS.lightblue},
+                styles.signInText,
+                { color: COLORS.poloblue },
               ]}>
               SIGN IN
             </Text>

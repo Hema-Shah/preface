@@ -1,8 +1,8 @@
-import React, {useEffect} from 'react';
-import {useSelector, useDispatch} from 'react-redux';
-import {createStackNavigator} from '@react-navigation/stack';
-import {NavigationContainer} from '@react-navigation/native';
-import {Linking, Alert} from 'react-native';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { createStackNavigator } from '@react-navigation/stack';
+import { NavigationContainer } from '@react-navigation/native';
+import { Linking, Alert } from 'react-native';
 import {
   SplashScreen,
   SignUpScreen,
@@ -13,15 +13,16 @@ import {
   OpenEmailScreen,
   UpdatePasswordScreen,
 } from '../screens';
-import {COLORS} from 'theme';
-import {RootState} from 'redux/reducers';
-import {splashStateIF} from 'redux/reducers/splashReducer';
-import {authStateIF} from 'redux/reducers/authReducer';
-import {deepStateIF} from 'redux/reducers/deepReducer';
-import {navigationRef} from '../navigators';
-import {CONSTANTS, ROUTES} from '../constants';
-import {AppLinkHandler} from '../boot';
-import {TabNavigation} from './TabNavigation';
+import { COLORS } from 'theme';
+import { RootState } from 'redux/reducers';
+import { splashStateIF } from 'redux/reducers/splashReducer';
+import { authStateIF } from 'redux/reducers/authReducer';
+import { deepStateIF } from 'redux/reducers/deepReducer';
+import { navigationRef } from '../navigators';
+import { CONSTANTS, ROUTES } from '../constants';
+import { AppLinkHandler } from '../boot';
+import { TabNavigation } from './TabNavigation';
+import { GoogleConfig } from 'config';
 
 const Stack = createStackNavigator();
 
@@ -38,9 +39,10 @@ const AppNavigation = () => {
   const deep = useSelector((state: RootState): deepStateIF => state.deep);
 
   useEffect(() => {
+    GoogleConfig();
     const getUrlAsync = async () => {
       const url = (await Linking.getInitialURL()) ?? '';
-      _handleOpenURL({url});
+      _handleOpenURL({ url });
     };
     getUrlAsync();
   }, []);
@@ -54,11 +56,11 @@ const AppNavigation = () => {
           {
             text: 'OK',
             onPress: () => {
-              dispatch({type: CONSTANTS.CLEAR_DEEP_LINK_ERROR});
+              dispatch({ type: CONSTANTS.CLEAR_DEEP_LINK_ERROR });
             },
           },
         ],
-        {cancelable: false},
+        { cancelable: false },
       );
     }
   }, [deep.message]);
@@ -67,7 +69,7 @@ const AppNavigation = () => {
     if (deepLink.url != '') {
       dispatch({
         type: CONSTANTS.DEEP_LINK_REQUESTED,
-        payload: {url: deepLink.url},
+        payload: { url: deepLink.url },
       });
     }
   };
@@ -77,11 +79,11 @@ const AppNavigation = () => {
   };
   const whiteHeaderBackOption = {
     headerTitle: '',
-    headerStyle: {backgroundColor: COLORS.lightwhite, elevation: 0},
+    headerStyle: { backgroundColor: COLORS.lightwhite, elevation: 0, shadowOpacity: 0, },
   };
   const blackHeaderBackOption = {
     headerTitle: '',
-    headerStyle: {backgroundColor: COLORS.base, elevation: 0},
+    headerStyle: { backgroundColor: COLORS.base, elevation: 0, shadowOpacity: 0, },
     headerTintColor: COLORS.white,
   };
 
@@ -95,11 +97,11 @@ const AppNavigation = () => {
         <Stack.Navigator>
           {state.authenticated ? (
             <>
-            <Stack.Screen
-              name={ROUTES.HOME}
-              component={TabNavigation}
-              options={options}
-            />
+              <Stack.Screen
+                name={ROUTES.HOME}
+                component={TabNavigation}
+                options={options}
+              />
             </>
           ) : (
             <>
@@ -146,4 +148,4 @@ const AppNavigation = () => {
   );
 };
 
-export {AppNavigation};
+export { AppNavigation };

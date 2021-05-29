@@ -1,6 +1,6 @@
 import { heightPercentageToDP } from 'helpers';
-import {StyleSheet} from 'react-native';
-import {COLORS, FONTS} from 'theme';
+import { StyleSheet } from 'react-native';
+import { COLORS, FONTS } from 'theme';
 
 const styles = StyleSheet.create({
   mainContainer: {
@@ -18,15 +18,15 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   thirdSubContainer: {
-    flex:1,
+    flex: 1,
     backgroundColor: '#FFFFFF',
     borderTopRightRadius: 50,
     borderTopLeftRadius: 50,
-    paddingHorizontal:heightPercentageToDP(4),
-    justifyContent:'space-around'
+    paddingHorizontal: heightPercentageToDP(4),
+    justifyContent: 'space-around'
   },
   buttonContainerStyle: {
-    marginTop:16
+    marginTop: 16
   },
   forgotTextStyle: {
     fontSize: 22,
