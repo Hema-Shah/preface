@@ -13,7 +13,7 @@ type InputProps = {
   name: string;
   message?: any;
   text?: string;
-  placeholderStyle?: object;
+  containerStyle?: object;
   valid?: boolean;
 };
 
@@ -33,6 +33,7 @@ const InputTheme = {
 
 export const Input = ({
   placeholder,
+  containerStyle,
   onChangeText,
   value,
   name,
@@ -63,7 +64,7 @@ export const Input = ({
         onChangeText={onChangeText}
         secureTextEntry={isShow}
         autoCapitalize={'none'}
-        style={styles.textInputStyle}
+        style={[styles.textInputStyle,containerStyle]}
         underlineColor={COLORS.lightgrey}
         right={
           secure && (

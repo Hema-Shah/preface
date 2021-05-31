@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.base,
   },
   firstSubContainer: {
-    height: heightPercentageToDP(32),
+    height: heightPercentageToDP(24),
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -24,6 +24,9 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 50,
     paddingHorizontal: heightPercentageToDP(4),
     justifyContent: 'space-around'
+  },
+  emailInputContainer:{
+    marginTop: heightPercentageToDP(2)
   },
   forgotTextStyle: {
     fontSize: 22,
