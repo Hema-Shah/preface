@@ -98,8 +98,8 @@ export function ForgotPasswordScreen({ navigation }: Props) {
       <View style={styles.secondSubContainer}>
         <Text style={styles.forgotTextStyle}>Forgot Password?</Text>
       </View>
-      <KeyboardAwareScrollView contentContainerStyle={styles.thirdSubContainer}>
-          <View>
+      <KeyboardAvoidingView style={styles.thirdSubContainer} behavior="padding" keyboardVerticalOffset={20}>
+        <View>
           <Text style={styles.forgotText}>
             Don’t worry! We will send you an email with instructions to reset
             your password.
@@ -116,7 +116,7 @@ export function ForgotPasswordScreen({ navigation }: Props) {
             text={'Please enter a valid email address.'}
             valid={FIELD_VALIDATIONS.email(email)}
           />
-          </View>
+        </View>
         <ButtonWithoutLogo
           onButtonPress={() => {
             forgetPassword({ email: email.toLowerCase() });
@@ -124,11 +124,10 @@ export function ForgotPasswordScreen({ navigation }: Props) {
           disabled={!FIELD_VALIDATIONS.email(email)}
           name="invalid"
           buttonTitle={'RESET PASSWORD'}
-          containerStyle={styles.buttonContainerStyle}
           message={state.error}
           loading={state.loading}
         />
-      </KeyboardAwareScrollView>
+      </KeyboardAvoidingView>
     </SafeAreaView>
   );
 }

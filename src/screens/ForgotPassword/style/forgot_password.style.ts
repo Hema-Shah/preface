@@ -23,10 +23,7 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 50,
     borderTopLeftRadius: 50,
     paddingHorizontal: heightPercentageToDP(4),
-    justifyContent:'space-around'
-  },
-  buttonContainerStyle: {
-    marginTop: 16
+    justifyContent: 'space-around'
   },
   forgotTextStyle: {
     fontSize: 22,
