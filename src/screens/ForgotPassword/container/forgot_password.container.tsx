@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef, Fragment } from 'react';
 import {
   View,
   Text,
-  ScrollView,
   KeyboardAvoidingView,
   StatusBar,
   Animated,
@@ -10,6 +9,7 @@ import {
 } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import styles from '../style/forgot_password.style';
 import MainLogo from '../../../assets/svgs/main_logo.svg';
 import { ButtonWithoutLogo, Input } from '../../../components';
@@ -98,14 +98,12 @@ export function ForgotPasswordScreen({ navigation }: Props) {
       <View style={styles.secondSubContainer}>
         <Text style={styles.forgotTextStyle}>Forgot Password?</Text>
       </View>
-      <KeyboardAvoidingView style={styles.thirdSubContainer}>
-        <ScrollView showsVerticalScrollIndicator={false}>
-          <View style={styles.forgotView}>
+      <KeyboardAwareScrollView contentContainerStyle={styles.thirdSubContainer}>
+          <View>
           <Text style={styles.forgotText}>
             Don’t worry! We will send you an email with instructions to reset
             your password.
           </Text>
-          </View>
           <Input
             placeholder="Email"
             name="email"
@@ -118,7 +116,7 @@ export function ForgotPasswordScreen({ navigation }: Props) {
             text={'Please enter a valid email address.'}
             valid={FIELD_VALIDATIONS.email(email)}
           />
-        </ScrollView>
+          </View>
         <ButtonWithoutLogo
           onButtonPress={() => {
             forgetPassword({ email: email.toLowerCase() });
@@ -130,7 +128,7 @@ export function ForgotPasswordScreen({ navigation }: Props) {
           message={state.error}
           loading={state.loading}
         />
-      </KeyboardAvoidingView>
+      </KeyboardAwareScrollView>
     </SafeAreaView>
   );
 }
