@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.base,
   },
   firstSubContainer: {
-    height: heightPercentageToDP(18),
+    height: heightPercentageToDP(32),
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -23,7 +23,6 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 50,
     borderTopLeftRadius: 50,
     paddingHorizontal: heightPercentageToDP(4),
-    justifyContent: 'space-around'
   },
   buttonContainerStyle: {
     marginTop: 16
@@ -34,6 +33,9 @@ const styles = StyleSheet.create({
     color: COLORS.white,
     fontFamily: FONTS.galanoGrotesqueSemiBold,
     textAlign: 'center',
+  },
+  forgotView: {
+    marginVertical: heightPercentageToDP(4),
   },
   forgotText: {
     fontSize: 14,

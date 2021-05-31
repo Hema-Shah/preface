@@ -30,7 +30,7 @@ export interface IforgetData {
 export function ForgotPasswordScreen({ navigation }: Props) {
   const [email, setEmail] = useState('');
   const keyboardAnim = useRef(
-    new Animated.Value(heightPercentageToDP(18)),
+    new Animated.Value(heightPercentageToDP(32)),
   ).current;
   const opacity = useRef(new Animated.Value(1)).current;
 
@@ -71,7 +71,7 @@ export function ForgotPasswordScreen({ navigation }: Props) {
         useNativeDriver: false,
       }),
       Animated.timing(keyboardAnim, {
-        toValue: heightPercentageToDP(18),
+        toValue: heightPercentageToDP(32),
         duration: event.duration,
         useNativeDriver: false,
       }),
@@ -99,11 +99,13 @@ export function ForgotPasswordScreen({ navigation }: Props) {
         <Text style={styles.forgotTextStyle}>Forgot Password?</Text>
       </View>
       <KeyboardAvoidingView style={styles.thirdSubContainer}>
-        <View>
+        <ScrollView showsVerticalScrollIndicator={false}>
+          <View style={styles.forgotView}>
           <Text style={styles.forgotText}>
             Don’t worry! We will send you an email with instructions to reset
             your password.
           </Text>
+          </View>
           <Input
             placeholder="Email"
             name="email"
@@ -116,7 +118,7 @@ export function ForgotPasswordScreen({ navigation }: Props) {
             text={'Please enter a valid email address.'}
             valid={FIELD_VALIDATIONS.email(email)}
           />
-        </View>
+        </ScrollView>
         <ButtonWithoutLogo
           onButtonPress={() => {
             forgetPassword({ email: email.toLowerCase() });
