@@ -8,7 +8,7 @@ export interface authStateIF {
   isError: boolean;
   error: any;
   message: string;
-  isGoogleLogin: boolean;
+  loginType: string;
 }
 
 const initialState: authStateIF = {
@@ -19,7 +19,7 @@ const initialState: authStateIF = {
   isError: false,
   error: [],
   message: '',
-  isGoogleLogin: false,
+  loginType: '',
 };
 
 const authReducer = (state = initialState, action: any) => {
@@ -70,7 +70,7 @@ const authReducer = (state = initialState, action: any) => {
         ...state,
         loading: false,
         authenticated: false,
-        isGoogleLogin: false,
+        loginType: '',
         accessToken: '',
       };
 
@@ -112,7 +112,8 @@ function loginFailed(state: authStateIF, action: any) {
 }
 
 function socialLoginRequest(state: authStateIF, action: any) {
-  return {...state, loading: true, error: ''};
+  const {socialData} = action.payload;
+  return {...state, loading: true, error: '',loginType:socialData.login_type};
 }
 
 function socialLoginSuccess(state: authStateIF, action: any) {
@@ -123,7 +124,6 @@ function socialLoginSuccess(state: authStateIF, action: any) {
     accessToken: access_token,
     userData: data,
     loading: false,
-    isGoogleLogin: true,
     error: '',
   };
 }
@@ -135,7 +135,7 @@ function socialLoginFailed(state: authStateIF, action: any) {
     authenticated: false,
     isError: true,
     loading: false,
-    isGoogleLogin: false,
+    loginType: '',
     error: response,
   };
 }

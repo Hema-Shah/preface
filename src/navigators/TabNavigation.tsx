@@ -49,6 +49,7 @@ const TabNavigation = () => {
         activeTintColor: COLORS.poloblue,
         showLabel: false,
         style: { borderTopColor: COLORS.lightgrey, borderTopWidth: 2 },
+        safeAreaInsets:{bottom:20},
         keyboardHidesTabBar: true,
       }}>
       <Tab.Screen
