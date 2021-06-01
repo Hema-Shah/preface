@@ -116,37 +116,42 @@ export function SignUpScreen({ navigation }: Props) {
   const FBLogin = () => {
     LoginManager.logInWithPermissions([
       'public_profile',
+      'email'
     ]).then(function (result: any) {
       if (result.isCancelled) {
         console.log('Login cancelled');
       } else {
         AccessToken.getCurrentAccessToken().then((data: any) => {
-          // let accessToken = data.accessToken;
-          // const responseInfoCallback = (error: any, fbuserInfo: any) => {
-          //   if (error) {
-          //     console.log(error);
-          //   } else {
-          //     // navigation.navigate('Dashboard');
-          //     dispatch({
-          //       type: CONSTANTS.FB_LOGIN_REQUESTED,
-          //       payload: {fbuserInfo, accessToken},
-          //     });
-          //   }
-          // };
-          // const infoRequest = new GraphRequest(
-          //   '/me',
-          //   {
-          //     accessToken: accessToken,
-          //     parameters: {
-          //       fields: {
-          //         string:
-          //           'email,name,first_name,middle_name,last_name,picture.type(large)',
-          //       },
-          //     },
-          //   },
-          //   responseInfoCallback,
-          // );
-          // new GraphRequestManager().addRequest(infoRequest).start();
+          let accessToken = data.accessToken;
+          const responseInfoCallback = (error: any, fbuserInfo: any) => {
+            if (error) {
+              console.log(error);
+            } else {
+              let socialData = {
+                email: fbuserInfo.email,
+                social_id: fbuserInfo.id,
+                login_type: 'facebook',
+              };
+              dispatch({
+                type: CONSTANTS.SOCIAL_LOGIN_REQUESTED,
+                payload: { socialData },
+              });
+            }
+          };
+          const infoRequest = new GraphRequest(
+            '/me',
+            {
+              accessToken: accessToken,
+              parameters: {
+                fields: {
+                  string:
+                    'email,name',
+                },
+              },
+            },
+            responseInfoCallback,
+          );
+          new GraphRequestManager().addRequest(infoRequest).start();
         });
       }
     });
