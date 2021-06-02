@@ -2,7 +2,7 @@ import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { ROUTES } from '../constants';
 import { COLORS } from 'theme';
-import { TouchableOpacity, StyleSheet } from 'react-native';
+import { TouchableOpacity, StyleSheet, Platform } from 'react-native';
 import { HappeningNavigator } from './HappeningNavigator';
 import { TechNewsNavigator } from './TechNewsNavigator';
 import { PrefaceNavigator } from './PrefaceNavigator';
@@ -49,7 +49,7 @@ const TabNavigation = () => {
         activeTintColor: COLORS.poloblue,
         showLabel: false,
         style: { borderTopColor: COLORS.lightgrey, borderTopWidth: 2 },
-        safeAreaInsets:{bottom:20},
+        safeAreaInsets: { bottom: Platform.OS == "ios" ? undefined : 20 },
         keyboardHidesTabBar: true,
       }}>
       <Tab.Screen
