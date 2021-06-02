@@ -2,10 +2,19 @@ import {takeEvery, put, call, delay, select} from 'redux-saga/effects';
 import {Keyboard} from 'react-native';
 import {ISignUpData, Ilogindata, IforgetData, IresetData} from '../../screens';
 import {CONSTANTS} from '../../constants/index';
-import {login, signUp, forgot, signOut, reset, checkForgot, social} from '../actions';
+import {
+  login,
+  signUp,
+  forgot,
+  signOut,
+  reset,
+  checkForgot,
+  social,
+} from '../actions';
 import {IDeepLinkData, navigate} from '../../navigators';
 import {saveKey, clearKey} from 'helpers';
-import { GoogleSignin } from '@react-native-google-signin/google-signin';
+import {GoogleSignin} from '@react-native-google-signin/google-signin';
+import {LoginManager} from 'react-native-fbsdk';
 
 export function* loginSaga(action: {
   type: string;
@@ -51,9 +60,11 @@ export function* socialSaga(action: any): Generator {
     yield put({type: CONSTANTS.SOCIAL_LOGIN_SUCCEEDED, payload: data});
   } catch (error) {
     const {auth}: any = yield select();
-    if(auth.loginType == "Google"){
+    if (auth.loginType == 'Google') {
       yield GoogleSignin.revokeAccess();
       yield GoogleSignin.signOut();
+    } else if (auth.loginType == 'facebook') {
+      yield LoginManager.logOut();
     }
     yield put({
       type: CONSTANTS.SOCIAL_LOGIN_FAILED,
@@ -121,16 +132,18 @@ export function* resetSaga(action: {
 export function* signOutSaga(): Generator {
   try {
     const {auth}: any = yield select();
-    if(auth.loginType == "Google"){
+    if (auth.loginType == 'Google') {
       yield GoogleSignin.revokeAccess();
       yield GoogleSignin.signOut();
+    } else if (auth.loginType == 'facebook') {
+      yield LoginManager.logOut();
     }
     yield call(signOut, auth.accessToken);
     clearKey();
     yield put({type: CONSTANTS.SIGNOUT_SUCCEEDED});
   } catch (error) {
-    console.log("SignOut ==>",error);
-    yield put({type: CONSTANTS.SIGNOUT_FAILED,message: error.response.data,});
+    console.log('SignOut ==>', error);
+    yield put({type: CONSTANTS.SIGNOUT_FAILED, message: error.response.data});
   }
 }
 
