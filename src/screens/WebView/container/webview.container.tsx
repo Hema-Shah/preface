@@ -29,6 +29,8 @@ export function WebView({ navigation, route }: Props) {
       <RNWebView
         source={{ uri: `${CONFIG.apiURL}event-payment-checkout/${id}` }}
         startInLoadingState={true}
+        javaScriptEnabled={true}
+        domStorageEnabled={true}
         renderLoading={() => renderLoading()}
       />
     </SafeAreaView>
