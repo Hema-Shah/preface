@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useState } from 'react';
 import {
   View,
   Text,
@@ -46,7 +46,7 @@ export function HappeningScreen({ navigation }: Props) {
     dispatch({ type: EVENT.CURRENT_GET_ALL_EVENT_REQUESTED });
   }, []);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     setFilterDataSource(state.eventData);
   }, [state.eventData]);
 
@@ -146,10 +146,6 @@ export function HappeningScreen({ navigation }: Props) {
       <View style={styles.noEvent}>
         <ActivityIndicator animating size={'large'} color={COLORS.base} />
       </View>
-    ) : _.isEmpty(state.eventData) ? (
-      <View style={styles.noEvent}>
-        <Text style={styles.noEventTextStyle}>No Events Found!</Text>
-      </View>
     ) : null;
   };
 
@@ -186,15 +182,21 @@ export function HappeningScreen({ navigation }: Props) {
       </View>
       <View style={{ flex: 1 }}>
         <Text style={styles.trendingTextStyle}>Trending Events</Text>
-        <FlatList
-          data={filterDataSource}
-          renderItem={renderItem}
-          showsVerticalScrollIndicator={false}
-          keyExtractor={(item: any) => item.id}
-          ItemSeparatorComponent={renderSeparator}
-          ListEmptyComponent={renderLoader}
-          contentContainerStyle={{ paddingBottom: 20 }}
-        />
+        {_.isEmpty(filterDataSource) && !state.loading ? (
+          <View style={styles.noEvent}>
+            <Text style={styles.noEventTextStyle}>{"No events found."}</Text>
+          </View>
+        ) : (
+          <FlatList
+            data={filterDataSource}
+            renderItem={renderItem}
+            showsVerticalScrollIndicator={false}
+            keyExtractor={(item: any) => item.id}
+            ItemSeparatorComponent={renderSeparator}
+            ListEmptyComponent={renderLoader}
+            contentContainerStyle={{ paddingBottom: 20 }}
+          />
+        )}
       </View>
     </SafeAreaView>
   );
