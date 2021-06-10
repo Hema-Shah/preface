@@ -6,6 +6,7 @@ export interface authStateIF {
   userData: any;
   loading: boolean;
   isError: boolean;
+  config: Array<any>;
   error: any;
   message: string;
   loginType: string;
@@ -17,6 +18,7 @@ const initialState: authStateIF = {
   userData: [],
   loading: false,
   isError: false,
+  config: [],
   error: [],
   message: '',
   loginType: '',
@@ -24,9 +26,11 @@ const initialState: authStateIF = {
 
 const authReducer = (state = initialState, action: any) => {
   switch (action.type) {
+    case CONSTANTS.GET_EVENTBRITE_CONFIG_REQUESTED:
     case CONSTANTS.SIGNIN_REQUESTED:
     case CONSTANTS.SIGNUP_REQUESTED:
     case CONSTANTS.FORGOT_REQUESTED:
+    case CONSTANTS.RESEND_EMAIL_REQUESTED:
     case CONSTANTS.RESET_PASSWORD_REQUESTED:
       return loginRequest(state, action);
 
@@ -45,10 +49,16 @@ const authReducer = (state = initialState, action: any) => {
     case CONSTANTS.SOCIAL_LOGIN_FAILED:
       return socialLoginFailed(state, action);
 
+    case CONSTANTS.GET_EVENTBRITE_CONFIG_SUCCEEDED:
+      return getEventBriteConfig(state, action);
+
+    case CONSTANTS.GET_EVENTBRITE_CONFIG_FAILED:
     case CONSTANTS.RESET_PASSWORD_SUCCEEDED:
+    case CONSTANTS.RESEND_EMAIL_SUCCEEDED:
     case CONSTANTS.FORGOT_SUCCEEDED:
       return {...state, loading: false, error: '', message: action.message};
     case CONSTANTS.RESET_PASSWORD_FAILED:
+    case CONSTANTS.RESEND_EMAIL_FAILED:
     case CONSTANTS.FORGOT_FAILED:
       const {response} = action.message;
       return {
@@ -58,6 +68,8 @@ const authReducer = (state = initialState, action: any) => {
         error: response,
         message: '',
       };
+
+    case CONSTANTS.CLEAR_ERROR:
 
     case CONSTANTS.CLEAR_ERROR:
       return {...state, error: '', message: ''};
@@ -72,6 +84,7 @@ const authReducer = (state = initialState, action: any) => {
         authenticated: false,
         loginType: '',
         accessToken: '',
+        config: []
       };
 
     case CONSTANTS.SIGNOUT_FAILED:
@@ -83,6 +96,11 @@ const authReducer = (state = initialState, action: any) => {
 };
 
 export default authReducer;
+
+function getEventBriteConfig(state: authStateIF, action: any) {
+  const {data} = action.payload;
+  return {...state, loading: false, error: '', config: data };
+}
 
 function loginRequest(state: authStateIF, action: any) {
   return {...state, loading: true, error: ''};
@@ -113,7 +131,7 @@ function loginFailed(state: authStateIF, action: any) {
 
 function socialLoginRequest(state: authStateIF, action: any) {
   const {socialData} = action.payload;
-  return {...state, loading: true, error: '',loginType:socialData.login_type};
+  return {...state, loading: true, error: '', loginType: socialData.login_type};
 }
 
 function socialLoginSuccess(state: authStateIF, action: any) {

@@ -1,19 +1,36 @@
-import * as React from 'react';
+import React,{useState} from 'react';
 import {View, Text, StatusBar} from 'react-native';
 import {openInbox} from 'react-native-email-link';
 import {useDispatch} from 'react-redux';
 import styles from '../style/check_email.style';
 import Mail from '../../../assets/svgs/mail.svg';
-import {ButtonWithoutLogo} from '../../../components';
+import {ButtonWithoutLogo,Toast} from '../../../components';
 import {COLORS} from 'theme';
+import { IforgetData } from 'screens';
+import { CONSTANTS } from 'constants/AppConst';
 
 interface Props {
   navigation: any;
+  route: any;
 }
 
-export function CheckEmailScreen({navigation}: Props) {
+export function CheckEmailScreen({route,navigation}: Props) {
+  const [visible, setVisible] = useState(false);
   const dispatch = useDispatch();
+
+  const requestEmail = (forgotData:IforgetData) => {
+    setVisible(true);
+    dispatch({
+      type: CONSTANTS.RESEND_EMAIL_REQUESTED,
+      payload: {forgotData},
+    });
+  }
+
+  const onDismissToast = () => setVisible(false);
+
   return (
+    <>
+    <Toast visible={visible} onDismiss={() => {onDismissToast()}} message={"We have sent you a password recovery email"}/>
     <View style={styles.mainContainer}>
       <StatusBar barStyle="dark-content" backgroundColor={COLORS.lightwhite} />
       <View style={[styles.subContainer, {alignItems: 'center'}]}>
@@ -47,12 +64,14 @@ export function CheckEmailScreen({navigation}: Props) {
           <Text style={styles.checkRequest}>
             Check spam folder,{'\n'}or{' '}
             <Text
-              style={[styles.checkRequest, {textDecorationLine: 'underline'}]}>
+              style={[styles.checkRequest, {textDecorationLine: 'underline'}]}
+              onPress={()=>{requestEmail({email:route?.params?.email})}}>
               request instruction email again.
             </Text>
           </Text>
         </View>
       </View>
     </View>
+    </>
   );
 }

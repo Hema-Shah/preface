@@ -1,1 +1,0 @@
-export * from './component/ticket_view.component'
