@@ -83,8 +83,7 @@ const authReducer = (state = initialState, action: any) => {
         loading: false,
         authenticated: false,
         loginType: '',
-        accessToken: '',
-        config: []
+        accessToken: ''
       };
 
     case CONSTANTS.SIGNOUT_FAILED:
