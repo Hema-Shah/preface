@@ -12,3 +12,9 @@ export async function structuredContent(event_ID: string) {
     `events/${event_ID}/structured_content/?token=${CONFIG.eventbriteToken}`,
   );
 }
+
+export async function ticketEvent(email: string) {
+  return event.get(
+    `organizations/${CONFIG.eventbriteUserID}/orders?expand=event,event.venue&only_emails=${email}&token=${CONFIG.eventbriteToken}`,
+  );
+}

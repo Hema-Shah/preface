@@ -1,9 +1,8 @@
-import {takeEvery, put, call} from 'redux-saga/effects';
-import { IStructuredData } from 'screens';
+import {takeEvery, put, call,select} from 'redux-saga/effects';
 import {EVENT} from '../../constants/index';
-import {currentEvent, structuredContent} from '../actions';
+import {currentEvent, structuredContent,ticketEvent} from '../actions';
 
-export function* currentEventSaga(action:any): Generator {
+export function* currentEventSaga(): Generator {
   try {
     const {data}: any = yield call(currentEvent);
     yield put({type: EVENT.CURRENT_GET_ALL_EVENT_SUCCEEDED, payload: data.events});
@@ -15,10 +14,7 @@ export function* currentEventSaga(action:any): Generator {
   }
 }
 
-export function* structuredContentSaga(action:{
-  type: string;
-  payload: IStructuredData;
-}): Generator {
+export function* structuredContentSaga(action:any): Generator {
   const {payload:{id}} = action;
   try {
     const {data}: any = yield call(structuredContent,id);
@@ -31,7 +27,21 @@ export function* structuredContentSaga(action:{
   }
 }
 
+export function* ticketSaga(): Generator {
+  try {
+    const { auth }: any = yield select();
+    const {data}: any = yield call(ticketEvent,auth.email);
+    yield put({type: EVENT.GET_TICKET_SUCCEEDED, payload: data});
+  } catch (error) {
+    yield put({
+      type: EVENT.GET_TICKET_FAILED,
+      message: error.response.data,
+    });
+  }
+}
+
 export default function* watchToeventSaga() {
   yield takeEvery(EVENT.CURRENT_GET_ALL_EVENT_REQUESTED, currentEventSaga);
   yield takeEvery(EVENT.GET_STRUCTURED_CONTENT_REQUESTED, structuredContentSaga);
+  yield takeEvery(EVENT.GET_TICKET_REQUESTED, ticketSaga);
 }

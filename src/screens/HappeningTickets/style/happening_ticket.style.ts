@@ -60,6 +60,7 @@ const styles = StyleSheet.create({
     lineHeight: 14,
     fontFamily: FONTS.galanoGrotesqueMedium,
     color: COLORS.lightgrey,
+    marginTop:8
   },
   dateTextStyle: {
     fontSize: 10,

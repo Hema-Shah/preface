@@ -30,10 +30,6 @@ interface Props {
   navigation: any;
 }
 
-export interface IStructuredData {
-  id: string;
-}
-
 export function HappeningScreen({ navigation }: Props) {
   const state = useSelector((state: RootState): eventStateIF => state.event);
   const [search, setSearch] = useState('');
@@ -164,7 +160,6 @@ export function HappeningScreen({ navigation }: Props) {
           <TouchableOpacity
             activeOpacity={0.8}
             onPress={() => {
-              // Alert.alert('Your Tickets');
               navigation.navigate(ROUTES.HAPPENING_TICKETS);
             }}>
             <Ticket />

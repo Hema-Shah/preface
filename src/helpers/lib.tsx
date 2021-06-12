@@ -9,6 +9,12 @@ const mapTime = (time: moment.MomentInput) => {
     .toUpperCase()}  |  ${moment(time).format('LT')}`;
 };
 
+const mapTimeWithYear = (time: moment.MomentInput) => {
+  return `${moment(time).format('ddd').toUpperCase()}, ${moment(time)
+    .format('MMM DD')
+    .toUpperCase()}. ${moment(time).format('YYYY')}`;
+};
+
 const mapStartEndTime = (
   start: moment.MomentInput,
   end: moment.MomentInput,
@@ -36,4 +42,10 @@ const heightPercentageToDP = (heightPercent: number) => {
   return PixelRatio.roundToNearestPixel((height * elemHeight) / 100);
 };
 
-export {mapTime, mapStartEndTime, widthPercentageToDP, heightPercentageToDP};
+export {
+  mapTime,
+  mapTimeWithYear,
+  mapStartEndTime,
+  widthPercentageToDP,
+  heightPercentageToDP,
+};

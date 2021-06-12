@@ -4,6 +4,7 @@ export interface authStateIF {
   authenticated: boolean;
   accessToken: string;
   userData: any;
+  email: string;
   loading: boolean;
   isError: boolean;
   error: any;
@@ -15,6 +16,7 @@ const initialState: authStateIF = {
   authenticated: false,
   accessToken: '',
   userData: [],
+  email:'',
   loading: false,
   isError: false,
   error: [],
@@ -72,6 +74,7 @@ const authReducer = (state = initialState, action: any) => {
         authenticated: false,
         loginType: '',
         accessToken: '',
+        email:''
       };
 
     case CONSTANTS.SIGNOUT_FAILED:
@@ -90,11 +93,13 @@ function loginRequest(state: authStateIF, action: any) {
 
 function loginSuccess(state: authStateIF, action: any) {
   const {data, access_token} = action.payload;
+  console.log("data ==>",data);
   return {
     ...state,
     authenticated: true,
     accessToken: access_token,
     userData: data,
+    email: data.email,
     loading: false,
     error: '',
   };
