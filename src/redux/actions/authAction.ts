@@ -4,6 +4,10 @@ import qs from 'qs';
 import {IresetData, IforgetData, Ilogindata, ISignUpData} from 'screens';
 import {client} from '../services';
 
+export async function getConfig() {
+  return client.get('getEventBrite');
+}
+
 export async function login(params: Ilogindata) {
   const {logindata}: any = params;
   let data = qs.stringify(logindata);

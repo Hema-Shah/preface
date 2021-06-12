@@ -9,7 +9,6 @@ export const client: AxiosInstance = axios.create({
 });
 
 export const event: AxiosInstance = axios.create({
-  baseURL: CONFIG.eventbriteURL,
   headers: {
     'Content-Type': 'application/x-www-form-urlencoded',
   },

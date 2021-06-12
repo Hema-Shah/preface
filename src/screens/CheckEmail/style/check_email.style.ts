@@ -1,16 +1,16 @@
-import {StyleSheet} from 'react-native';
-import {COLORS, FONTS} from 'theme';
+import { StyleSheet } from 'react-native';
+import { COLORS, FONTS } from 'theme';
 
 const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
     justifyContent: 'center',
     backgroundColor: COLORS.lightwhite,
-    padding: 40,
   },
   subContainer: {
     flex: 0.5,
     justifyContent: 'center',
+    padding: 40
   },
   checkEmail: {
     fontSize: 22,
@@ -49,6 +49,8 @@ const styles = StyleSheet.create({
     fontFamily: FONTS.galanoGrotesqueMedium,
     color: COLORS.base,
     textAlign: 'center',
+    borderBottomColor: COLORS.base,
+    borderBottomWidth: 2
   },
 });
 

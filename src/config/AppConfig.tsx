@@ -4,9 +4,6 @@ import {GoogleSignin} from '@react-native-google-signin/google-signin';
 export const CONFIG = {
   environment: env.ENV,
   apiURL: env.API_HOST,
-  eventbriteURL: env.EVENTBRITE_HOST,
-  eventbriteToken: env.EVENTBRITE_TOKEN,
-  eventbriteUserID: env.EVENTBRITE_USERID,
 };
 
 export const GoogleConfig = () => {

@@ -41,6 +41,7 @@ const AppNavigation = () => {
 
   useEffect(() => {
     GoogleConfig();
+    dispatch({type: CONSTANTS.GET_EVENTBRITE_CONFIG_REQUESTED})
     const getUrlAsync = async () => {
       const url = (await Linking.getInitialURL()) ?? '';
       _handleOpenURL({url});

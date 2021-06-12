@@ -10,7 +10,6 @@ import {
 } from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import styles from '../style/forgot_password.style';
 import MainLogo from '../../../assets/svgs/main_logo.svg';
 import {ButtonWithoutLogo, Input} from '../../../components';

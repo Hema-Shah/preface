@@ -1,15 +1,14 @@
 import {event} from '../services';
-import {CONFIG} from '../../config';
 
-export async function currentEvent() {
+export async function currentEvent(CONFIG: any) {
   return event.get(
-    `organizations/${CONFIG.eventbriteUserID}/events?order_by=start_asc&show_series_parent=True&status=live&expand=organizer,venue&token=${CONFIG.eventbriteToken}`,
+    `${CONFIG.EVENTBRITE_HOST}organizations/${CONFIG.EVENTBRITE_USERID}/events?order_by=start_asc&show_series_parent=True&status=live&expand=organizer,venue&token=${CONFIG.EVENTBRITE_TOKEN}`,
   );
 }
 
-export async function structuredContent(event_ID: string) {
+export async function structuredContent(event_ID: string,CONFIG: any) {
   return event.get(
-    `events/${event_ID}/structured_content/?token=${CONFIG.eventbriteToken}`,
+    `${CONFIG.EVENTBRITE_HOST}events/${event_ID}/structured_content/?token=${CONFIG.EVENTBRITE_TOKEN}`,
   );
 }
 
