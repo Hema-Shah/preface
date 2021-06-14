@@ -49,8 +49,6 @@ const styles = StyleSheet.create({
     fontFamily: FONTS.galanoGrotesqueMedium,
     color: COLORS.base,
     textAlign: 'center',
-    borderBottomColor: COLORS.base,
-    borderBottomWidth: 2
   },
 });
 

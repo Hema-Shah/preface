@@ -160,7 +160,7 @@ export function HappeningScreen({ navigation }: Props) {
           <TouchableOpacity
             activeOpacity={0.8}
             onPress={() => {
-              navigation.navigate(ROUTES.HAPPENING_TICKETS);
+              // navigation.navigate(ROUTES.HAPPENING_TICKETS);
             }}>
             <Ticket />
           </TouchableOpacity>
