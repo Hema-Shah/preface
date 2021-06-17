@@ -49,7 +49,7 @@ const TabNavigation = () => {
         activeTintColor: COLORS.poloblue,
         showLabel: false,
         style: { borderTopColor: COLORS.lightgrey, borderTopWidth: 2 },
-        safeAreaInsets: { bottom: Platform.OS == "ios" ? undefined : 20 },
+        safeAreaInsets: { bottom: Platform.OS == "ios" ? 48 : 20 },
         keyboardHidesTabBar: true,
       }}>
       <Tab.Screen
