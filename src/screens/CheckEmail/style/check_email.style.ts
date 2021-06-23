@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Platform } from 'react-native';
 import { COLORS, FONTS } from 'theme';
 
 const styles = StyleSheet.create({
@@ -49,6 +49,8 @@ const styles = StyleSheet.create({
     fontFamily: FONTS.galanoGrotesqueMedium,
     color: COLORS.base,
     textAlign: 'center',
+    borderBottomColor: COLORS.base,
+    borderBottomWidth: Platform.OS == 'ios' ? 1 : 0
   },
 });
 

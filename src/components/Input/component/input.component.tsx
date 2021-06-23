@@ -63,8 +63,10 @@ export const Input = ({
         value={value}
         onChangeText={onChangeText}
         secureTextEntry={isShow}
+        textContentType={'none'}
+        autoCorrect={false}
         autoCapitalize={'none'}
-        style={[styles.textInputStyle,containerStyle]}
+        style={[styles.textInputStyle, containerStyle]}
         underlineColor={COLORS.lightgrey}
         right={
           secure && (
